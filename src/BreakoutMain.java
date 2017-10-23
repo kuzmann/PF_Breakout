@@ -8,7 +8,7 @@ import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 
-public class Breakout extends Application  {
+public class BreakoutMain extends Application  {
 
     static Brick brickSceneSetup = new Brick();
     final static BorderPane root = new BorderPane();
