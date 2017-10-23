@@ -23,7 +23,7 @@ public class BrickGrid extends Brick {
                 else if(j > 5)
                     brick.setFill(Color.YELLOW);
                 brick.setEffect(Graphic_Styles.getLightFX());
-                Breakout.root.getChildren().add(brick);
+                BreakoutMain.root.getChildren().add(brick);
             }
         }
     }

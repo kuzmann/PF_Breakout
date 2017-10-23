@@ -18,8 +18,8 @@ public class Paddle extends Rectangle {
         this.setFill(Color.GREY);
         this.setLayoutX((getWidth() / 2) - getWidth());
         this.setLayoutY((getHeight() / 2) - getHeight());
-        this.setX(Breakout.scene.getWidth()/2);
-        this.setY(Breakout.scene.getHeight()*0.9);
+        this.setX(BreakoutMain.scene.getWidth()/2);
+        this.setY(BreakoutMain.scene.getHeight()*0.9);
         //this.setEffect(Graphic_Styles.getLightFX());
         this.setEffect(Graphic_Styles.getShadowFX());
         //this.setEffect(Graphic_Styles.getReflFX());

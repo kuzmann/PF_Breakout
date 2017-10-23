@@ -11,8 +11,8 @@ public class Ball extends Circle {
     private Ball(){
         new Circle();
         this.setRadius(12);
-        this.setCenterX(Breakout.scene.getWidth()/2);
-        this.setCenterY(Breakout.scene.getHeight()/2);
+        this.setCenterX(BreakoutMain.scene.getWidth()/2);
+        this.setCenterY(BreakoutMain.scene.getHeight()/2);
         this.setFill(Color.RED);
         this.setEffect(Graphic_Styles.getLightFX());
     }
