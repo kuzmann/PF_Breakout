@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE adressen SYSTEM "game.dtd">
+
+
+<game>
+
+	<gamer id="id1">
+		<name>Anna</name>
+		<play>
+			<level>2</level>
+			<points>50</points>
+		</play>
+		<performance>
+			<win>3</win>
+			<loss>1</loss>
+			<bestpoints>100</bestpoints>
+		 </performance>
+	</gamer>
+	
+	<gamer id="id2">
+		<name>Jasper</name>
+		<play>
+			<level>5</level>
+			<points>100</points>
+		</play>
+		<performance>
+			<win>15</win>
+			<loss>1</loss>
+			<bestpoints>120</bestpoints>
+		 </performance>
+	</gamer>
+	
+</game>
