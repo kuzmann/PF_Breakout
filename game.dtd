@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE game SYSTEM "game.dtd">
+
+<!ELEMENT game (gamer)*>
+
+<!ELEMENT gamer (name, play, performance)>
+
+<!ATTLIST gamer id ID #REQUIRED>
+<!ELEMENT name (#PCDATA)>
+
+<!ELEMENT play (level, ponts)>
+<!ELEMENT level (#PCDATA)>
+<!ELEMENT ponts (#PCDATA)>
+
+<!ELEMENT performance (win, loss, bestpoints)>
+<!ELEMENT winn (#PCDATA)>
+<!ELEMENT loss (#PCDATA)>
+<!ELEMENT bestpoints (#PCDATA)>
