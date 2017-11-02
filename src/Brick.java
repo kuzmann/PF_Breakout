@@ -10,8 +10,8 @@ public class Brick extends Rectangle {
     //public Brick(){}
     public Brick() {
         new Rectangle();
-        setWidth(75.0d);
-        setHeight(20.0d);
+        setWidth(BreakoutMain.scene.getWidth()/10.75);
+        setHeight((BreakoutMain.scene.getHeight()*1/3)/8);
         setArcWidth(10.0d);
         setArcHeight(10.0d);
         setFill(Color.BLUE);
