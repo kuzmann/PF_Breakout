@@ -1,14 +1,13 @@
+package pf.game.breakout;
+
 import javafx.scene.paint.Color;
 
-/**
- * Created by Tommy on 22.10.2017.
- */
-public class BrickGrid extends Brick {
+class BrickGrid extends Brick {
 
-    public BrickGrid(){
+    BrickGrid(){
         createBrickGrid();
     }
-    public void createBrickGrid (){
+    private static void createBrickGrid (){
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 8; j++) {
                 Brick brick = new Brick();
@@ -20,9 +19,9 @@ public class BrickGrid extends Brick {
                     brick.setFill(Color.DARKORANGE);
                 else if(j > 3 && j <= 5)
                     brick.setFill(Color.GREEN);
-                else if(j > 5)
-                    brick.setFill(Color.YELLOW);
-                brick.setEffect(Graphic_Styles.getLightFX());
+                else brick.setFill(Color.YELLOW);
+
+                brick.setEffect(GraphicStyles.getLightFX());
                 BreakoutMain.root.getChildren().add(brick);
             }
         }

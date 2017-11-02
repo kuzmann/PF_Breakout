@@ -1,24 +1,22 @@
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.animation.*;
-import javafx.util.Duration;
-/**
- * Created by Tommy on 22.10.2017.
- */
-public class Brick extends Rectangle {
+package pf.game.breakout;
 
-    //public Brick(){}
-    public Brick() {
+import javafx.scene.shape.Rectangle;
+import javafx.animation.ScaleTransition;
+import javafx.util.Duration;
+
+class Brick extends Rectangle {
+
+    Brick() {
         new Rectangle();
         setWidth(BreakoutMain.scene.getWidth()/10.75);
         setHeight((BreakoutMain.scene.getHeight()*1/3)/8);
         setArcWidth(10.0d);
         setArcHeight(10.0d);
-        setFill(Color.BLUE);
         setLayoutX((getWidth() / 2) - getWidth());
         setLayoutY((getHeight() / 2) - getHeight());
-        this.setEffect(Graphic_Styles.getLightFX());
+        this.setEffect(GraphicStyles.getLightFX());
     }
+
     public void destroyBrick(Brick brick) {
         ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(1000), brick);
         scaleToZero.setToX(0.0d);

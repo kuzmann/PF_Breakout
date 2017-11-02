@@ -1,14 +1,11 @@
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
+package pf.game.breakout;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Created by Tommy on 22.10.2017.
- */
-public class Paddle extends Rectangle {
+class Paddle extends Rectangle {
 
-    //Singelton Design Pattern
+    //Singleton Design Pattern
     private static Paddle paddle = new Paddle();
 
     private  Paddle(){
@@ -22,11 +19,11 @@ public class Paddle extends Rectangle {
         this.setLayoutY((getHeight() / 2) - getHeight());
         this.setX(BreakoutMain.scene.getWidth()/2);
         this.setY(BreakoutMain.scene.getHeight()*0.9);
-        //this.setEffect(Graphic_Styles.getLightFX());
-        this.setEffect(Graphic_Styles.getShadowFX());
-        //this.setEffect(Graphic_Styles.getReflFX());
+        //this.setEffect(GraphicStyles.getLightFX());
+        this.setEffect(GraphicStyles.getShadowFX());
+        //this.setEffect(GraphicStyles.getReflFX());
     }
-    public static Paddle getInstance(){
+    static Paddle getInstance(){
         return paddle;
     }
 

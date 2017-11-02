@@ -1,13 +1,12 @@
+package pf.game.breakout;
+
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
 
-/**
- * Created by Tommy on 23.10.2017.
- */
-public class Graphic_Styles {
+class GraphicStyles {
 
     private static Lighting lightFX(){
         Light.Distant light = new Light.Distant();
@@ -33,13 +32,13 @@ public class Graphic_Styles {
         return reflection;
     }
 
-    public static Lighting getLightFX(){
+    static Lighting getLightFX(){
         return lightFX();
     }
-    public static DropShadow getShadowFX(){
+    static DropShadow getShadowFX(){
         return shadowFX();
     }
-    public static Reflection getReflFX(){
+    static Reflection getReflFX(){
         return reflectionFX();
     }
 }

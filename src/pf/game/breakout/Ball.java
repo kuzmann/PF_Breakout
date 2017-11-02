@@ -1,11 +1,11 @@
+package pf.game.breakout;
+
 import javafx.scene.shape.Circle;
-import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 
-/**
- * Created by Tommy on 22.10.2017.
- */
-public class Ball extends Circle {
+class Ball extends Circle {
 
+    //Singleton Design Pattern
     private static Ball ball = new Ball();
 
     private Ball(){
@@ -14,10 +14,10 @@ public class Ball extends Circle {
         this.setCenterX(BreakoutMain.scene.getWidth()/2);
         this.setCenterY(BreakoutMain.scene.getHeight()/2);
         this.setFill(Color.RED);
-        this.setEffect(Graphic_Styles.getLightFX());
+        this.setEffect(GraphicStyles.getLightFX());
     }
 
-    public static Ball getInstance(){
+    static Ball getInstance(){
         return ball;
     }
 }
