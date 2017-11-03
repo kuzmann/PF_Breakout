@@ -2,7 +2,11 @@ package pf.game.breakout;
 
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 class BrickGrid extends Brick {
+
+    static ArrayList<Brick> bricks = new ArrayList<>();
 
     BrickGrid(){
         createBrickGrid();
@@ -22,7 +26,8 @@ class BrickGrid extends Brick {
                 else brick.setFill(Color.YELLOW);
 
                 brick.setEffect(GraphicStyles.getLightFX());
-                BreakoutMain.root.getChildren().add(brick);
+                BreakoutMain.gameArea.getChildren().add(brick);
+                bricks.add(brick);
             }
         }
     }
