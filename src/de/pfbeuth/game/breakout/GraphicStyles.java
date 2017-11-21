@@ -1,4 +1,4 @@
-package pf.game.breakout;
+package de.pfbeuth.game.breakout;
 
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;

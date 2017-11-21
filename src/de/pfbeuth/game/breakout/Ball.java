@@ -1,7 +1,10 @@
-package pf.game.breakout;
+package de.pfbeuth.game.breakout;
 
+import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
+
+/*
 
 class Ball extends Circle {
 
@@ -42,9 +45,9 @@ class Ball extends Circle {
         }
 
         //Collision Detection Right Scene Border
-        if(super.getCenterX() >= BreakoutMain.SCENE.getWidth() - this.radius)
+        if(super.getCenterX() >= BreakoutMain.scene.getWidth() - this.radius)
         {
-            super.setCenterX(BreakoutMain.SCENE.getWidth()-this.radius);
+            super.setCenterX(BreakoutMain.scene.getWidth()-this.radius);
             this.xSpeed = -this.xSpeed;
         }
 
@@ -56,10 +59,10 @@ class Ball extends Circle {
         }
 
         //Collision Detection Bottom Scene Border
-        if(super.getCenterY() >= BreakoutMain.SCENE.getHeight())
+        if(super.getCenterY() >= BreakoutMain.scene.getHeight())
         {
             //TODO
-            super.setCenterY(BreakoutMain.SCENE.getHeight() - this.radius);
+            super.setCenterY(BreakoutMain.scene.getHeight() - this.radius);
             this.ySpeed = -this.ySpeed;
             //restart();
         }
@@ -70,15 +73,22 @@ class Ball extends Circle {
             this.ySpeed = -this.ySpeed;
         }
 
-        //Collision Detection with Paddle
+        boolean brickHit = false;
         for(Brick b : BrickGrid.bricks) {
             if (b.intersects(super.getBoundsInLocal())) {
                 this.xSpeed = -this.xSpeed;
                 this.ySpeed = -this.ySpeed;
                 b.destroyBrick();
                 BrickGrid.bricks.remove(b);
+                brickHit = true;
+
             }
+         if (brickHit){
+             AudioClip destroySound = new AudioClip("assets/Quick_Impact_07.wav");
+             destroySound.play();
+         }
 
         }
      }
 }
+*/
