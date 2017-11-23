@@ -1,78 +1,29 @@
 package de.pfbeuth.game.breakout;
-
-import javafx.scene.media.AudioClip;
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
-
-/*
-
-class Ball extends Circle {
-
-    private double xSpeed;
-    private double ySpeed;
-    private double radius;
-
-    //Singleton Design Pattern
-    private static Ball ball = new Ball();
-
-    private Ball(){
-        super();
-        super.setRadius(12);
-        super.setCenterX(320);
-        super.setCenterY(320);
-
-        this.xSpeed = Math.random() * 8 + 1;
-        this.ySpeed = Math.random() * 8 + 1;
-        this.setFill(Color.RED);
-        this.setEffect(GraphicStyles.getLightFX());
+import javafx.scene.image.Image;
+class Ball extends AnimatedGameObject {
+    Breakout breakout;
+    public Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
+        super(SVGdata, xLocation, yLocation, sprites);
+        breakout = iBall;
+    }
+    @Override
+    public void update(){
+        checkCollision();
+    }
+    public void checkCollision(){
+        for (int i = 0; i < breakout.getSpriteManager().getCurrentObjects().size(); i++) {
+            GameObject collisionObject = breakout.getSpriteManager().getCurrentObjects().get(i);
+            collide(collisionObject);
+        }
+    }
+    @Override
+    public boolean collide(GameObject object){
+        return false;
     }
 
-    static Ball getInstance(){
-        return ball;
-    }
-
-
+ /*
     void move()
     {
-        super.setCenterX(super.getCenterX() + this.xSpeed);
-        super.setCenterY(super.getCenterY() + this.ySpeed);
-
-        //Collision Detection Left Scene Border
-        if(super.getCenterX() <= this.radius)
-        {
-            super.setCenterX(this.radius);
-            this.xSpeed = -this.xSpeed;
-        }
-
-        //Collision Detection Right Scene Border
-        if(super.getCenterX() >= BreakoutMain.scene.getWidth() - this.radius)
-        {
-            super.setCenterX(BreakoutMain.scene.getWidth()-this.radius);
-            this.xSpeed = -this.xSpeed;
-        }
-
-        //Collision Detection Top Scene Border
-        if(super.getCenterY() <= this.radius)
-        {
-            super.setCenterY(this.radius);
-            this.ySpeed = -this.ySpeed;
-        }
-
-        //Collision Detection Bottom Scene Border
-        if(super.getCenterY() >= BreakoutMain.scene.getHeight())
-        {
-            //TODO
-            super.setCenterY(BreakoutMain.scene.getHeight() - this.radius);
-            this.ySpeed = -this.ySpeed;
-            //restart();
-        }
-
-        //Collision Detection with Paddle
-        if(BreakoutMain.paddle.intersects(super.getBoundsInLocal())){
-            this.xSpeed = -this.xSpeed;
-            this.ySpeed = -this.ySpeed;
-        }
-
         boolean brickHit = false;
         for(Brick b : BrickGrid.bricks) {
             if (b.intersects(super.getBoundsInLocal())) {
@@ -81,7 +32,6 @@ class Ball extends Circle {
                 b.destroyBrick();
                 BrickGrid.bricks.remove(b);
                 brickHit = true;
-
             }
          if (brickHit){
              AudioClip destroySound = new AudioClip("assets/Quick_Impact_07.wav");
@@ -90,5 +40,6 @@ class Ball extends Circle {
 
         }
      }
-}
 */
+
+}

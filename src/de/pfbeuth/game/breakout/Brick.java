@@ -1,29 +1,26 @@
 package de.pfbeuth.game.breakout;
-
-import javafx.scene.shape.Rectangle;
 import javafx.animation.ScaleTransition;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
+class Brick extends GameObject {
 
-/*
-
-class Brick extends Rectangle {
-
-    Brick() {
-        super();
-        super.setWidth(BreakoutMain.scene.getWidth()/11);
-        super.setHeight((BreakoutMain.scene.getHeight()*1/3)/8);
-        super.setArcWidth(10.0d);
-        super.setArcHeight(10.0d);
-       // super.setLayoutX((getWidth() / 2) - getWidth());
-       // super.setLayoutY((getHeight() / 2) - getHeight());
-        this.setEffect(GraphicStyles.getLightFX());
+    Breakout breakout;
+    public Brick (Breakout iBrick, String SVGdata, double xLocation, double yLocation, Image... sprites){
+        super(SVGdata, xLocation, yLocation, sprites);
+        spriteImage.setTranslateX(xLocation);
+        spriteImage.setTranslateY(yLocation);
+        breakout = iBrick;
     }
 
-    void destroyBrick() {
-        ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(1000), this);
-        scaleToZero.setToX(0.0d);
-        scaleToZero.setToY(0.0d);
-        scaleToZero.play();
+    @Override
+    public void update(){
+
     }
+//    public void destroyBrick() {
+//        ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(1000), this);
+//        scaleToZero.setToX(0.0d);
+//        scaleToZero.setToY(0.0d);
+//        scaleToZero.play();
+//    }
 }
-*/
+

@@ -12,7 +12,7 @@ public abstract class GameObject {
     protected List<Image> imageStates = new ArrayList<>();
     protected ImageView spriteImage;
     protected SVGPath spriteCollisionBound;
-    protected double positionX, positionY, spritePivotX, spritePivotY;
+    protected double positionX, positionY, pivotX, pivotY;
     protected boolean alive, fixed, bonus, value, flipV, flipH;
     GameObject(String SVGdata, double xLocation, double yLocation, Image... sprites){
         spriteCollisionBound = new SVGPath();
@@ -21,7 +21,7 @@ public abstract class GameObject {
         imageStates.addAll(Arrays.asList(sprites));
         positionX = xLocation;
         positionY = yLocation;
-        spritePivotX = spritePivotY = 0.0d;
+        pivotX = pivotY = 0.0d;
         alive = bonus = value = flipV = flipH = false;
         fixed = true;
     }
@@ -56,17 +56,17 @@ public abstract class GameObject {
     public void setPositionY(double positionY) {
         this.positionY = positionY;
     }
-    public double getSpritePivotX() {
-        return spritePivotX;
+    public double getPivotX() {
+        return pivotX;
     }
-    public void setSpritePivotX(double spritePivotX) {
-        this.spritePivotX = spritePivotX;
+    public void setPivotX(double pivotX) {
+        this.pivotX = pivotX;
     }
-    public double getSpritePivotY() {
-        return spritePivotY;
+    public double getPivotY() {
+        return pivotY;
     }
-    public void setSpritePivotY(double spritePivotY) {
-        this.spritePivotY = spritePivotY;
+    public void setPivotY(double pivotY) {
+        this.pivotY = pivotY;
     }
     public boolean isAlive() {
         return alive;

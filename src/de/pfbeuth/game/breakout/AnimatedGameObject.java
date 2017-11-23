@@ -3,11 +3,11 @@ package de.pfbeuth.game.breakout;
 import javafx.scene.image.Image;
 
 //motion sprites
-public class AnimatedGameObject extends GameObject {
-    protected double velocityX, velocityY = 20.0d;
-    double lifeSpan = 1000;
-    double damage, offsetX, offsetY;
-    double boundScale, boundRot, friction, gravity, bounce;
+public abstract class AnimatedGameObject extends GameObject {
+    protected double velocityX, velocityY;
+    protected double lifeSpan = 1000;
+    protected double damage, offsetX, offsetY;
+    protected double boundScale, boundRot, friction, gravity, bounce;
 
     AnimatedGameObject(String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
@@ -18,7 +18,7 @@ public class AnimatedGameObject extends GameObject {
     @Override
     public void update(){
     }
-    boolean collision(GameObject object){
+    public boolean collide(GameObject object){
         return false;
     }
     public double getVelocityX() {
