@@ -14,6 +14,7 @@ public abstract class GameObject {
     protected SVGPath spriteCollisionBound;
     protected double positionX, positionY, pivotX, pivotY;
     protected boolean alive, fixed, bonus, value, flipV, flipH;
+
     GameObject(String SVGdata, double xLocation, double yLocation, Image... sprites){
         spriteCollisionBound = new SVGPath();
         spriteCollisionBound.setContent(SVGdata);

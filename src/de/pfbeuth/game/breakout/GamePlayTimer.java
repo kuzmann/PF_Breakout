@@ -1,14 +1,20 @@
 package de.pfbeuth.game.breakout;
 import javafx.animation.AnimationTimer;
-//JavaFX Pulse System runs at 60 FPS
+//GamePlayTimer manages the pulse and animation system
+//runs at 60fps
 public class GamePlayTimer extends AnimationTimer {
-    protected Breakout breakout;
+
+    private Breakout breakout; //creates context to Breakout-Class
+
     GamePlayTimer(Breakout ibreakout){
         breakout = ibreakout;
     }
+
     @Override
+    //put in everything that should be updated in realtime
     public void handle(long now) {
         breakout.getPaddle().update();
+        breakout.getBall().update();
     }
     @Override
     public void start() {

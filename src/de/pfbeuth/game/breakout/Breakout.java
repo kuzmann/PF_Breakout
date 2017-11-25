@@ -2,7 +2,6 @@
  * @author Thomas Glaesser
  * */
 package de.pfbeuth.game.breakout;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,12 +13,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-
 import java.util.ArrayList;
 
  public class Breakout extends Application  {
     static final double WIDTH = 960, HEIGHT = 540;
-    private boolean left, right;
+    private boolean left;
+    private boolean right;
+    private boolean up;
+    private boolean down;
     private StackPane root;
     private HBox buttonContainer;
     private Scene scene;
@@ -29,15 +30,14 @@ import java.util.ArrayList;
     private Button playButton, helpButton, highscoreButton, creditsButton;
     private Insets buttonContainerPadding;
     private GamePlayTimer gameTimer;
-
-
-
-     private SpriteManager spriteManager;
+    private SpriteManager spriteManager;
     private String paddleCollision;
     private Paddle paddle;
-    Brick brick;
+    private Brick brick;
     private Image brickImage;
-    ArrayList<Brick> brickGrid;
+    private Ball ball;
+    private Image ballImage;
+    private ArrayList<Brick> brickGrid;
 
     @Override
     public void start(Stage primaryStage) {
@@ -48,23 +48,31 @@ import java.util.ArrayList;
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+
         createSceneEventHandling();
         loadImageAssets();
         createGameObjects();
         addGameObjectsNodes();
         createStartScreenNodes();
         addNodesToStackPane();
+        createSpriteManager();
         createStartGamePlayTimer();
     }
     public static void main(String[] args) {
         launch(args);
     }
+
+    //eventhandling for gameobjects contro
     private void createSceneEventHandling(){
         scene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case LEFT: left = true;
                     break;
                 case RIGHT: right = true;
+                    break;
+                case UP: up = true;
+                    break;
+                case DOWN: down = true;
                     break;
                 case A: left = true;
                     break;
@@ -82,6 +90,10 @@ import java.util.ArrayList;
                     break;
                 case RIGHT: right = false;
                     break;
+                case UP: up = false;
+                    break;
+                case DOWN: down = false;
+                    break;
                 case A: left = false;
                     break;
                 case D: right = false;
@@ -98,23 +110,43 @@ import java.util.ArrayList;
         helpImage = new Image("/help.png", WIDTH, HEIGHT, true, false, true);
         creditsImage = new Image("/credits.png", WIDTH, HEIGHT, true, false, true);
         highscoreImage = new Image("/highscore.png", WIDTH, HEIGHT, true, false, true);
-        paddleImage = new Image("/paddle.png", 200/2, 25/2, true, false, true);
-        brickImage = new Image("/brick.png", 186.5/2, 32.5/2, true, false, true);
+        paddleImage = new Image("/paddle.png", 200, 25, true, false, true);
+        brickImage = new Image("/brick.png", WIDTH/10, HEIGHT/24, true, false, true);
+        ballImage = new Image("/ball.png", 200/8, 200/8, true, false, true);
     }
     private void createGameObjects(){
-        paddle = new Paddle(this, "M150 0 L75 500 L225 200 Z", 0, HEIGHT/3, paddleImage);
+        paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, HEIGHT*.4, paddleImage);
+        ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0,0, ballImage);
         createBrickGrid();
    }
+    //creates bricks which must be destroyed in the game
+    private void createBrickGrid(){
+        brickGrid = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 8; j++) {
+               brick = new Brick(this, "M.5,3.91V28.66c0,3.75,1.37,4.62,4.62,4.62H84c2.25,0,3.44-.75,3.44-3.44s-.08-22.06,0-26.19C87.5.45,88.07.5,84.29.5H3.5C.25.5.5,3.91.5,3.91Z", 0, 0, brickImage);
+               brick.spriteImage.setTranslateX(-WIDTH/2+i*(brickImage.getRequestedWidth()+1)+(brickImage.getRequestedWidth()/2)+1);
+               brick.spriteImage.setTranslateY(-HEIGHT/2+j*(brickImage.getRequestedHeight()+1)+(brickImage.getRequestedHeight()/2+1));
+               root.getChildren().add(brick.spriteImage);
+               brickGrid.add(brick);
+             }
+        }
+    }
     private void addGameObjectsNodes(){
-        //root.getChildren().add(brick.spriteImage);
-        //brickGrid();
-        root.getChildren().add(paddle.spriteImage);
+        //TODO uncomment this to see Paddle
+        //root.getChildren().add(paddle.spriteImage);
+        root.getChildren().add(ball.spriteImage);
     }
     private void createSpriteManager(){
         spriteManager = new SpriteManager();
         spriteManager.addCurrentObjects(paddle);
-
+        spriteManager.addCurrentObjects(ball);
+        for (Brick aBrickGrid : brickGrid) {
+            brick = aBrickGrid;
+            spriteManager.addCurrentObjects(brick);
+            }
     }
+    //creates UI buttons, event handler and layouts the buttons
     private void createStartScreenNodes(){
         buttonContainer = new HBox(12);
         buttonContainer.setAlignment(Pos.BOTTOM_LEFT);
@@ -153,9 +185,6 @@ import java.util.ArrayList;
         menueOverlay = new ImageView();
         menueOverlay.setImage(highscoreImage);
     }
-    private void createObjectCollisionData(){
-        paddleCollision = "";
-    }
     private void addNodesToStackPane(){
         root.getChildren().add(backgroundLayer);
         root.getChildren().add(menueOverlay);
@@ -165,39 +194,36 @@ import java.util.ArrayList;
         gameTimer = new GamePlayTimer(this);
         gameTimer.start();
     }
-    public boolean isLeft() {
-        return left;
-    }
-    public boolean isRight() {
-        return right;
-    }
-    public Paddle getPaddle() {
-        return paddle;
-    }
-    public Image getPaddleImage() {
-        return paddleImage;
-    }
-    public Image getBrickImage() {
-        return brickImage;
-    }
-     public SpriteManager getSpriteManager() {
-         return spriteManager;
-     }
 
-    public void createBrickGrid(){
-        brickGrid = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 8; j++) {
-                brick = new Brick(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, 0, brickImage);
-                brick.spriteImage.setTranslateX(-WIDTH/2+i*(brickImage.getRequestedWidth()+5/2)+(brickImage.getRequestedWidth()/2)+5/2);
-                brick.spriteImage.setTranslateY(-HEIGHT/2+j*(brickImage.getRequestedHeight()+5/2)+(brickImage.getRequestedHeight()/2+5/2));
-                root.getChildren().add(brick.spriteImage);
-                spriteManager.addCurrentObjects(brick);
-                //brickGrid.add(brick);
-            }
-        }
+    //GETTER and SETTER
+     boolean isUp() {
+     return up;
     }
-
-
-
+     boolean isDown() {
+     return down;
+    }
+     boolean isLeft() {
+    return left;
+    }
+     boolean isRight() {
+    return right;
+    }
+     StackPane getRoot() {
+     return root;
+    }
+     Paddle getPaddle() {
+    return paddle;
+    }
+     Image getPaddleImage() {
+    return paddleImage;
+    }
+     Image getBrickImage() {
+    return brickImage;
+    }
+     SpriteManager getSpriteManager() {
+     return spriteManager;
+    }
+     Ball getBall() {
+     return ball;
+    }
 }

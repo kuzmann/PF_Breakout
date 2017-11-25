@@ -18,7 +18,7 @@ public abstract class AnimatedGameObject extends GameObject {
     @Override
     public void update(){
     }
-    public boolean collide(GameObject object){
+    public boolean collision(GameObject object){
         return false;
     }
     public double getVelocityX() {
