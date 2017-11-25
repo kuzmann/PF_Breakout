@@ -80,9 +80,8 @@ class Ball extends AnimatedGameObject {
             }
         }
         if (collisionDetect){
-            System.out.println("COLLISION!!!");
             breakout.getSpriteManager().addToRemovedObjects(object);
-          //  breakout.getRoot().getChildren().remove(object.getSpriteImage());
+          //breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
             breakout.getSpriteManager().resetRemovedObjects();
             return true;
         }

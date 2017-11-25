@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ball.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/brick.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/credits.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/highscore.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/paddle.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/BrickGrid.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/GraphicStyles.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Ball.java" afterPath="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Ball.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -78,7 +69,7 @@
       <file leaf-file-name="Breakout.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Breakout.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
+            <state relative-caret-position="735">
               <caret line="225" column="4" lean-forward="false" selection-start-line="225" selection-start-column="4" selection-end-line="225" selection-end-column="4" />
               <folding>
                 <element signature="e#0#8116#0" expanded="true" />
@@ -104,28 +95,24 @@
       <file leaf-file-name="Paddle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Paddle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="67" lean-forward="false" selection-start-line="6" selection-start-column="67" selection-end-line="6" selection-end-column="67" />
+            <state relative-caret-position="170">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#Paddle#0;class#Paddle#0" expanded="false" />
-                <element signature="method#setXYPosition#0;class#Paddle#0" expanded="false" />
-                <element signature="method#setScreenBoundaries#0;class#Paddle#0" expanded="false" />
                 <element signature="method#translatePaddle#0;class#Paddle#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Ball.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Ball.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Ball.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
+            <state relative-caret-position="599">
+              <caret line="83" column="129" lean-forward="false" selection-start-line="83" selection-start-column="129" selection-end-line="83" selection-end-column="129" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#setScreenBoundaries#0;class#Ball#0" expanded="false" />
-                <element signature="method#collision#0;class#Ball#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -173,11 +160,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sonar-project.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sonar-project.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sonar-project.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="119">
+              <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -262,8 +249,8 @@
         <option value="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Brick.java" />
         <option value="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/SpriteManager.java" />
         <option value="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Breakout.java" />
-        <option value="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Ball.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Ball.java" />
       </list>
     </option>
   </component>
@@ -681,7 +668,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511622416014</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="delete old classes: GraphicStyles; BrickGrid">
+      <created>1511622739611</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1511622739611</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -689,6 +683,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="791" y="51" width="1622" height="1337" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -698,14 +693,14 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984716" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964754" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27881357" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27881357" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19078106" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19078106" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24971297" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2494817" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -782,7 +777,8 @@
     <MESSAGE value="paddle control implemented;&#10;brick grid creation implemented;" />
     <MESSAGE value="implemented collision detection (Beta state);" />
     <MESSAGE value="implemented collision detection (Beta state);&#10;added comments;" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented collision detection (Beta state);&#10;added comments;" />
+    <MESSAGE value="delete old classes: GraphicStyles; BrickGrid" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete old classes: GraphicStyles; BrickGrid" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -800,8 +796,14 @@
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Paddle.java</url>
+          <line>26</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="15" />
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -839,8 +841,6 @@
           <caret line="14" column="48" lean-forward="false" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setScreenBoundaries#0;class#Ball#0" expanded="false" />
-            <element signature="method#collision#0;class#Ball#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -852,8 +852,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Paddle#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setXYPosition#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setScreenBoundaries#0;class#Paddle#0" expanded="false" />
             <element signature="method#translatePaddle#0;class#Paddle#0" expanded="false" />
           </folding>
         </state>
@@ -915,8 +913,6 @@
           <caret line="14" column="48" lean-forward="false" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setScreenBoundaries#0;class#Ball#0" expanded="false" />
-            <element signature="method#collision#0;class#Ball#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -928,8 +924,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Paddle#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setXYPosition#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setScreenBoundaries#0;class#Paddle#0" expanded="false" />
             <element signature="method#translatePaddle#0;class#Paddle#0" expanded="false" />
           </folding>
         </state>
@@ -991,8 +985,6 @@
           <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setScreenBoundaries#0;class#Ball#0" expanded="false" />
-            <element signature="method#collision#0;class#Ball#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1004,8 +996,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Paddle#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setXYPosition#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setScreenBoundaries#0;class#Paddle#0" expanded="false" />
             <element signature="method#translatePaddle#0;class#Paddle#0" expanded="false" />
           </folding>
         </state>
@@ -1139,6 +1129,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/AnimatedGameObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+          <folding>
+            <element signature="method#AnimatedGameObject#0;class#AnimatedGameObject#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="7" lean-forward="false" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/GraphicStyles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/BrickGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="28" column="49" lean-forward="false" selection-start-line="22" selection-start-column="16" selection-end-line="28" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sonar-project.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/GameObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#GameObject#0;class#GameObject#0" expanded="false" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1094#1095#0" expanded="true" />
+            <element signature="method#setSpriteCollisionBound#0;class#GameObject#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/SpriteManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -1153,23 +1199,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Paddle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="67" lean-forward="false" selection-start-line="6" selection-start-column="67" selection-end-line="6" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Paddle#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setXYPosition#0;class#Paddle#0" expanded="false" />
-            <element signature="method#setScreenBoundaries#0;class#Paddle#0" expanded="false" />
-            <element signature="method#translatePaddle#0;class#Paddle#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Breakout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
+        <state relative-caret-position="735">
           <caret line="225" column="4" lean-forward="false" selection-start-line="225" selection-start-column="4" selection-end-line="225" selection-end-column="4" />
           <folding>
             <element signature="e#0#8116#0" expanded="true" />
@@ -1191,71 +1223,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Paddle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Paddle#0;class#Paddle#0" expanded="false" />
+            <element signature="method#translatePaddle#0;class#Paddle#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
+        <state relative-caret-position="599">
+          <caret line="83" column="129" lean-forward="false" selection-start-line="83" selection-start-column="129" selection-end-line="83" selection-end-column="129" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setScreenBoundaries#0;class#Ball#0" expanded="false" />
-            <element signature="method#collision#0;class#Ball#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/AnimatedGameObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-          <folding>
-            <element signature="method#AnimatedGameObject#0;class#AnimatedGameObject#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/GameObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#GameObject#0;class#GameObject#0" expanded="false" />
-            <element signature="e#1060#1061#0" expanded="true" />
-            <element signature="e#1094#1095#0" expanded="true" />
-            <element signature="method#setSpriteCollisionBound#0;class#GameObject#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="7" lean-forward="false" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sonar-project.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/GraphicStyles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/pfbeuth/game/breakout/BrickGrid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="28" column="49" lean-forward="false" selection-start-line="22" selection-start-column="16" selection-end-line="28" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
