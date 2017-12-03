@@ -1,0 +1,4 @@
+<project basedir = "." name = "breakout" default ="breakout">
+    <target name ="Breakout"></target>
+        <echo>Test Ausgabe</echo>
+</project>
