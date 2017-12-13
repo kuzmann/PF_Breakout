@@ -20,7 +20,7 @@ class Ball extends AnimatedGameObject {
 
     @Override
     public void update(){
-        setXYPosition(12);
+        setXYPosition(8);
         setScreenBoundaries();
         translateBall();
         checkCollision();

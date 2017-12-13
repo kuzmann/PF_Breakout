@@ -17,7 +17,7 @@ class Brick extends GameObject {
     public void update(){
     }
     public void destroyBrick() {
-        ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(500), this.getSpriteImage());
+        ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(250), this.getSpriteImage());
         scaleToZero.setToX(0.0d);
         scaleToZero.setToY(0.0d);
         scaleToZero.play();
