@@ -27,7 +27,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
     private Image backgroundImage, helpImage, creditsImage, highscoreImage;
     private Image paddleImage, playBackgroundImage;
     private ImageView backgroundLayer, menueOverlay, playBackground;
-    private Button playButton, helpButton, highscoreButton, creditsButton;
+    private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
     private Insets buttonContainerPadding;
     private GamePlayTimer gameTimer;
     private SpriteManager spriteManager;
@@ -60,6 +60,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
         addNodesToStackPane();
         createSpriteManager();
         createStartGamePlayTimer();
+
     }
     public static void main(String[] args) {
         launch(args);
@@ -135,6 +136,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
         playButton.setOnAction(e -> {
             backgroundLayer.setVisible(false);
             menueOverlay.setVisible(false);
+            startButton.setVisible(true);
         });
         highscoreButton = new Button();
         highscoreButton.setText("HIGH SCORES");
@@ -162,17 +164,25 @@ import de.pfbeuth.game.breakout.controller.Controller;
         backgroundLayer.setImage(backgroundImage);
         menueOverlay = new ImageView();
         menueOverlay.setImage(highscoreImage);
+
+        startButton = new Button();
+        startButton.setText("START");
+        startButton.setVisible(false);
+        startButton.setOnAction(e -> {
+            startButton.setVisible(false);
+            gameTimer.start();
+        });
     }
 
     private void addNodesToStackPane(){
         root.getChildren().add(backgroundLayer);
         root.getChildren().add(menueOverlay);
         root.getChildren().add(buttonContainer);
+        root.getChildren().add(startButton);
     }
 
     private void createStartGamePlayTimer(){
         gameTimer = new GamePlayTimer(this);
-        gameTimer.start();
     }
 
     //GETTER and SETTER
