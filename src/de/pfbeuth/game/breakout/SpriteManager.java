@@ -28,7 +28,6 @@ public class SpriteManager {
     public void  resetCurrentObjects (){
         CURRENT_OBJECTS.clear();
     }
-
     public Set getRemovedObjects() {
         return REMOVED_OBJECTS;
     }
@@ -42,7 +41,6 @@ public class SpriteManager {
         CURRENT_OBJECTS.removeAll(REMOVED_OBJECTS); //To doublecheck all removed Objects are removed
         REMOVED_OBJECTS.clear();
     }
-
     public List getCollideCheckList() {
         return COLLIDE_CHECKLIST;
     }

@@ -12,7 +12,7 @@ class Paddle extends AnimatedGameObject {
     private static final double BOTTOM_SCREEN_BOUNDARY = -(HEIGHT/2 - PADDLE_DIM_Y/2);
     private static final double TOP_SCREEN_BOUNDARY = (HEIGHT/2 - PADDLE_DIM_Y/2);
 
-    public Paddle (Breakout iPaddle, String SVGdata, double xLocation, double yLocation, Image... sprites){
+    protected Paddle (Breakout iPaddle, String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iPaddle;
     }

@@ -19,8 +19,8 @@ class Ball extends AnimatedGameObject {
     }
 
     @Override
-    public void update(){
-        setXYPosition(8);
+    void update(){
+        setXYPosition(12);
         setScreenBoundaries();
         translateBall();
         checkCollision();
@@ -34,6 +34,27 @@ class Ball extends AnimatedGameObject {
             }
         }
     }
+
+    @Override
+    boolean collision(GameObject object){
+        boolean collisionDetect = false;
+        //two step collision detection
+        if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent()))
+        {
+            Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
+            if(intersection.getBoundsInLocal().getWidth() != -1){
+                collisionDetect = true;
+            }
+        }
+        if (collisionDetect){
+            breakout.getSpriteManager().addToRemovedObjects(object);
+            //breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
+            breakout.getSpriteManager().resetRemovedObjects();
+            return true;
+        }
+        return false;
+    }
+
     //set XY coordinates when arrow keys are used for gameobject control
     private void setXYPosition(double velocity){
         this.velocityX = velocity;
@@ -68,23 +89,5 @@ class Ball extends AnimatedGameObject {
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
-    }
-    @Override
-    public boolean collision(GameObject object){
-        boolean collisionDetect = false;
-        if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent()))
-        {
-            Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
-            if(intersection.getBoundsInLocal().getWidth() != -1){
-                collisionDetect = true;
-            }
-        }
-        if (collisionDetect){
-            breakout.getSpriteManager().addToRemovedObjects(object);
-          //breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
-            breakout.getSpriteManager().resetRemovedObjects();
-            return true;
-        }
-        return false;
     }
 }
