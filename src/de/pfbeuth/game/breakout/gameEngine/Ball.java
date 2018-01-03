@@ -90,4 +90,6 @@ class Ball extends AnimatedGameObject {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
     }
+
+
 }

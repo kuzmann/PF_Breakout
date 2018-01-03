@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import de.pfbeuth.game.breakout.controller.Controller;
 
  public class Breakout extends Application  {
-    static final double WIDTH = 960, HEIGHT = 720;
+    static final double WIDTH = 720, HEIGHT = 900;
     private boolean left;
     private boolean right;
     private boolean up;
