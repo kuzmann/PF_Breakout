@@ -17,10 +17,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
  public class Breakout extends Application  {
     static final double WIDTH = 720, HEIGHT = 900;
-    private boolean left;
-    private boolean right;
-    private boolean up;
-    private boolean down;
     private StackPane root;
     private HBox buttonContainer;
     public Scene scene;
@@ -83,8 +79,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     private void createGameObjects(){
         //TODO .4 als CONST anlegen
-        playBackground = new ImageView();
-        playBackground.setImage(playBackgroundImage);
         paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, HEIGHT*0.4, paddleImage);
         ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, HEIGHT*0.1, ballImage);
    }
@@ -109,7 +103,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     private void addGameObjectsNodes(){
         //TODO uncomment this to see Paddle
-        root.getChildren().add(playBackground);
         createBrickGrid();
         root.getChildren().add(paddle.spriteImage);
         root.getChildren().add(ball.spriteImage);
@@ -136,6 +129,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
         playButton.setOnAction(e -> {
             backgroundLayer.setVisible(false);
             menueOverlay.setVisible(false);
+            playBackground.setVisible(true);
+            playBackground.toBack();
             startButton.setVisible(true);
         });
         highscoreButton = new Button();
@@ -165,6 +160,10 @@ import de.pfbeuth.game.breakout.controller.Controller;
         menueOverlay = new ImageView();
         menueOverlay.setImage(highscoreImage);
 
+        playBackground = new ImageView();
+        playBackground.setImage(playBackgroundImage);
+        playBackground.setVisible(false);
+
         startButton = new Button();
         startButton.setText("START");
         startButton.setVisible(false);
@@ -175,6 +174,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
     }
 
     private void addNodesToStackPane(){
+        root.getChildren().add(playBackground);
         root.getChildren().add(backgroundLayer);
         root.getChildren().add(menueOverlay);
         root.getChildren().add(buttonContainer);
