@@ -1,4 +1,4 @@
-package de.pfbeuth.game.breakout;
+package de.pfbeuth.game.breakout.gameEngine;
 import javafx.animation.AnimationTimer;
 //GamePlayTimer manages the pulse and animation system
 //runs at 60fps

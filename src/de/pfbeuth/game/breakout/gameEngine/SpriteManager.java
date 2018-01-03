@@ -1,4 +1,4 @@
-package de.pfbeuth.game.breakout;
+package de.pfbeuth.game.breakout.gameEngine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

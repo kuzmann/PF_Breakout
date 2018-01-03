@@ -1,7 +1,7 @@
-package de.pfbeuth.game.breakout;
+package de.pfbeuth.game.breakout.gameEngine;
 import javafx.scene.image.Image;
-import static de.pfbeuth.game.breakout.Breakout.WIDTH;
-import static de.pfbeuth.game.breakout.Breakout.HEIGHT;
+import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
+import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 
 class Paddle extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
@@ -26,10 +26,10 @@ class Paddle extends AnimatedGameObject {
     private void setXYPosition(double velocity){
         this.velocityX = velocity;
         this.velocityY = velocity;
-        if(breakout.isLeft()) {
+        if(breakout.controller.isLeft()) {
             positionX -= velocityX;
         }
-        if(breakout.isRight()) {
+        if(breakout.controller.isRight()) {
             positionX += velocityX;
         }
 //        if(breakout.isUp()) {

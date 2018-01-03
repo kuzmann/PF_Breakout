@@ -1,9 +1,9 @@
-package de.pfbeuth.game.breakout;
+package de.pfbeuth.game.breakout.gameEngine;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
-import static de.pfbeuth.game.breakout.Breakout.HEIGHT;
-import static de.pfbeuth.game.breakout.Breakout.WIDTH;
+import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
+import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
@@ -59,16 +59,16 @@ class Ball extends AnimatedGameObject {
     private void setXYPosition(double velocity){
         this.velocityX = velocity;
         this.velocityY = velocity;
-        if(breakout.isLeft()) {
+        if(breakout.controller.isLeft()) {
             positionX -= velocityX;
         }
-        if(breakout.isRight()) {
+        if(breakout.controller.isRight()) {
             positionX += velocityX;
         }
-        if(breakout.isUp()) {
+        if(breakout.controller.isUp()) {
             positionY -= velocityY;
         }
-        if(breakout.isDown()) {
+        if(breakout.controller.isDown()) {
             positionY += velocityY;
         }
     }

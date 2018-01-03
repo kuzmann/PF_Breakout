@@ -1,4 +1,4 @@
-package de.pfbeuth.game.breakout;
+package de.pfbeuth.game.breakout.gameEngine;
 
 import javafx.scene.image.Image;
 
