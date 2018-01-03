@@ -23,7 +23,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
     private Image backgroundImage, helpImage, creditsImage, highscoreImage;
     private Image paddleImage, playBackgroundImage;
     private ImageView backgroundLayer, menueOverlay, playBackground;
-    private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
+    private Button playButton, helpButton, highscoreButton, creditsButton, startButton, pauseButton;
     private Insets buttonContainerPadding;
     private GamePlayTimer gameTimer;
     private SpriteManager spriteManager;
@@ -154,7 +154,21 @@ import de.pfbeuth.game.breakout.controller.Controller;
             menueOverlay.setVisible(true);
             menueOverlay.setImage(creditsImage);
         });
-        buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton);
+        pauseButton = new Button();
+        pauseButton.setText("PAUSE GAME");
+        pauseButton.setOnAction(e -> {
+            if (pauseButton.getText().equals("GO ON!")) {
+                gameTimer.start();
+                pauseButton.setText("PAUSE GAME");
+            }
+            else if (pauseButton.getText().equals("PAUSE GAME")) {
+                gameTimer.stop();
+                pauseButton.setText("GO ON!");
+            }
+        });
+
+        buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton, pauseButton);
+
         backgroundLayer = new ImageView();
         backgroundLayer.setImage(backgroundImage);
         menueOverlay = new ImageView();
