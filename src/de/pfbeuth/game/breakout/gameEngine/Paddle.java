@@ -15,11 +15,12 @@ class Paddle extends AnimatedGameObject {
     protected Paddle (Breakout iPaddle, String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iPaddle;
+        translatePaddle();
     }
 
     @Override
     public void update() {
-       // setXYPosition(15);
+        setXYPosition(15);
         setScreenBoundaries();
         translatePaddle();
     }

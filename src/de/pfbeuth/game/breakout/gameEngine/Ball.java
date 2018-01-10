@@ -59,32 +59,49 @@ class Ball extends AnimatedGameObject {
     private void setXYPosition(double velocity){
         this.velocityX = velocity;
         this.velocityY = velocity;
-        if(breakout.controller.isLeft()) {
-            positionX -= velocityX;
-        }
-        if(breakout.controller.isRight()) {
-            positionX += velocityX;
-        }
-        if(breakout.controller.isUp()) {
-            positionY -= velocityY;
-        }
-        if(breakout.controller.isDown()) {
-            positionY += velocityY;
-        }
+
+        positionX += 0;
+        positionY += -1;
+
+//        if(breakout.controller.isLeft()) {
+//            positionX -= velocityX;
+//        }
+//        if(breakout.controller.isRight()) {
+//            positionX += velocityX;
+//        }
+//        if(breakout.controller.isUp()) {
+//            positionY -= velocityY;
+//        }
+//        if(breakout.controller.isDown()) {
+//            positionY += velocityY;
+//        }
+
+//        if(positionX >= RIGHT_SCREEN_BOUNDARY) {
+//            positionX -= velocityX;
+//        }
+//        if(positionX <= LEFT_SCREEN_BOUNDARY) {
+//            positionX += velocityX;
+//        }
+//        if(positionY >= TOP_SCREEN_BOUNDARY) {
+//            positionY -= velocityY;
+//        }
+//        if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
+//            positionY += velocityY;
+//        }
     }
     private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY){
-            positionX = RIGHT_SCREEN_BOUNDARY;
+            positionX = -positionX;
         }
         if(positionX <= LEFT_SCREEN_BOUNDARY){
-            positionX = LEFT_SCREEN_BOUNDARY;
-        }
-        if(positionY <= BOTTOM_SCREEN_BOUNDARY){
-            positionY = BOTTOM_SCREEN_BOUNDARY;
+            positionX = -positionX;
         }
         if(positionY >= TOP_SCREEN_BOUNDARY){
-            positionY = TOP_SCREEN_BOUNDARY;
+            positionY = -positionY;
         }
+//        if(positionY <= BOTTOM_SCREEN_BOUNDARY){
+//            positionY = -positionY;
+//        }
     }
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
