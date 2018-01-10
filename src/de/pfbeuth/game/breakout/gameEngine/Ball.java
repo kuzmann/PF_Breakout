@@ -7,20 +7,22 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
+    private final double BALL_INIT_X_POS = 0;
+    private final double BALL_INIT_Y_POS = HEIGHT*0.38;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS;
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS);
-    private static final double BOTTOM_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS);
-    private static final double TOP_SCREEN_BOUNDARY = (HEIGHT/2 - BALL_RADIUS);
+    private static final double BOTTOM_SCREEN_BOUNDARY = +(HEIGHT/2 - BALL_RADIUS);
+    private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS);
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iBall;
-    }
+   }
 
     @Override
     void update(){
-        setXYPosition(12);
+        setXYPosition(-2);
         setScreenBoundaries();
         translateBall();
         checkCollision();
@@ -60,8 +62,9 @@ class Ball extends AnimatedGameObject {
         this.velocityX = velocity;
         this.velocityY = velocity;
 
-        positionX += 0;
-        positionY += -1;
+        this.positionX =  5;
+        this.positionY -= velocityY;
+
 
 //        if(breakout.controller.isLeft()) {
 //            positionX -= velocityX;
@@ -90,23 +93,34 @@ class Ball extends AnimatedGameObject {
 //        }
     }
     private void setScreenBoundaries(){
-        if(positionX >= RIGHT_SCREEN_BOUNDARY){
-            positionX = -positionX;
+        if(positionX >= RIGHT_SCREEN_BOUNDARY) {
+            this.positionX -= velocityX;
         }
-        if(positionX <= LEFT_SCREEN_BOUNDARY){
-            positionX = -positionX;
+        if(positionX <= LEFT_SCREEN_BOUNDARY) {
+           this.positionX += velocityX;
         }
-        if(positionY >= TOP_SCREEN_BOUNDARY){
-            positionY = -positionY;
+        if(positionY <= TOP_SCREEN_BOUNDARY) {
+            positionY = 0;
         }
-//        if(positionY <= BOTTOM_SCREEN_BOUNDARY){
-//            positionY = -positionY;
-//        }
+        if(positionY >= BOTTOM_SCREEN_BOUNDARY) {
+            isDead();
+        }
     }
+
+    public boolean isDead(){
+        return true;
+    }
+
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
     }
 
+    void resetState(){
+        this.positionX = BALL_INIT_X_POS;
+        this.positionY = BALL_INIT_Y_POS;
+        spriteImage.setTranslateX(BALL_INIT_X_POS);
+        spriteImage.setTranslateY(BALL_INIT_Y_POS);
+    }
 
 }

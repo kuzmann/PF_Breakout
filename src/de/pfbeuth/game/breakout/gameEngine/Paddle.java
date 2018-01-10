@@ -5,6 +5,8 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 
 class Paddle extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
+    private final double PADDLE_INIT_X_POS = 0;
+    private final double PADDLE_INIT_Y_POS = HEIGHT*0.4;
     private static final double PADDLE_DIM_X = 200/2;
     private static final double PADDLE_DIM_Y = 12.5;
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - PADDLE_DIM_X/2;
@@ -15,7 +17,7 @@ class Paddle extends AnimatedGameObject {
     protected Paddle (Breakout iPaddle, String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iPaddle;
-        translatePaddle();
+
     }
 
     @Override
@@ -58,6 +60,13 @@ class Paddle extends AnimatedGameObject {
     private void translatePaddle() {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
+    }
+
+    void resetState(){
+        this.positionX = PADDLE_INIT_X_POS;
+        this.positionY = PADDLE_INIT_Y_POS;
+        spriteImage.setTranslateX(PADDLE_INIT_X_POS);
+        spriteImage.setTranslateY(PADDLE_INIT_Y_POS);
     }
 
 }

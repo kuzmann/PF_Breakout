@@ -17,6 +17,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
  public class Breakout extends Application  {
     static final double WIDTH = 720, HEIGHT = 900;
+
     private StackPane root;
     public Scene scene;
     private Image backgroundImage, helpImage, creditsImage, highscoreImage;
@@ -24,9 +25,10 @@ import de.pfbeuth.game.breakout.controller.Controller;
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private VBox masterButtonContainer;
     private HBox buttonContainer, startButtonContainer;
-    private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
+    private Button playButton, helpButton, highscoreButton, creditsButton;
+    public Button startButton;
     private Insets buttonContainerPadding;
-    private GamePlayTimer gameTimer;
+    public GamePlayTimer gameTimer;
     private SpriteManager spriteManager;
     private String paddleCollision;
     private Paddle paddle;
@@ -80,8 +82,10 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     private void createGameObjects(){
         //TODO .4 als CONST anlegen
-        paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, HEIGHT*0.4, paddleImage);
-        ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, HEIGHT*0.1, ballImage);
+        paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, 0, paddleImage);
+        paddle.resetState();
+        ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, 0, ballImage);
+        ball.resetState();
    }
 
     //creates bricks which must be destroyed in the game
@@ -119,7 +123,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
             }
     }
 
-    //creates UI buttons, event handler and layouts the buttons
+    //creates UI buttons, event handler and layout the buttons
     private void createGUINodes(){
         buttonContainerPadding = new Insets(0, 0, 12, 20);
 
@@ -148,7 +152,9 @@ import de.pfbeuth.game.breakout.controller.Controller;
                 startButton.setDisable(false);
             }
             else if (playButton.getText().equals("PAUSE")) {
-                startButton.setVisible(false);
+                startButton.setVisible(true);
+                startButton.setDisable(false);
+                startButton.setText("PAUSED");
                 gameTimer.stop();
                 playButton.setText("RESUME");
                 highscoreButton.setVisible(true);
@@ -169,6 +175,25 @@ import de.pfbeuth.game.breakout.controller.Controller;
                 creditsButton.setVisible(false);
                 creditsButton.setDisable(true);
             }
+
+        });
+        startButton = new Button();
+        startButton.setPrefSize(100, 100);
+        startButton.setText("START");
+        startButton.setVisible(false);
+        startButton.setDisable(true);
+        startButton.setOnAction(e -> {
+            startButton.setVisible(false);
+            startButton.setDisable(true);
+            startButton.setCancelButton(true);
+            gameTimer.start();
+            highscoreButton.setVisible(false);
+            highscoreButton.setDisable(true);
+            helpButton.setVisible(false);
+            helpButton.setDisable(true);
+            creditsButton.setVisible(false);
+            creditsButton.setDisable(true);
+            playButton.setText("PAUSE");
         });
         highscoreButton = new Button();
         highscoreButton.setText("HIGH SCORES");
@@ -190,23 +215,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
             menueOverlay.setImage(creditsImage);
-        });
-        startButton = new Button();
-        startButton.setPrefSize(100, 100);
-        startButton.setText("START");
-        startButton.setVisible(false);
-        startButton.setDisable(true);
-        startButton.setOnAction(e -> {
-            startButton.setVisible(false);
-            startButton.setDisable(true);
-            gameTimer.start();
-            highscoreButton.setVisible(false);
-            highscoreButton.setDisable(true);
-            helpButton.setVisible(false);
-            helpButton.setDisable(true);
-            creditsButton.setVisible(false);
-            creditsButton.setDisable(true);
-            playButton.setText("PAUSE");
         });
 
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton);

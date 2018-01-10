@@ -1,6 +1,7 @@
 package de.pfbeuth.game.breakout.controller;
 
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
+import javafx.scene.input.KeyCode;
 
 public class Controller {
 
@@ -56,7 +57,18 @@ public class Controller {
                     break;
             }
         });
+
+       breakout.scene.setOnKeyPressed(e -> {
+            if(e.getCode() == KeyCode.ESCAPE){
+                breakout.gameTimer.stop();
+                breakout.startButton.setVisible(true);
+                breakout.startButton.setDisable(false);
+                breakout.startButton.setCancelButton(false);
+            }
+       });
     }
+
+
 
     //Getter for key values
     public boolean isLeft() {
