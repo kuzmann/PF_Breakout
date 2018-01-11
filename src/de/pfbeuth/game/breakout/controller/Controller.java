@@ -37,6 +37,7 @@ public class Controller {
                     break;
             }
         });
+
         breakout.scene.setOnKeyReleased(e -> {
             switch(e.getCode()) {
                 case LEFT: left = false;
@@ -55,17 +56,10 @@ public class Controller {
                     break;
                 case NUMPAD6: right = false;
                     break;
+                case ESCAPE: breakout.gameIsPausedEvents();
+                    break;
             }
         });
-
-       breakout.scene.setOnKeyPressed(e -> {
-            if(e.getCode() == KeyCode.ESCAPE){
-                breakout.gameTimer.stop();
-                breakout.startButton.setVisible(true);
-                breakout.startButton.setDisable(false);
-                breakout.startButton.setCancelButton(false);
-            }
-       });
     }
 
 

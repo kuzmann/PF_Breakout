@@ -5,6 +5,7 @@ import javafx.util.Duration;
 
 class Brick extends GameObject {
     private Breakout breakout;  //creates context to Breakout-Class
+    double leftBorder, rightBorder, topBorder, bottomBorder;
 
     protected Brick (Breakout iBrick, String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
@@ -22,5 +23,7 @@ class Brick extends GameObject {
         scaleToZero.setToY(0.0d);
         scaleToZero.play();
     }
+
+
 }
 

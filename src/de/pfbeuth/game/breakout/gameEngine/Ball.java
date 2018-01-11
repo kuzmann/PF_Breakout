@@ -12,8 +12,13 @@ class Ball extends AnimatedGameObject {
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS;
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS);
-    private static final double BOTTOM_SCREEN_BOUNDARY = +(HEIGHT/2 - BALL_RADIUS);
-    private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS);
+    private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS*2);
+    private static final double BOTTOM_SCREEN_BOUNDARY = (HEIGHT/2 - BALL_RADIUS);
+    boolean ballPaddleCollision;
+    boolean up = true;
+    boolean right = true;
+    double lastX, lastY;
+
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -22,7 +27,7 @@ class Ball extends AnimatedGameObject {
 
     @Override
     void update(){
-        setXYPosition(-2);
+        setXYPosition(8);
         setScreenBoundaries();
         translateBall();
         checkCollision();
@@ -33,6 +38,9 @@ class Ball extends AnimatedGameObject {
             collision(collisionObject);
             if (collision(collisionObject) && collisionObject instanceof Brick){
                 ((Brick) collisionObject).destroyBrick();
+            }
+            if(collision(collisionObject) && collisionObject instanceof Paddle) {
+                ballPaddleCollision();
             }
         }
     }
@@ -49,23 +57,34 @@ class Ball extends AnimatedGameObject {
             }
         }
         if (collisionDetect){
-            breakout.getSpriteManager().addToRemovedObjects(object);
-            //breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
-            breakout.getSpriteManager().resetRemovedObjects();
+            if (!(object instanceof Paddle)) {
+                breakout.getSpriteManager().addToRemovedObjects(object);
+                //breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
+                breakout.getSpriteManager().resetRemovedObjects();
+            }
             return true;
+
         }
         return false;
     }
 
     //set XY coordinates when arrow keys are used for gameobject control
     private void setXYPosition(double velocity){
-        this.velocityX = velocity;
-        this.velocityY = velocity;
+        velocityX = velocity;
+        velocityY = velocity;
+        if (up) {
+            positionY -= velocityY;
+        } else {
+            positionY += velocityY;
+        }
 
-        this.positionX =  5;
-        this.positionY -= velocityY;
+        if(right){
+            positionX += velocityX;
+        } else {
+            positionX -= velocityX;
+        }
 
-
+        //TODO delete following lines in final stage
 //        if(breakout.controller.isLeft()) {
 //            positionX -= velocityX;
 //        }
@@ -91,36 +110,45 @@ class Ball extends AnimatedGameObject {
 //        if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
 //            positionY += velocityY;
 //        }
+
     }
+
+    private void ballPaddleCollision(){
+        up = true;
+    }
+
     private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
-            this.positionX -= velocityX;
+           positionX = RIGHT_SCREEN_BOUNDARY - BALL_RADIUS;
+           right = false;
         }
         if(positionX <= LEFT_SCREEN_BOUNDARY) {
-           this.positionX += velocityX;
+            positionX = LEFT_SCREEN_BOUNDARY + BALL_RADIUS;
+            right = true;
         }
-        if(positionY <= TOP_SCREEN_BOUNDARY) {
-            positionY = 0;
+        if(this.positionY <= TOP_SCREEN_BOUNDARY) {
+            positionY = TOP_SCREEN_BOUNDARY + BALL_RADIUS ;
+            up = false;
         }
-        if(positionY >= BOTTOM_SCREEN_BOUNDARY) {
+        if(this.positionY >= BOTTOM_SCREEN_BOUNDARY + 75) {
             isDead();
+            breakout.ballDied();
         }
     }
-
-    public boolean isDead(){
-        return true;
-    }
-
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
+        System.out.println("X" + positionX + "Y" + positionY);
     }
-
+    public boolean isDead(){
+        return true;
+    }
     void resetState(){
+        up = true;
+        right = true;
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
-
 }
