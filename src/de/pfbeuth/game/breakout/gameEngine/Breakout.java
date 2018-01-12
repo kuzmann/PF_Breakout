@@ -1,7 +1,7 @@
  /**
  * @author Thomas Glaesser
  * */
-package de.pfbeuth.game.breakout;
+package de.pfbeuth.game.breakout.gameEngine;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,22 +13,21 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.util.ArrayList;
+import de.pfbeuth.game.breakout.controller.Controller;
 
  public class Breakout extends Application  {
-    static final double WIDTH = 960, HEIGHT = 720;
-    private boolean left;
-    private boolean right;
-    private boolean up;
-    private boolean down;
+    static final double WIDTH = 720, HEIGHT = 900;
+
     private StackPane root;
-    private HBox buttonContainer;
-    private Scene scene;
+    public Scene scene;
     private Image backgroundImage, helpImage, creditsImage, highscoreImage;
     private Image paddleImage, playBackgroundImage;
     private ImageView backgroundLayer, menueOverlay, playBackground;
-    private Button playButton, helpButton, highscoreButton, creditsButton;
+    private VBox masterButtonContainer;
+    private HBox buttonContainer, startButtonContainer;
+    private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
     private Insets buttonContainerPadding;
-    private GamePlayTimer gameTimer;
+    public GamePlayTimer gameTimer;
     private SpriteManager spriteManager;
     private String paddleCollision;
     private Paddle paddle;
@@ -37,11 +36,15 @@ import java.util.ArrayList;
     private Ball ball;
     private Image ballImage;
     private ArrayList<Brick> brickGrid;
-
+    public Controller controller;
 
     @Override
     public void start(Stage primaryStage) {
         //Stage and Scene Setup
+        primaryStage.setMaxHeight(HEIGHT);
+        primaryStage.setMaxWidth(WIDTH);
+        primaryStage.setMinHeight(HEIGHT);
+        primaryStage.setMinWidth(WIDTH);
         primaryStage.setTitle("BREAKOUT");
         root = new StackPane();
         scene = new Scene(root, WIDTH, HEIGHT, Color.BLACK);
@@ -49,7 +52,9 @@ import java.util.ArrayList;
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        createSceneEventHandling();
+        //createSceneEventHandling();
+        controller = new Controller(this);
+        controller.createSceneEventHandling();
         loadImageAssets();
         createGameObjects();
         addGameObjectsNodes();
@@ -57,54 +62,14 @@ import java.util.ArrayList;
         addNodesToStackPane();
         createSpriteManager();
         createStartGamePlayTimer();
+
+        System.out.println("scene height" + scene.getHeight());
+
     }
     public static void main(String[] args) {
         launch(args);
     }
 
-    //eventhandling for gameobjects
-    private void createSceneEventHandling(){
-        scene.setOnKeyPressed(e -> {
-            switch (e.getCode()) {
-                case LEFT: left = true;
-                    break;
-                case RIGHT: right = true;
-                    break;
-                case UP: up = true;
-                    break;
-                case DOWN: down = true;
-                    break;
-                case A: left = true;
-                    break;
-                case D: right = true;
-                    break;
-                case NUMPAD4: left = true;
-                    break;
-                case NUMPAD6: right = true;
-                    break;
-            }
-        });
-        scene.setOnKeyReleased(e -> {
-            switch(e.getCode()) {
-                case LEFT: left = false;
-                    break;
-                case RIGHT: right = false;
-                    break;
-                case UP: up = false;
-                    break;
-                case DOWN: down = false;
-                    break;
-                case A: left = false;
-                    break;
-                case D: right = false;
-                    break;
-                case NUMPAD4: left = false;
-                    break;
-                case NUMPAD6: right = false;
-                    break;
-            }
-        });
-    }
     private void loadImageAssets(){
         backgroundImage = new Image("/background.png", WIDTH, HEIGHT, false, false, true);
         helpImage = new Image("/help.png", WIDTH, HEIGHT, true, false, true);
@@ -119,14 +84,15 @@ import java.util.ArrayList;
         playBackgroundImage = new Image("/background_play.png", WIDTH, HEIGHT, false, false, true);
 
     }
+
     private void createGameObjects(){
         //TODO .4 als CONST anlegen
-        playBackground = new ImageView();
-        playBackground.setImage(playBackgroundImage);
-        paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, HEIGHT*0.4, paddleImage);
-        ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, HEIGHT*0.1, ballImage);
-
+        paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, 0, paddleImage);
+        paddle.resetState();
+        ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, 0, ballImage);
+        ball.resetState();
    }
+
     //creates bricks which must be destroyed in the game
     private void createBrickGrid(){
         brickGrid = new ArrayList<>();
@@ -144,13 +110,14 @@ import java.util.ArrayList;
              }
         }
     }
+
     private void addGameObjectsNodes(){
         //TODO uncomment this to see Paddle
-        root.getChildren().add(playBackground);
         createBrickGrid();
         root.getChildren().add(paddle.spriteImage);
         root.getChildren().add(ball.spriteImage);
     }
+
     private void createSpriteManager(){
         spriteManager = new SpriteManager();
         spriteManager.addCurrentObjects(paddle);
@@ -160,24 +127,50 @@ import java.util.ArrayList;
             spriteManager.addCurrentObjects(brick);
             }
     }
-    //creates UI buttons, event handler and layouts the buttons
+
+    //creates UI buttons, event handler and layout the buttons
     private void createGUINodes(){
+        buttonContainerPadding = new Insets(0, 0, 12, 20);
+
+        masterButtonContainer = new VBox(12);
+        masterButtonContainer.setAlignment(Pos.BOTTOM_LEFT);
+
         buttonContainer = new HBox(12);
         buttonContainer.setAlignment(Pos.BOTTOM_LEFT);
-        buttonContainerPadding = new Insets(0, 0, 12, 20);
         buttonContainer.setPadding(buttonContainerPadding);
+
+        startButtonContainer = new HBox(12);
+        startButtonContainer.setPrefHeight(HEIGHT/2);
+        startButtonContainer.setAlignment(Pos.TOP_CENTER);
+        startButtonContainer.setPadding(buttonContainerPadding);
+
         playButton = new Button();
+        playButton.setPrefWidth(100);
         playButton.setText("PLAY");
         playButton.setOnAction(e -> {
+            startButton.setVisible(true);
+            startButton.setDisable(false);
             backgroundLayer.setVisible(false);
             menueOverlay.setVisible(false);
+            playBackground.setVisible(true);
+            playBackground.toBack();
         });
+        startButton = new Button();
+        startButton.setPrefSize(100, 100);
+        startButton.setText("START");
+        startButton.setVisible(false);
+        startButton.setDisable(true);
+        startButton.setOnAction(e ->
+            gameIsOnEvents()
+        );
         highscoreButton = new Button();
         highscoreButton.setText("HIGH SCORES");
         highscoreButton.setOnAction(e -> {
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
             menueOverlay.setImage(highscoreImage);
+            startButton.setVisible(false);
+            startButton.setDisable(true);
         });
         helpButton = new Button();
         helpButton.setText("INSTRUCTIONS");
@@ -185,6 +178,8 @@ import java.util.ArrayList;
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
             menueOverlay.setImage(helpImage);
+            startButton.setVisible(false);
+            startButton.setDisable(true);
         });
         creditsButton = new Button();
         creditsButton.setText("CREDITS");
@@ -192,36 +187,77 @@ import java.util.ArrayList;
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
             menueOverlay.setImage(creditsImage);
+            startButton.setVisible(false);
+            startButton.setDisable(true);
         });
+
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton);
+        startButtonContainer.getChildren().add(startButton);
+        masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
+
         backgroundLayer = new ImageView();
         backgroundLayer.setImage(backgroundImage);
         menueOverlay = new ImageView();
         menueOverlay.setImage(highscoreImage);
-    }
-    private void addNodesToStackPane(){
-        root.getChildren().add(backgroundLayer);
-        root.getChildren().add(menueOverlay);
-        root.getChildren().add(buttonContainer);
-    }
-    private void createStartGamePlayTimer(){
-        gameTimer = new GamePlayTimer(this);
-        gameTimer.start();
+
+        playBackground = new ImageView();
+        playBackground.setImage(playBackgroundImage);
+        playBackground.setVisible(false);
+
     }
 
+    private void addNodesToStackPane(){
+        root.getChildren().add(playBackground);
+        root.getChildren().add(backgroundLayer);
+        root.getChildren().add(menueOverlay);
+        root.getChildren().add(masterButtonContainer);
+    }
+
+    private void createStartGamePlayTimer(){
+        gameTimer = new GamePlayTimer(this);
+    }
+
+    public void ballDied(){
+        if(ball.isDead()){
+            gameTimer.stop();
+            gameIsPausedEvents();
+            paddle.resetState();
+            ball.resetState();
+        }
+    }
+
+     public void gameIsOnEvents() {
+         startButton.setVisible(false);
+         startButton.setDisable(true);
+         startButton.setCancelButton(true);
+         gameTimer.start();
+         playButton.setVisible(false);
+         playButton.setDisable(true);
+         highscoreButton.setVisible(false);
+         highscoreButton.setDisable(true);
+         helpButton.setVisible(false);
+         helpButton.setDisable(true);
+         creditsButton.setVisible(false);
+         creditsButton.setDisable(true);
+     }
+
+     public void gameIsPausedEvents(){
+         gameTimer.stop();
+         startButton.setVisible(true);
+         startButton.setDisable(false);
+         startButton.setCancelButton(false);
+         playButton.setVisible(true);
+         playButton.setDisable(false);
+         highscoreButton.setVisible(true);
+         highscoreButton.setDisable(false);
+         helpButton.setVisible(true);
+         helpButton.setDisable(false);
+         creditsButton.setVisible(true);
+         creditsButton.setDisable(false);
+     }
+
+
     //GETTER and SETTER
-     boolean isUp() {
-     return up;
-    }
-     boolean isDown() {
-     return down;
-    }
-     boolean isLeft() {
-    return left;
-    }
-     boolean isRight() {
-    return right;
-    }
      StackPane getRoot() {
      return root;
     }
