@@ -2,6 +2,9 @@
  * @author Thomas Glaesser
  * */
 package de.pfbeuth.game.breakout.gameEngine;
+import de.pfbeuth.game.breakout.gamelogic.LevelDesign;
+import de.pfbeuth.game.breakout.gamelogic.Life;
+import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -24,8 +28,9 @@ import de.pfbeuth.game.breakout.controller.Controller;
     private Image paddleImage, playBackgroundImage;
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private VBox masterButtonContainer;
-    private HBox buttonContainer, startButtonContainer;
+    private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer;
     private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
+    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo;
     private Insets buttonContainerPadding;
     public GamePlayTimer gameTimer;
     private SpriteManager spriteManager;
@@ -37,6 +42,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
     private Image ballImage;
     private ArrayList<Brick> brickGrid;
     public Controller controller;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -94,6 +100,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
    }
 
     //creates bricks which must be destroyed in the game
+     // TODO:muss das Leveldesign nicht in die Gamelogic???
     private void createBrickGrid(){
         brickGrid = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -136,13 +143,55 @@ import de.pfbeuth.game.breakout.controller.Controller;
         masterButtonContainer.setAlignment(Pos.BOTTOM_LEFT);
 
         buttonContainer = new HBox(12);
-        buttonContainer.setAlignment(Pos.BOTTOM_LEFT);
+        buttonContainer.setAlignment(Pos.BOTTOM_CENTER);
         buttonContainer.setPadding(buttonContainerPadding);
 
         startButtonContainer = new HBox(12);
         startButtonContainer.setPrefHeight(HEIGHT/2);
         startButtonContainer.setAlignment(Pos.TOP_CENTER);
         startButtonContainer.setPadding(buttonContainerPadding);
+
+        //Container for Gameinformation: Level, Life and Score
+        infoContainer = new HBox(12);
+        infoContainer.setPrefHeight(HEIGHT/22);
+        infoContainer.setAlignment(Pos.BOTTOM_CENTER);
+        infoContainer.setPadding(buttonContainerPadding);
+
+        gameOverContainer = new HBox(12);
+        gameOverContainer.setPrefHeight(HEIGHT/22);
+        gameOverContainer.setAlignment(Pos.TOP_CENTER);
+        gameOverContainer.setPadding(buttonContainerPadding);
+
+        //private String levelInfo, lifeInfo, ScoreInfo;
+        levelInfo = new Text();
+        levelInfo.setFont(new Font(18));
+        levelInfo.setWrappingWidth(200);
+        levelInfo.setFill(Color.WHITE);
+        levelInfo.setTextAlignment(TextAlignment.JUSTIFY);
+        levelInfo.setText("Level: " + LevelDesign.levelnumber);
+
+        lifeInfo = new Text();
+        lifeInfo.setFont(new Font(18));
+        lifeInfo.setWrappingWidth(200);
+        lifeInfo.setFill(Color.WHITE);
+        lifeInfo.setTextAlignment(TextAlignment.JUSTIFY);
+        //lifeInfo.textProperty().bind(Life.life);
+        lifeInfo.setText("Life: " + Life.life);
+
+        scoreInfo = new Text();
+        scoreInfo.setFont(new Font(18));
+        scoreInfo.setWrappingWidth(200);
+        scoreInfo.setFill(Color.WHITE);
+        scoreInfo.setTextAlignment(TextAlignment.JUSTIFY);
+        scoreInfo.setText("Score: " + ScoreCounter.score);
+
+        gameOverInfo = new Text();
+        gameOverInfo.setFont(new Font(30));
+        gameOverInfo.setWrappingWidth(200);
+        gameOverInfo.setFill(Color.RED);
+        gameOverInfo.setTextAlignment(TextAlignment.JUSTIFY);
+        gameOverInfo.setText("GAME OVER");
+
 
         playButton = new Button();
         playButton.setPrefWidth(100);
@@ -191,12 +240,14 @@ import de.pfbeuth.game.breakout.controller.Controller;
             startButton.setDisable(true);
         });
 
+        infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton);
         startButtonContainer.getChildren().add(startButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
 
         backgroundLayer = new ImageView();
         backgroundLayer.setImage(backgroundImage);
+
         menueOverlay = new ImageView();
         menueOverlay.setImage(highscoreImage);
 
@@ -204,25 +255,34 @@ import de.pfbeuth.game.breakout.controller.Controller;
         playBackground.setImage(playBackgroundImage);
         playBackground.setVisible(false);
 
+
     }
 
     private void addNodesToStackPane(){
         root.getChildren().add(playBackground);
+        root.getChildren().add(infoContainer);
         root.getChildren().add(backgroundLayer);
         root.getChildren().add(menueOverlay);
         root.getChildren().add(masterButtonContainer);
+
     }
 
     private void createStartGamePlayTimer(){
         gameTimer = new GamePlayTimer(this);
     }
 
+
     public void ballDied(){
         if(ball.isDead()){
             gameTimer.stop();
-            gameIsPausedEvents();
+            gameOverInfo.setVisible(true);
+            //gameIsPausedEvents();
             paddle.resetState();
             ball.resetState();
+            startButton.setVisible(true);
+            startButton.setDisable(false);
+            startButton.setCancelButton(false);
+            infoContainer.setVisible(true);
         }
     }
 
@@ -231,6 +291,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
          startButton.setDisable(true);
          startButton.setCancelButton(true);
          gameTimer.start();
+         //TODO: Verbindung zu der Klasse LIFE schaffen
+         //Life.start();
          playButton.setVisible(false);
          playButton.setDisable(true);
          highscoreButton.setVisible(false);
@@ -246,6 +308,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
          startButton.setVisible(true);
          startButton.setDisable(false);
          startButton.setCancelButton(false);
+         infoContainer.setVisible(false);
          playButton.setVisible(true);
          playButton.setDisable(false);
          highscoreButton.setVisible(true);
@@ -276,4 +339,5 @@ import de.pfbeuth.game.breakout.controller.Controller;
      Ball getBall() {
      return ball;
     }
-}
+
+ }

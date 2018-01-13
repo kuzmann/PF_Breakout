@@ -1,4 +1,6 @@
 package de.pfbeuth.game.breakout.gameEngine;
+import de.pfbeuth.game.breakout.gamelogic.Life;
+import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
@@ -7,6 +9,7 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
+    private Life life;
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT*0.38;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
@@ -133,16 +136,22 @@ class Ball extends AnimatedGameObject {
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY + 75) {
             isDead();
             breakout.ballDied();
+            //TODO: eine Verbindung zu der Klasse LIFE schaffen
+            life.loseLife();
+            ScoreCounter.stopcounting();
+
         }
     }
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
-        System.out.println("X" + positionX + "Y" + positionY);
+        System.out.println("X" + positionX + "  -  " + "Y" + positionY);
     }
     public boolean isDead(){
         return true;
     }
+
+
     void resetState(){
         up = true;
         right = true;
