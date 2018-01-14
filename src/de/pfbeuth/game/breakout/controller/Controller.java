@@ -58,6 +58,8 @@ public class Controller {
                     break;
                 case ESCAPE: breakout.gameIsPausedEvents();
                     break;
+                case ENTER: breakout.gameIsOnEvents();
+                    break;
             }
         });
     }
