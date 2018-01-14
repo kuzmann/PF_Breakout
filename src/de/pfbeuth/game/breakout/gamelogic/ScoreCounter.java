@@ -1,9 +1,11 @@
 package de.pfbeuth.game.breakout.gamelogic;
 
-import java.awt.*;
+
+import de.pfbeuth.game.breakout.gameEngine.*;
 
 public class ScoreCounter {
 
+    private static Breakout breakout;
     public static int score = 0;
     public static int newscore;
     public static int endscore;
@@ -18,6 +20,13 @@ public class ScoreCounter {
     public static int counter() {
 
         score +=10;
+
+       /* if ((breakout.getBall().getDestroyedBrick().getSpriteImage().getImage().equals(breakout.brickImageGreen)) {
+            ScoreCounter.counter();
+            System.out.println("blababadsfadsf");
+        } else System.out.println("kein vergleich");*/
+   
+
         System.out.println("Score:" + score);
 
         //TODO: Herausfinden welche Farbe zerstört worden ist
