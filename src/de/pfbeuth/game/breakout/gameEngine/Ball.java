@@ -13,10 +13,10 @@ public class Ball extends AnimatedGameObject {
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT*0.38;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
-    private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS;
-    private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS);
-    private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS*2);
-    private static final double BOTTOM_SCREEN_BOUNDARY = (HEIGHT/2 - BALL_RADIUS);
+    private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/2;
+    private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/2);
+    private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS/2);
+    private static final double BOTTOM_SCREEN_BOUNDARY = HEIGHT/2 + BALL_RADIUS;
     boolean ballPaddleCollision;
     boolean up = true;
     boolean right = true;
@@ -32,10 +32,10 @@ public class Ball extends AnimatedGameObject {
 
     @Override
     void update(){
-        setXYPosition(8);
+        checkCollision();
+        setXYPosition();
         setScreenBoundaries();
         translateBall();
-        checkCollision();
     }
     private void checkCollision(){
         for (int i = 0; i < breakout.getSpriteManager().getCurrentObjects().size(); i++) {
@@ -49,19 +49,13 @@ public class Ball extends AnimatedGameObject {
                     ScoreCounter.counter();
                     System.out.println("green brick hit");
                 }
+                brickCollision();
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
                 ballPaddleCollision();
             }
         }
     }
-
-    public Brick getDestroyedBrick(){
-        return destroyedBrick;
-    }
-
-
-
 
     @Override
     boolean collision(GameObject object){
@@ -77,7 +71,7 @@ public class Ball extends AnimatedGameObject {
         if (collisionDetect){
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().addToRemovedObjects(object);
-                breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
+                //breakout.getRoot().getChildren().remove(object.getSpriteImage());
                 breakout.getSpriteManager().resetRemovedObjects();
             }
             return true;
@@ -86,10 +80,12 @@ public class Ball extends AnimatedGameObject {
         return false;
     }
 
+    public Brick getDestroyedBrick(){
+        return destroyedBrick;
+    }
+
     //set XY coordinates when arrow keys are used for gameobject control
-    private void setXYPosition(double velocity){
-        velocityX = velocity;
-        velocityY = velocity;
+    private void setXYPosition(){
         if (up) {
             positionY -= velocityY;
         } else {
@@ -103,36 +99,35 @@ public class Ball extends AnimatedGameObject {
         }
 
         //TODO delete following lines in final stage
-//        if(breakout.controller.isLeft()) {
-//            positionX -= velocityX;
-//        }
-//        if(breakout.controller.isRight()) {
-//            positionX += velocityX;
-//        }
-//        if(breakout.controller.isUp()) {
-//            positionY -= velocityY;
-//        }
-//        if(breakout.controller.isDown()) {
-//            positionY += velocityY;
-//        }
+      /*  if(breakout.controller.isLeft()) {
+            positionX -= velocityX;
+        }
+        if(breakout.controller.isRight()) {
+            positionX += velocityX;
+        }
+        if(breakout.controller.isUp()) {
+            positionY -= velocityY;
+        }
+        if(breakout.controller.isDown()) {
+            positionY += velocityY;
+        }
 
-//        if(positionX >= RIGHT_SCREEN_BOUNDARY) {
-//            positionX -= velocityX;
-//        }
-//        if(positionX <= LEFT_SCREEN_BOUNDARY) {
-//            positionX += velocityX;
-//        }
-//        if(positionY >= TOP_SCREEN_BOUNDARY) {
-//            positionY -= velocityY;
-//        }
-//        if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
-//            positionY += velocityY;
-//        }
-
+        if(positionX >= RIGHT_SCREEN_BOUNDARY) {
+            positionX -= velocityX;
+        }
+        if(positionX <= LEFT_SCREEN_BOUNDARY) {
+            positionX += velocityX;
+        }
+        if(positionY >= TOP_SCREEN_BOUNDARY) {
+            positionY -= velocityY;
+        }
+        if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
+            positionY += velocityY;
+        }*/
     }
 
-    private void ballPaddleCollision(){
-        up = true;
+    private void brickCollision(){
+       up = false;
     }
 
     private void setScreenBoundaries(){
@@ -151,7 +146,7 @@ public class Ball extends AnimatedGameObject {
             up = false;
             ballIsDead = false;
         }
-        if(this.positionY >= BOTTOM_SCREEN_BOUNDARY + 75) {
+        if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
             breakout.ballDied();
             //TODO: eine Verbindung zu der Klasse LIFE schaffen
@@ -163,17 +158,19 @@ public class Ball extends AnimatedGameObject {
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
-      //  System.out.println("X" + positionX + "  -  " + "Y" + positionY);
     }
     public boolean getBallIsDead(){
         return ballIsDead;
     }
-
-
+    private void ballPaddleCollision(){
+        up = true;
+    }
 
     void resetState(){
         up = true;
         right = true;
+        setVelocityX(8);
+        setVelocityY(8);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
