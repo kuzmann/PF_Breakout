@@ -3,13 +3,10 @@ package de.pfbeuth.game.breakout.gameEngine;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.SVGPath;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 //fixed Sprites
 public abstract class GameObject {
-    protected ImageView spriteImage;
+    public ImageView spriteImage;
     protected SVGPath spriteCollisionBound;
     protected double positionX, positionY, pivotX, pivotY;
 

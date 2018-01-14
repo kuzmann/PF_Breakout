@@ -7,8 +7,9 @@ import javafx.scene.shape.Shape;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
-class Ball extends AnimatedGameObject {
+public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
+    private Life life;
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT*0.38;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
@@ -20,6 +21,8 @@ class Ball extends AnimatedGameObject {
     boolean up = true;
     boolean right = true;
     double lastX, lastY;
+    boolean ballIsDead;
+    public Brick destroyedBrick;
 
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
@@ -40,12 +43,25 @@ class Ball extends AnimatedGameObject {
             collision(collisionObject);
             if (collision(collisionObject) && collisionObject instanceof Brick){
                 ((Brick) collisionObject).destroyBrick();
+                destroyedBrick = (Brick) collisionObject;
+                //TODO @Anna new method to compare brick colors
+                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.brickImageGreen)) {
+                    ScoreCounter.counter();
+                    System.out.println("green brick hit");
+                }
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
                 ballPaddleCollision();
             }
         }
     }
+
+    public Brick getDestroyedBrick(){
+        return destroyedBrick;
+    }
+
+
+
 
     @Override
     boolean collision(GameObject object){
@@ -123,32 +139,36 @@ class Ball extends AnimatedGameObject {
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
            positionX = RIGHT_SCREEN_BOUNDARY - BALL_RADIUS;
            right = false;
+           ballIsDead = false;
         }
         if(positionX <= LEFT_SCREEN_BOUNDARY) {
             positionX = LEFT_SCREEN_BOUNDARY + BALL_RADIUS;
             right = true;
+            ballIsDead = false;
         }
         if(this.positionY <= TOP_SCREEN_BOUNDARY) {
             positionY = TOP_SCREEN_BOUNDARY + BALL_RADIUS ;
             up = false;
+            ballIsDead = false;
         }
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY + 75) {
-            isDead();
+            ballIsDead =  true;
             breakout.ballDied();
-            ScoreCounter.stopcounting();
             //TODO: eine Verbindung zu der Klasse LIFE schaffen
-
+            //life.loseLife();
+            //ScoreCounter.stopcounting();
 
         }
     }
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
-        //System.out.println("X" + positionX + "  -  " + "Y" + positionY);
+      //  System.out.println("X" + positionX + "  -  " + "Y" + positionY);
     }
-    public boolean isDead(){
-        return true;
+    public boolean getBallIsDead(){
+        return ballIsDead;
     }
+
 
 
     void resetState(){

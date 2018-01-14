@@ -1,5 +1,4 @@
 package de.pfbeuth.game.breakout.gameEngine;
-import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.animation.ScaleTransition;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -23,9 +22,9 @@ class Brick extends GameObject {
         scaleToZero.setToX(0.0d);
         scaleToZero.setToY(0.0d);
         scaleToZero.play();
-
-        ScoreCounter.counter();
     }
+
+
 
     //TODO: Machen wir eine Unterscheidung der Farben. Wenn, ja dann müsste ausgegeben werden, welche Farbe getroffen würde
     /* Method: getCollidingBrick */

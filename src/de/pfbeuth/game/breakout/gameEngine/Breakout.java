@@ -24,24 +24,26 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     private StackPane root;
     public Scene scene;
-    private Image backgroundImage, helpImage, creditsImage, highscoreImage;
-    private Image paddleImage, playBackgroundImage;
-    private ImageView backgroundLayer, menueOverlay, playBackground;
-    private VBox masterButtonContainer;
+
     private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer;
     private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
     private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo;
     private Insets buttonContainerPadding;
+    public Controller controller;
+    //Game Objects
     public GamePlayTimer gameTimer;
     private SpriteManager spriteManager;
-    private String paddleCollision;
     private Paddle paddle;
     private Brick brick;
-    private Image brickImage, brickImageRed, brickImageOrange, brickImageYellow, brickImageGreen;
     private Ball ball;
-    private Image ballImage;
     private ArrayList<Brick> brickGrid;
-    public Controller controller;
+    //Images
+    private Image backgroundImage, helpImage, creditsImage, highscoreImage;
+    private Image paddleImage, playBackgroundImage;
+    private ImageView backgroundLayer, menueOverlay, playBackground;
+    private VBox masterButtonContainer;
+    public Image brickImage, brickImageRed, brickImageOrange, brickImageYellow, brickImageGreen;
+    private Image ballImage;
 
 
     @Override
@@ -119,7 +121,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
     }
 
     private void addGameObjectsNodes(){
-        //TODO uncomment this to see Paddle
         createBrickGrid();
         root.getChildren().add(paddle.spriteImage);
         root.getChildren().add(ball.spriteImage);
@@ -175,7 +176,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
         lifeInfo.setWrappingWidth(200);
         lifeInfo.setFill(Color.WHITE);
         lifeInfo.setTextAlignment(TextAlignment.JUSTIFY);
-        lifeInfo.setText("Life: " + Life.life);
+        //lifeInfo.textProperty().bind(Life.life);
+        lifeInfo.setText("Life: " + Life.getLife());
 
         scoreInfo = new Text();
         scoreInfo.setFont(new Font(18));
@@ -202,6 +204,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
             menueOverlay.setVisible(false);
             playBackground.setVisible(true);
             playBackground.toBack();
+
+            hideGameInfos();
         });
         startButton = new Button();
         startButton.setPrefSize(100, 100);
@@ -219,6 +223,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
             menueOverlay.setImage(highscoreImage);
             startButton.setVisible(false);
             startButton.setDisable(true);
+
+            hideGameInfos();
         });
         helpButton = new Button();
         helpButton.setText("INSTRUCTIONS");
@@ -228,6 +234,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
             menueOverlay.setImage(helpImage);
             startButton.setVisible(false);
             startButton.setDisable(true);
+
+            hideGameInfos();
         });
         creditsButton = new Button();
         creditsButton.setText("CREDITS");
@@ -237,6 +245,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
             menueOverlay.setImage(creditsImage);
             startButton.setVisible(false);
             startButton.setDisable(true);
+
+            hideGameInfos();
         });
 
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
@@ -272,52 +282,83 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
 
     public void ballDied(){
-        if(ball.isDead()){
+        if(ball.getBallIsDead()){
             gameTimer.stop();
             gameOverInfo.setVisible(true);
-            //gameIsPausedEvents();
             paddle.resetState();
             ball.resetState();
             startButton.setVisible(true);
             startButton.setDisable(false);
             startButton.setCancelButton(false);
             infoContainer.setVisible(true);
+            Life.loseLife();
+            lifeInfo.setText("Life: " + Life.getLife());
+            if(Life.getIsGameOver()) {
+                gameOver();
+            }
         }
     }
 
+    // TODO screen design makeover
+     public void gameOver(){
+         startButton.setText("PLAY AGAIN");
+         gameIsPausedEvents();
+    }
+
      public void gameIsOnEvents() {
+         gameTimer.start();
          startButton.setVisible(false);
          startButton.setDisable(true);
          startButton.setCancelButton(true);
-         gameTimer.start();
-         //TODO: Verbindung zu der Klasse LIFE schaffen
-         //Life.start();
+
          playButton.setVisible(false);
          playButton.setDisable(true);
+
          highscoreButton.setVisible(false);
          highscoreButton.setDisable(true);
+
          helpButton.setVisible(false);
          helpButton.setDisable(true);
+
          creditsButton.setVisible(false);
          creditsButton.setDisable(true);
+
+         showGameInfos();
      }
 
      public void gameIsPausedEvents(){
          gameTimer.stop();
+
          startButton.setVisible(true);
          startButton.setDisable(false);
          startButton.setCancelButton(false);
-         infoContainer.setVisible(false);
+
          playButton.setVisible(true);
          playButton.setDisable(false);
+
          highscoreButton.setVisible(true);
          highscoreButton.setDisable(false);
+
          helpButton.setVisible(true);
          helpButton.setDisable(false);
+
          creditsButton.setVisible(true);
          creditsButton.setDisable(false);
+
+         hideGameInfos();
      }
 
+     public void hideGameInfos(){
+         levelInfo.setVisible(false);
+         lifeInfo.setVisible(false);
+         scoreInfo.setVisible(false);
+     }
+
+     public void showGameInfos(){
+         levelInfo.setVisible(true);
+         lifeInfo.setVisible(true);
+         scoreInfo.setVisible(true);
+     }
 
     //GETTER and SETTER
      StackPane getRoot() {
@@ -330,13 +371,14 @@ import de.pfbeuth.game.breakout.controller.Controller;
     return paddleImage;
     }
      Image getBrickImage() {
-    return brickImage;
+         return brickImage;
     }
      SpriteManager getSpriteManager() {
      return spriteManager;
     }
-     Ball getBall() {
-     return ball;
+     public Ball getBall() {
+         return ball;
     }
+
 
  }
