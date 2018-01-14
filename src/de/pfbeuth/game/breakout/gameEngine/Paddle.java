@@ -22,13 +22,12 @@ class Paddle extends AnimatedGameObject {
 
     @Override
     public void update() {
-        setXYPosition(15);
+        setXYPosition();
         setScreenBoundaries();
         translatePaddle();
     }
-    private void setXYPosition(double velocity){
-        this.velocityX = velocity;
-        this.velocityY = velocity;
+
+    private void setXYPosition(){
         if(breakout.controller.isLeft()) {
             positionX -= velocityX;
         }
@@ -36,6 +35,7 @@ class Paddle extends AnimatedGameObject {
             positionX += velocityX;
         }
     }
+
     private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY){
             positionX = RIGHT_SCREEN_BOUNDARY;
@@ -43,20 +43,15 @@ class Paddle extends AnimatedGameObject {
         if(positionX <= LEFT_SCREEN_BOUNDARY){
             positionX = LEFT_SCREEN_BOUNDARY;
         }
-//        if(positionY <= BOTTOM_SCREEN_BOUNDARY){
-//            positionY = BOTTOM_SCREEN_BOUNDARY;
-//        }
-//        if(positionY >= TOP_SCREEN_BOUNDARY){
-//            positionY = TOP_SCREEN_BOUNDARY;
-//        }
-
     }
+
     private void translatePaddle() {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
     }
 
     void resetState(){
+        setVelocityX(15);
         this.positionX = PADDLE_INIT_X_POS;
         this.positionY = PADDLE_INIT_Y_POS;
         spriteImage.setTranslateX(PADDLE_INIT_X_POS);
