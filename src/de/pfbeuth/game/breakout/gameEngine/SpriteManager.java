@@ -38,7 +38,7 @@ public class SpriteManager {
             REMOVED_OBJECTS.add(objects[0]);
     }
     public  void resetRemovedObjects(){
-        CURRENT_OBJECTS.removeAll(REMOVED_OBJECTS); //To doublecheck all removed Objects are removed
+        CURRENT_OBJECTS.removeAll(REMOVED_OBJECTS);
         REMOVED_OBJECTS.clear();
     }
     public List getCollideCheckList() {
