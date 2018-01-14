@@ -7,8 +7,6 @@ class Brick extends GameObject {
     private Breakout breakout;  //creates context to Breakout-Class
     double leftBorder, rightBorder, topBorder, bottomBorder;
 
-
-
     protected Brick (Breakout iBrick, String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
         spriteImage.setTranslateX(xLocation);
@@ -19,6 +17,7 @@ class Brick extends GameObject {
     @Override
     public void update(){
     }
+
     public void destroyBrick() {
         ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(500), this.getSpriteImage());
         scaleToZero.setToX(0.0d);

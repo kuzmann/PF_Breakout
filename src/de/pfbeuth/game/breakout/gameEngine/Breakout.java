@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import de.pfbeuth.game.breakout.controller.Controller;
 
  public class Breakout extends Application  {
-    static final double WIDTH = 720, HEIGHT = 900;
+    static final double WIDTH = 540, HEIGHT = 675;
 
     private StackPane root;
     public Scene scene;
@@ -49,14 +49,11 @@ import de.pfbeuth.game.breakout.controller.Controller;
     @Override
     public void start(Stage primaryStage) {
         //Stage and Scene Setup
-        primaryStage.setMaxHeight(HEIGHT);
-        primaryStage.setMaxWidth(WIDTH);
-        primaryStage.setMinHeight(HEIGHT);
-        primaryStage.setMinWidth(WIDTH);
-        primaryStage.setTitle("BREAKOUT");
         root = new StackPane();
         scene = new Scene(root, WIDTH, HEIGHT, Color.BLACK);
+        primaryStage.setTitle("BREAKOUT");
         primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
         primaryStage.setResizable(false);
         primaryStage.show();
 
@@ -71,9 +68,11 @@ import de.pfbeuth.game.breakout.controller.Controller;
         createSpriteManager();
         createStartGamePlayTimer();
 
-        System.out.println("scene height" + scene.getHeight());
+        System.out.println("scene width " + scene.getWidth());
+        System.out.println("scene height " + scene.getHeight());
 
     }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -138,7 +137,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     //creates UI buttons, event handler and layout the buttons
     private void createGUINodes(){
-        buttonContainerPadding = new Insets(0, 0, 12, 20);
+        buttonContainerPadding = new Insets(0, 0, 12, 0);
 
         masterButtonContainer = new VBox(12);
         masterButtonContainer.setAlignment(Pos.BOTTOM_LEFT);
@@ -165,25 +164,27 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
         //private String levelInfo, lifeInfo, ScoreInfo;
         levelInfo = new Text();
-        levelInfo.setFont(new Font(18));
+        levelInfo.setVisible(false);
+        levelInfo.setFont(new Font("arial", 18));
         levelInfo.setWrappingWidth(200);
         levelInfo.setFill(Color.WHITE);
-        levelInfo.setTextAlignment(TextAlignment.JUSTIFY);
+        levelInfo.setTextAlignment(TextAlignment.CENTER);
         levelInfo.setText("Level: " + LevelDesign.levelnumber);
 
         lifeInfo = new Text();
-        lifeInfo.setFont(new Font(18));
+        lifeInfo.setVisible(false);
+        lifeInfo.setFont(new Font("arial", 18));
         lifeInfo.setWrappingWidth(200);
         lifeInfo.setFill(Color.WHITE);
-        lifeInfo.setTextAlignment(TextAlignment.JUSTIFY);
-        //lifeInfo.textProperty().bind(Life.life);
-        lifeInfo.setText("Life: " + Life.getLife());
+        lifeInfo.setTextAlignment(TextAlignment.CENTER);
+        lifeInfo.setText("Lifes: " + Life.getLife());
 
         scoreInfo = new Text();
-        scoreInfo.setFont(new Font(18));
+        scoreInfo.setVisible(false);
+        scoreInfo.setFont(new Font("arial", 18));
         scoreInfo.setWrappingWidth(200);
         scoreInfo.setFill(Color.WHITE);
-        scoreInfo.setTextAlignment(TextAlignment.JUSTIFY);
+        scoreInfo.setTextAlignment(TextAlignment.CENTER);
         scoreInfo.setText("Score: " + ScoreCounter.score);
 
         gameOverInfo = new Text();
@@ -212,9 +213,13 @@ import de.pfbeuth.game.breakout.controller.Controller;
         startButton.setText("START");
         startButton.setVisible(false);
         startButton.setDisable(true);
-        startButton.setOnAction(e ->
-            gameIsOnEvents()
-        );
+        startButton.setOnAction(e -> {
+            gameIsOnEvents();
+            if (startButton.getText().equals("PLAY AGAIN")) {
+                lifeInfo.setText("Lifes: " + Life.getLife());
+                startButton.setText("START");
+            }
+        });
         highscoreButton = new Button();
         highscoreButton.setText("HIGH SCORES");
         highscoreButton.setOnAction(e -> {
@@ -268,18 +273,16 @@ import de.pfbeuth.game.breakout.controller.Controller;
     }
 
     private void addNodesToStackPane(){
-        root.getChildren().add(playBackground);
         root.getChildren().add(infoContainer);
+        root.getChildren().add(playBackground);
         root.getChildren().add(backgroundLayer);
         root.getChildren().add(menueOverlay);
         root.getChildren().add(masterButtonContainer);
-
     }
 
     private void createStartGamePlayTimer(){
         gameTimer = new GamePlayTimer(this);
     }
-
 
     public void ballDied(){
         if(ball.getBallIsDead()){
@@ -297,12 +300,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
                 gameOver();
             }
         }
-    }
-
-    // TODO screen design makeover
-     public void gameOver(){
-         startButton.setText("PLAY AGAIN");
-         gameIsPausedEvents();
     }
 
      public void gameIsOnEvents() {
@@ -346,6 +343,26 @@ import de.pfbeuth.game.breakout.controller.Controller;
          creditsButton.setDisable(false);
 
          hideGameInfos();
+     }
+
+     // TODO screen design makeover
+     public void gameOver(){
+         gameTimer.stop();
+
+         Life.setLife(3);
+
+         startButton.setText("PLAY AGAIN");
+         startButton.setVisible(true);
+         startButton.setDisable(false);
+         startButton.setCancelButton(false);
+
+         spriteManager.resetCurrentObjects();
+         spriteManager.resetRemovedObjects();
+         spriteManager.resetCollideCheckList();
+         createBrickGrid();
+         createSpriteManager();
+
+
      }
 
      public void hideGameInfos(){
