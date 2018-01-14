@@ -175,7 +175,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
         lifeInfo.setWrappingWidth(200);
         lifeInfo.setFill(Color.WHITE);
         lifeInfo.setTextAlignment(TextAlignment.JUSTIFY);
-        //lifeInfo.textProperty().bind(Life.life);
         lifeInfo.setText("Life: " + Life.life);
 
         scoreInfo = new Text();

@@ -4,15 +4,9 @@ import java.awt.*;
 
 public class ScoreCounter {
 
-    public static int score = 0;
-    public static int newscore;
+    public static int score;
     public static int endscore;
 
-    /*public static int counter() {
-
-        score++;
-        return score;
-    }*/
 
     /** Increases the score by an amount according to the colour of the brick which has been hit. */
     public static int counter() {
@@ -38,11 +32,10 @@ public class ScoreCounter {
     }
 
     public static int stopcounting(){
-        endscore = score;
+        score = endscore;
         System.out.println("EndScore:" + endscore);
         return endscore;
     }
-
 
 }
 
