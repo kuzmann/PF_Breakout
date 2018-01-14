@@ -75,9 +75,9 @@ public class Ball extends AnimatedGameObject {
             }
         }
         if (collisionDetect){
-            if (!(object instanceof Paddle)) {
+            if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().addToRemovedObjects(object);
-                //breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
+                breakout.getRoot().getChildren().remove(object.getSpriteImage()); //TODO Fix disappearance of ball and paddle objects
                 breakout.getSpriteManager().resetRemovedObjects();
             }
             return true;
