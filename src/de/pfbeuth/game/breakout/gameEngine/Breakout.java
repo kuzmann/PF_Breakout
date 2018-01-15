@@ -23,27 +23,19 @@ import de.pfbeuth.game.breakout.controller.Controller;
     static final double WIDTH = 540, HEIGHT = 675;
 
     private StackPane root;
-    public Scene scene;
-
-    private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer;
-    private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
-    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo;
-    private Insets buttonContainerPadding;
+     Scene scene;
     public Controller controller;
     //Game Objects
-    public GamePlayTimer gameTimer;
+    private GamePlayTimer gameTimer;
     private SpriteManager spriteManager;
     private Paddle paddle;
     private Brick brick;
     private Ball ball;
     private ArrayList<Brick> brickGrid;
     //Images
-    private Image backgroundImage, helpImage, creditsImage, highscoreImage;
-    private Image paddleImage, playBackgroundImage;
-    private ImageView backgroundLayer, menueOverlay, playBackground;
-    private VBox masterButtonContainer;
-    public Image brickImage, brickImageRed, brickImageOrange, brickImageYellow, brickImageGreen;
-    private Image ballImage;
+    private Image paddleImage, brickImage, brickImageRed, brickImageOrange, brickImageYellow, brickImageGreen, ballImage;
+    private GUI guiNodes;
+    private GameOver gameOver;
 
 
     @Override
@@ -58,12 +50,15 @@ import de.pfbeuth.game.breakout.controller.Controller;
         primaryStage.show();
 
         //createSceneEventHandling();
+        gameOver = new GameOver(this);
+        guiNodes = new GUI(this);
         controller = new Controller(this);
         controller.createSceneEventHandling();
         loadImageAssets();
+        guiNodes.loadImageAssets();
         createGameObjects();
         addGameObjectsNodes();
-        createGUINodes();
+        guiNodes.createGUINodes();
         addNodesToStackPane();
         createSpriteManager();
         createStartGamePlayTimer();
@@ -78,18 +73,12 @@ import de.pfbeuth.game.breakout.controller.Controller;
     }
 
     private void loadImageAssets(){
-        backgroundImage = new Image("/background.png", WIDTH, HEIGHT, false, false, true);
-        helpImage = new Image("/help.png", WIDTH, HEIGHT, true, false, true);
-        creditsImage = new Image("/credits.png", WIDTH, HEIGHT, true, false, true);
-        highscoreImage = new Image("/highscore.png", WIDTH, HEIGHT, true, false, true);
         paddleImage = new Image("/paddle.png", 100, 25, true, false, true);
         brickImageRed = new Image("/brick_red.png", WIDTH/10-5, 25, true, false, true);
         brickImageOrange = new Image("/brick_orange.png", WIDTH/10-5, 25, true, false, true);
         brickImageYellow = new Image("/brick_yellow.png", WIDTH/10-5, 25, true, false, true);
         brickImageGreen = new Image("/brick_green.png", WIDTH/10-5, 25, true, false, true);
         ballImage = new Image("/ball.png", 200/12, 200/12, true, false, true);
-        playBackgroundImage = new Image("/background_play.png", WIDTH, HEIGHT, false, false, true);
-
     }
 
     private void createGameObjects(){
@@ -102,7 +91,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     //creates bricks which must be destroyed in the game
      // TODO:muss das Leveldesign nicht in die Gamelogic???
-    private void createBrickGrid(){
+     void createBrickGrid(){
         brickGrid = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 8; j++) {
@@ -115,18 +104,19 @@ import de.pfbeuth.game.breakout.controller.Controller;
                brick.spriteImage.setTranslateY(-HEIGHT/2+j*(brickImage.getRequestedHeight()+2.5)+(brickImage.getRequestedHeight()/2+ 50));
                root.getChildren().add(brick.spriteImage);
                brickGrid.add(brick);
-                System.out.println("brick hoehe " + brickImage.getRequestedHeight() + "brick breite " + brickImage.getRequestedWidth());
+               //TODO delete print statement
+               System.out.println("brick hoehe " + brickImage.getRequestedHeight() + "brick breite " + brickImage.getRequestedWidth());
              }
         }
     }
 
-    private void addGameObjectsNodes(){
+    void addGameObjectsNodes(){
         createBrickGrid();
         root.getChildren().add(paddle.spriteImage);
         root.getChildren().add(ball.spriteImage);
     }
 
-    private void createSpriteManager(){
+    void createSpriteManager(){
         spriteManager = new SpriteManager();
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
@@ -136,267 +126,61 @@ import de.pfbeuth.game.breakout.controller.Controller;
             }
     }
 
-    //creates UI buttons, event handler and layout the buttons
-    private void createGUINodes(){
-        buttonContainerPadding = new Insets(0, 0, 12, 0);
-
-        masterButtonContainer = new VBox(12);
-        masterButtonContainer.setAlignment(Pos.BOTTOM_LEFT);
-
-        buttonContainer = new HBox(12);
-        buttonContainer.setAlignment(Pos.BOTTOM_CENTER);
-        buttonContainer.setPadding(buttonContainerPadding);
-
-        startButtonContainer = new HBox(12);
-        startButtonContainer.setPrefHeight(HEIGHT/2);
-        startButtonContainer.setAlignment(Pos.TOP_CENTER);
-        startButtonContainer.setPadding(buttonContainerPadding);
-
-        //Container for Gameinformation: Level, Life and Score
-        infoContainer = new HBox(12);
-        infoContainer.setPrefHeight(HEIGHT/22);
-        infoContainer.setAlignment(Pos.BOTTOM_CENTER);
-        infoContainer.setPadding(buttonContainerPadding);
-
-        gameOverContainer = new HBox(12);
-        gameOverContainer.setPrefHeight(HEIGHT/22);
-        gameOverContainer.setAlignment(Pos.TOP_CENTER);
-        gameOverContainer.setPadding(buttonContainerPadding);
-
-        //private String levelInfo, lifeInfo, ScoreInfo;
-        levelInfo = new Text();
-        levelInfo.setVisible(false);
-        levelInfo.setFont(new Font("arial", 18));
-        levelInfo.setWrappingWidth(200);
-        levelInfo.setFill(Color.WHITE);
-        levelInfo.setTextAlignment(TextAlignment.CENTER);
-        levelInfo.setText("Level: " + LevelDesign.levelnumber);
-
-        lifeInfo = new Text();
-        lifeInfo.setVisible(false);
-        lifeInfo.setFont(new Font("arial", 18));
-        lifeInfo.setWrappingWidth(200);
-        lifeInfo.setFill(Color.WHITE);
-        lifeInfo.setTextAlignment(TextAlignment.CENTER);
-        lifeInfo.setText("Lifes: " + Life.getLife());
-
-        scoreInfo = new Text();
-        scoreInfo.setVisible(false);
-        scoreInfo.setFont(new Font("arial", 18));
-        scoreInfo.setWrappingWidth(200);
-        scoreInfo.setFill(Color.WHITE);
-        scoreInfo.setTextAlignment(TextAlignment.CENTER);
-        scoreInfo.setText("Score: " + ScoreCounter.score);
-
-        gameOverInfo = new Text();
-        gameOverInfo.setFont(new Font(30));
-        gameOverInfo.setWrappingWidth(200);
-        gameOverInfo.setFill(Color.RED);
-        gameOverInfo.setTextAlignment(TextAlignment.JUSTIFY);
-        gameOverInfo.setText("GAME OVER");
-
-
-        playButton = new Button();
-        playButton.setPrefWidth(100);
-        playButton.setText("PLAY");
-        playButton.setOnAction(e -> {
-            startButton.setVisible(true);
-            startButton.setDisable(false);
-            backgroundLayer.setVisible(false);
-            menueOverlay.setVisible(false);
-            playBackground.setVisible(true);
-            playBackground.toBack();
-
-            hideGameInfos();
-        });
-        startButton = new Button();
-        startButton.setPrefSize(100, 100);
-        startButton.setText("START");
-        startButton.setVisible(false);
-        startButton.setDisable(true);
-        startButton.setOnAction(e -> {
-            gameIsOnEvents();
-            if (startButton.getText().equals("PLAY AGAIN")) {
-                lifeInfo.setText("Lifes: " + Life.getLife());
-                startButton.setText("START");
-            }
-        });
-        highscoreButton = new Button();
-        highscoreButton.setText("HIGH SCORES");
-        highscoreButton.setOnAction(e -> {
-            backgroundLayer.setVisible(true);
-            menueOverlay.setVisible(true);
-            menueOverlay.setImage(highscoreImage);
-            startButton.setVisible(false);
-            startButton.setDisable(true);
-
-            hideGameInfos();
-        });
-        helpButton = new Button();
-        helpButton.setText("INSTRUCTIONS");
-        helpButton.setOnAction(e -> {
-            backgroundLayer.setVisible(true);
-            menueOverlay.setVisible(true);
-            menueOverlay.setImage(helpImage);
-            startButton.setVisible(false);
-            startButton.setDisable(true);
-
-            hideGameInfos();
-        });
-        creditsButton = new Button();
-        creditsButton.setText("CREDITS");
-        creditsButton.setOnAction(e -> {
-            backgroundLayer.setVisible(true);
-            menueOverlay.setVisible(true);
-            menueOverlay.setImage(creditsImage);
-            startButton.setVisible(false);
-            startButton.setDisable(true);
-
-            hideGameInfos();
-        });
-
-        infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
-        buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton);
-        startButtonContainer.getChildren().add(startButton);
-        masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
-
-        backgroundLayer = new ImageView();
-        backgroundLayer.setImage(backgroundImage);
-
-        menueOverlay = new ImageView();
-        menueOverlay.setImage(highscoreImage);
-
-        playBackground = new ImageView();
-        playBackground.setImage(playBackgroundImage);
-        playBackground.setVisible(false);
-
-
-    }
-
-    private void addNodesToStackPane(){
-        root.getChildren().add(infoContainer);
-        root.getChildren().add(playBackground);
-        root.getChildren().add(backgroundLayer);
-        root.getChildren().add(menueOverlay);
-        root.getChildren().add(masterButtonContainer);
+    void addNodesToStackPane(){
+        root.getChildren().add(guiNodes.getInfoContainer());
+        root.getChildren().add(guiNodes.getPlayBackground());
+        root.getChildren().add(guiNodes.getBackgroundLayer());
+        root.getChildren().add(guiNodes.getMenueOverlay());
+        root.getChildren().add(guiNodes.getMasterButtonContainer());
     }
 
     private void createStartGamePlayTimer(){
         gameTimer = new GamePlayTimer(this);
     }
 
-    public void ballDied(){
-        if(ball.getBallIsDead()){
-            gameTimer.stop();
-            gameOverInfo.setVisible(true);
-            paddle.resetState();
-            ball.resetState();
-            startButton.setVisible(true);
-            startButton.setDisable(false);
-            startButton.setCancelButton(false);
-            infoContainer.setVisible(true);
-            Life.loseLife();
-            lifeInfo.setText("Life: " + Life.getLife());
-            if(Life.getIsGameOver()) {
-                gameOver();
-            }
-        }
+    public GUI getGuiNodes() {
+        return guiNodes;
     }
 
-     public void gameIsOnEvents() {
-         gameTimer.start();
-         startButton.setVisible(false);
-         startButton.setDisable(true);
-         startButton.setCancelButton(true);
-
-         playButton.setVisible(false);
-         playButton.setDisable(true);
-
-         highscoreButton.setVisible(false);
-         highscoreButton.setDisable(true);
-
-         helpButton.setVisible(false);
-         helpButton.setDisable(true);
-
-         creditsButton.setVisible(false);
-         creditsButton.setDisable(true);
-
-         showGameInfos();
-     }
-
-     public void gameIsPausedEvents(){
-         gameTimer.stop();
-
-         startButton.setVisible(true);
-         startButton.setDisable(false);
-         startButton.setCancelButton(false);
-
-         playButton.setVisible(true);
-         playButton.setDisable(false);
-
-         highscoreButton.setVisible(true);
-         highscoreButton.setDisable(false);
-
-         helpButton.setVisible(true);
-         helpButton.setDisable(false);
-
-         creditsButton.setVisible(true);
-         creditsButton.setDisable(false);
-
-         hideGameInfos();
-     }
-
-     // TODO screen design makeover
-     public void gameOver(){
-         gameTimer.stop();
-
-         Life.setLife(3);
-
-         startButton.setText("PLAY AGAIN");
-         startButton.setVisible(true);
-         startButton.setDisable(false);
-         startButton.setCancelButton(false);
-
-         spriteManager.resetCurrentObjects();
-         spriteManager.resetRemovedObjects();
-         spriteManager.resetCollideCheckList();
-         createBrickGrid();
-         createSpriteManager();
-
-
-     }
-
-     public void hideGameInfos(){
-         levelInfo.setVisible(false);
-         lifeInfo.setVisible(false);
-         scoreInfo.setVisible(false);
-     }
-
-     public void showGameInfos(){
-         levelInfo.setVisible(true);
-         lifeInfo.setVisible(true);
-         scoreInfo.setVisible(true);
-     }
-
-    //GETTER and SETTER
-     StackPane getRoot() {
-     return root;
+    /** GETTER and SETTER */
+    public StackPane getRoot() {
+        return root;
     }
-     Paddle getPaddle() {
-    return paddle;
+    public Paddle getPaddle() {
+        return paddle;
     }
-     Image getPaddleImage() {
-    return paddleImage;
+    public Image getPaddleImage() {
+        return paddleImage;
     }
-     Image getBrickImage() {
+    public Image getBrickImage() {
          return brickImage;
     }
-     SpriteManager getSpriteManager() {
-     return spriteManager;
+    public Image getBrickImageGreen(){
+        return brickImageGreen;
     }
-     public Ball getBall() {
+    public Image getBrickImageRed() {
+        return brickImageRed;
+    }
+    public Image getBrickImageOrange() {
+        return brickImageOrange;
+    }
+    public Image getBrickImageYellow() {
+        return brickImageYellow;
+    }
+    public SpriteManager getSpriteManager() {
+        return spriteManager;
+    }
+    public GamePlayTimer getGameTimer(){
+        return gameTimer;
+    }
+    public Ball getBall() {
          return ball;
     }
-
+    public Scene getScene() {
+         return scene;
+     }
+    public GameOver getGameOver(){
+        return gameOver;
+    }
 
  }
