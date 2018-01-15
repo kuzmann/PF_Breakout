@@ -11,7 +11,7 @@ public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
     private Life life;
     private final double BALL_INIT_X_POS = 0;
-    private final double BALL_INIT_Y_POS = HEIGHT*0.38;
+    private final double BALL_INIT_Y_POS = HEIGHT/3;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/2;
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/2);
@@ -169,8 +169,8 @@ public class Ball extends AnimatedGameObject {
     void resetState(){
         up = true;
         right = true;
-        setVelocityX(8);
-        setVelocityY(8);
+        setVelocityX(5);
+        setVelocityY(5);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
