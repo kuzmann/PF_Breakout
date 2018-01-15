@@ -74,10 +74,10 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     private void loadImageAssets(){
         paddleImage = new Image("/paddle.png", 100, 25, true, false, true);
-        brickImageRed = new Image("/brick_red.png", WIDTH/10-5, 25, true, false, true);
-        brickImageOrange = new Image("/brick_orange.png", WIDTH/10-5, 25, true, false, true);
-        brickImageYellow = new Image("/brick_yellow.png", WIDTH/10-5, 25, true, false, true);
-        brickImageGreen = new Image("/brick_green.png", WIDTH/10-5, 25, true, false, true);
+        brickImageRed = new Image("/brick_red.png", WIDTH/10-2, 22, true, false, true);
+        brickImageOrange = new Image("/brick_orange.png", WIDTH/10-2, 22, true, false, true);
+        brickImageYellow = new Image("/brick_yellow.png", WIDTH/10-2, 22, true, false, true);
+        brickImageGreen = new Image("/brick_green.png", WIDTH/10-2, 22, true, false, true);
         ballImage = new Image("/ball.png", 200/12, 200/12, true, false, true);
     }
 
@@ -100,7 +100,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
                else if(j >= 4 && j < 6) brickImage = brickImageYellow;
                else brickImage = brickImageGreen;
                brick = new Brick(this, "M.5,3.91V28.66c0,3.75,1.37,4.62,4.62,4.62H84c2.25,0,3.44-.75,3.44-3.44s-.08-22.06,0-26.19C87.5.45,88.07.5,84.29.5H3.5C.25.5.5,3.91.5,3.91Z", 0, 0, brickImage);
-               brick.spriteImage.setTranslateX(-WIDTH/2+i*(brickImage.getRequestedWidth()+5)+(brickImage.getRequestedWidth()/2)+ 2);
+               brick.spriteImage.setTranslateX(-WIDTH/2+i*(brickImage.getRequestedWidth()+2)+(brickImage.getRequestedWidth()/2) + 1);
                brick.spriteImage.setTranslateY(-HEIGHT/2+j*(brickImage.getRequestedHeight()+2.5)+(brickImage.getRequestedHeight()/2+ 50));
                root.getChildren().add(brick.spriteImage);
                brickGrid.add(brick);
