@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SpriteManager {
+class SpriteManager {
     private final List<GameObject> CURRENT_OBJECTS;
     private final Set<GameObject> REMOVED_OBJECTS;
     private final List<GameObject> COLLIDE_CHECKLIST;
