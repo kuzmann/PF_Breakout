@@ -174,8 +174,8 @@ public class Ball extends AnimatedGameObject {
     void resetState(){
         up = true;
         right = true;
-        setVelocityX(12);
-        setVelocityY(12);
+        setVelocityX(6);
+        setVelocityY(6);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
