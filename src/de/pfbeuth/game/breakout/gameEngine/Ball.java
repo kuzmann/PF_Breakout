@@ -9,21 +9,22 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
+
+
     private Life life;
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
-    private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/2;
-    private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/2);
-    private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS/2);
-    private static final double BOTTOM_SCREEN_BOUNDARY = HEIGHT/2 + BALL_RADIUS;
+    private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/4;
+    private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/4);
+    private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS/4);
+    private static final double BOTTOM_SCREEN_BOUNDARY = HEIGHT/2 + BALL_RADIUS/4;
     boolean ballPaddleCollision;
     boolean up = true;
     boolean right = true;
     double lastX, lastY;
     boolean ballIsDead;
     public Brick destroyedBrick;
-
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -45,7 +46,7 @@ public class Ball extends AnimatedGameObject {
                 ((Brick) collisionObject).destroyBrick();
                 destroyedBrick = (Brick) collisionObject;
                 //TODO @Anna new method to compare brick colors
-                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.brickImageGreen)) {
+                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
                     ScoreCounter.counter();
                     System.out.println("green brick hit");
                 }
@@ -70,9 +71,10 @@ public class Ball extends AnimatedGameObject {
         }
         if (collisionDetect){
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
+                breakout.getSpriteManager().removeCurrentObjects(object);
                 breakout.getSpriteManager().addToRemovedObjects(object);
                 //breakout.getRoot().getChildren().remove(object.getSpriteImage());
-                breakout.getSpriteManager().resetRemovedObjects();
+                //breakout.getSpriteManager().resetRemovedObjects();
             }
             return true;
 
@@ -99,7 +101,7 @@ public class Ball extends AnimatedGameObject {
         }
 
         //TODO delete following lines in final stage
-      /*  if(breakout.controller.isLeft()) {
+     /*   if(breakout.controller.isLeft()) {
             positionX -= velocityX;
         }
         if(breakout.controller.isRight()) {
@@ -148,20 +150,23 @@ public class Ball extends AnimatedGameObject {
         }
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
-            breakout.ballDied();
+            breakout.getGameOver().ballDied();
             //TODO: eine Verbindung zu der Klasse LIFE schaffen
             //life.loseLife();
             //ScoreCounter.stopcounting();
 
         }
     }
+
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
     }
+
     public boolean getBallIsDead(){
         return ballIsDead;
     }
+
     private void ballPaddleCollision(){
         up = true;
     }
@@ -169,11 +174,15 @@ public class Ball extends AnimatedGameObject {
     void resetState(){
         up = true;
         right = true;
-        setVelocityX(5);
-        setVelocityY(5);
+        setVelocityX(12);
+        setVelocityY(12);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
+    }
+
+    public boolean isRight() {
+        return right;
     }
 }
