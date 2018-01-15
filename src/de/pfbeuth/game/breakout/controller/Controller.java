@@ -1,15 +1,16 @@
 package de.pfbeuth.game.breakout.controller;
 
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
-import javafx.scene.input.KeyCode;
+import de.pfbeuth.game.breakout.gameEngine.GUI;
+import de.pfbeuth.game.breakout.gamelogic.Life;
 
 public class Controller {
 
-    public boolean left;
-    public boolean right;
-    public boolean up;
-    public boolean down;
-    public Breakout breakout;
+    private boolean left;
+    private boolean right;
+    private boolean up;
+    private boolean down;
+    private Breakout breakout;
 
     public Controller (Breakout ibreakout){
         this.breakout = ibreakout;
@@ -17,7 +18,7 @@ public class Controller {
 
     //eventhandling for gameobjects
     public void createSceneEventHandling(){
-        breakout.scene.setOnKeyPressed(e -> {
+        breakout.getScene().setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case LEFT: left = true;
                     break;
@@ -38,7 +39,7 @@ public class Controller {
             }
         });
 
-        breakout.scene.setOnKeyReleased(e -> {
+        breakout.getScene().setOnKeyReleased(e -> {
             switch(e.getCode()) {
                 case LEFT: left = false;
                     break;
@@ -56,15 +57,20 @@ public class Controller {
                     break;
                 case NUMPAD6: right = false;
                     break;
-                case ESCAPE: breakout.gameIsPausedEvents();
+                case ESCAPE: breakout.getGuiNodes().pauseGameEvents();
                     break;
-                case ENTER: breakout.gameIsOnEvents();
+                case ENTER:
+                    {
+                        breakout.getGuiNodes().resumeGameEvents();
+                        breakout.getGuiNodes().getLifeInfo().setText("Lifes: " + Life.getLife());
+                        if(breakout.getGuiNodes().getStartButton().getText().equals(GUI.playAgainText)) {
+                            breakout.getGuiNodes().getStartButton().setText(GUI.startText);
+                        }
+                    }
                     break;
             }
         });
     }
-
-
 
     //Getter for key values
     public boolean isLeft() {
