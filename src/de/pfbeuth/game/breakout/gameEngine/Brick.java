@@ -23,6 +23,7 @@ class Brick extends GameObject {
         scaleToZero.setToX(0.0d);
         scaleToZero.setToY(0.0d);
         scaleToZero.play();
+
     }
 }
 
