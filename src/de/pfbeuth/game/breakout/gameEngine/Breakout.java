@@ -63,8 +63,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
         createSpriteManager();
         createStartGamePlayTimer();
 
-        System.out.println("scene width " + scene.getWidth());
-        System.out.println("scene height " + scene.getHeight());
+        //System.out.println("scene width " + scene.getWidth());
+        //System.out.println("scene height " + scene.getHeight());
 
     }
 
@@ -93,8 +93,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
      // TODO:muss das Leveldesign nicht in die Gamelogic???
      void createBrickGrid(){
         brickGrid = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 3; j++) {
                if(j <= 1) brickImage = brickImageRed;
                else if(j >= 2 &&  j < 4) brickImage = brickImageOrange;
                else if(j >= 4 && j < 6) brickImage = brickImageYellow;
@@ -104,8 +104,9 @@ import de.pfbeuth.game.breakout.controller.Controller;
                brick.spriteImage.setTranslateY(-HEIGHT/2+j*(brickImage.getRequestedHeight()+2.5)+(brickImage.getRequestedHeight()/2+ 50));
                root.getChildren().add(brick.spriteImage);
                brickGrid.add(brick);
+
                //TODO delete print statement
-               System.out.println("brick hoehe " + brickImage.getRequestedHeight() + "brick breite " + brickImage.getRequestedWidth());
+               //System.out.println("brick hoehe " + brickImage.getRequestedHeight() + "brick breite " + brickImage.getRequestedWidth());
              }
         }
     }

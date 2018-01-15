@@ -1,4 +1,5 @@
 package de.pfbeuth.game.breakout.gameEngine;
+import de.pfbeuth.game.breakout.gamelogic.Level;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.scene.image.Image;
@@ -10,8 +11,6 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
 
-
-    private Life life;
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
@@ -25,6 +24,7 @@ public class Ball extends AnimatedGameObject {
     double lastX, lastY;
     boolean ballIsDead;
     public Brick destroyedBrick;
+    boolean wonLevel;
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -44,6 +44,7 @@ public class Ball extends AnimatedGameObject {
             collision(collisionObject);
             if (collision(collisionObject) && collisionObject instanceof Brick){
                 ((Brick) collisionObject).destroyBrick();
+
                 destroyedBrick = (Brick) collisionObject;
                 //TODO @Anna new method to compare brick colors
                 if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
@@ -51,11 +52,38 @@ public class Ball extends AnimatedGameObject {
                     System.out.println("green brick hit");
                 }
                 brickCollision();
+                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.getBrickImageRed())) {
+                    ScoreCounter.counter();
+                    System.out.println("red brick hit");
+                }
+                brickCollision();
+                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.getBrickImageOrange())) {
+                    ScoreCounter.counter();
+                    System.out.println("orange brick hit");
+                }
+                brickCollision();
+                checkLevelEnd();
+
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
                 ballPaddleCollision();
             }
         }
+    }
+
+    private void checkLevelEnd(){
+        //TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
+        int i = 2;
+        if (i == breakout.getSpriteManager().getCurrentObjects().size()) {
+        //if(breakout.getSpriteManager().getCurrentObjects().isEmpty()) {
+            Level.riseLevel();
+            wonLevel = true;
+        }
+        else { wonLevel = false; }
+    }
+
+    public boolean getLevelWon(){
+        return wonLevel;
     }
 
     @Override
@@ -85,6 +113,7 @@ public class Ball extends AnimatedGameObject {
     public Brick getDestroyedBrick(){
         return destroyedBrick;
     }
+
 
     //set XY coordinates when arrow keys are used for gameobject control
     private void setXYPosition(){
@@ -151,10 +180,6 @@ public class Ball extends AnimatedGameObject {
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
             breakout.getGameOver().ballDied();
-            //TODO: eine Verbindung zu der Klasse LIFE schaffen
-            //life.loseLife();
-            //ScoreCounter.stopcounting();
-
         }
     }
 
@@ -174,8 +199,9 @@ public class Ball extends AnimatedGameObject {
     void resetState(){
         up = true;
         right = true;
-        setVelocityX(12);
-        setVelocityY(12);
+        //TODO: Magaic Number -> Muss eine Variable sein, die man erhöhen kann (Geschwindigkeit erhöht sich pro Level)
+        setVelocityX(3);
+        setVelocityY(3);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
