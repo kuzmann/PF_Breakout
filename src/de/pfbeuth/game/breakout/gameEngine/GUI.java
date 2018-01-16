@@ -9,9 +9,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -41,6 +41,7 @@ public class GUI {
 
     void createGUINodes(){
         buttonContainerPadding = new Insets(0, 0, 12, 0);
+
 
         masterButtonContainer = new VBox(12);
         masterButtonContainer.setAlignment(Pos.BOTTOM_LEFT);
