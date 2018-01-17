@@ -1,12 +1,17 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
+import de.pfbeuth.game.breakout.dataHandeling.*;
 import de.pfbeuth.game.breakout.gamelogic.Level;
 import de.pfbeuth.game.breakout.gamelogic.LevelDesign;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -23,7 +28,7 @@ public class GUI {
 
     private VBox masterButtonContainer;
 
-    private Button playButton, helpButton, highscoreButton, creditsButton, startButton;
+    private Button playButton, helpButton, highscoreButton, creditsButton, startButton, confirmButton;
     private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo;
     private Insets buttonContainerPadding;
     private ImageView backgroundLayer;
@@ -34,6 +39,14 @@ public class GUI {
     public static String startText = "START\n(hit enter)";
     public static String playAgainText = "PLAY AGAIN\n(hit enter)";
     public static String pauseGameText = "PAUSED\n(hit enter)";
+
+    /**NEUE HighscoreContrainer*/
+    private GridPane HighscoreContainer;
+    private Insets HighscoreContainerPadding;
+    //dataHandeling
+    private CreatePlayer Player;
+    private String playerName;
+    private TextField userNameInput;
 
     GUI(Breakout breakout){
         this.breakout = breakout ;
@@ -65,6 +78,57 @@ public class GUI {
         gameOverContainer.setPrefHeight(Breakout.HEIGHT/22);
         gameOverContainer.setAlignment(Pos.TOP_CENTER);
         gameOverContainer.setPadding(buttonContainerPadding);
+
+        //**Container for Enter the user name*/
+        HighscoreContainer = new GridPane();
+        HighscoreContainer.setAlignment(Pos.CENTER);
+        int padding = 60; int Vgap = 8; int Hgap = 10;
+        HighscoreContainer.setPadding(new Insets(padding,padding,padding,padding));
+        HighscoreContainer.setVgap(Vgap);
+        HighscoreContainer.setHgap(Hgap);
+
+        //**Label, input and Button for enter the user name*/
+        Label nameLabel = new Label("Payer name:");
+        nameLabel.setTextFill(Color.WHITE);
+        HighscoreContainer.setConstraints(nameLabel,0,0);
+        //TextField nameInput = new TextField("Player");
+        TextField nameInput = new TextField ();
+        nameInput.setPromptText("Choose player name");
+        HighscoreContainer.setConstraints(nameInput,1,0);
+
+        confirmButton = new Button();
+        confirmButton.setText("Confirm");
+        /*confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
+                    nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
+                } else {
+                    nameLabel.setText("You have not left a player name.");
+                }
+
+            }
+        });*/
+        confirmButton.setOnAction(e -> {
+            playerName = nameInput.getText();
+            System.out.println("Player name is: " + playerName);
+            //HighscoreContainer.setVisible(false);
+            Player = new CreatePlayer(playerName);
+            UpdateXMLTable updater = new UpdateXMLTable();
+            updater.add(Player);
+
+            LoadXMLTable loader = new LoadXMLTable();
+            loader.loadTable();
+            loader.displayHighscore();
+
+            Scoreboard scoreboard = new Scoreboard();
+            //scoreboard.display();
+            //menueOverlay.setVisible(false);
+        });
+        HighscoreContainer.setConstraints(confirmButton,1,1);
+
+
+
 
         /** levelInfo, lifeInfo, ScoreInfo Setup */
         levelInfo = new Text();
@@ -163,7 +227,9 @@ public class GUI {
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton);
         startButtonContainer.getChildren().add(startButton);
+        HighscoreContainer.getChildren().addAll(nameLabel,nameInput,confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
+
 
         backgroundLayer = new ImageView();
         backgroundLayer.setImage(backgroundImage);
@@ -205,7 +271,7 @@ public class GUI {
         creditsButton.setVisible(false);
         creditsButton.setDisable(true);
 
-        //TODO: Ausgabe des Levels aktuell halten. Nocg wird immer hur »1« agezeigt
+        //TODO: Ausgabe des Levels aktuell halten. Wird erst wieder angezeigt, wenn
         if(breakout.getBall().getLevelWon()) {
             getLevelInfo().setText("Level neu: " + Level.getLevel());
         }
@@ -240,6 +306,8 @@ public class GUI {
 
         gameIsPaused = true;
     }
+
+
 
     void showGameInfos(){
         levelInfo.setVisible(true);
@@ -280,6 +348,10 @@ public class GUI {
 
     public HBox getInfoContainer() {
         return infoContainer;
+    }
+
+    public GridPane getHighscoreContainer() {
+        return HighscoreContainer;
     }
 
     public VBox getMasterButtonContainer() {
