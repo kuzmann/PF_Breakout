@@ -10,9 +10,7 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
-
-
-    private Life life;
+    
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
@@ -80,11 +78,11 @@ public class Ball extends AnimatedGameObject {
 
     private void checkLevelEnd(){
         //TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
+        //if(breakout.getSpriteManager().getCurrentObjects().isEmpty()) {
         int i = 2;
         if (i == breakout.getSpriteManager().getCurrentObjects().size()) {
-        //if(breakout.getSpriteManager().getCurrentObjects().isEmpty()) {
-            Level.riseLevel();
             wonLevel = true;
+            breakout.getGameOver().endLevel();
         }
         else { wonLevel = false; }
     }
@@ -187,7 +185,7 @@ public class Ball extends AnimatedGameObject {
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
             breakout.getGameOver().ballDied();
-            //TODO: eine Verbindung zu der Klasse LIFE schaffen
+            //TODO: eine Verbindung zu der Klasse LIFE schaffen -> Wahrscheinlich brauchen wir es nicht mebr zu tun. Leben wird bei der Klasse GameOver abgezogen
             //life.loseLife();
             //ScoreCounter.stopcounting();
 

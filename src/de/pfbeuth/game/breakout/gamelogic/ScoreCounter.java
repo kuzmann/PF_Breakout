@@ -20,7 +20,7 @@ public class ScoreCounter {
 
     public static int countyellow() {
         score +=10;
-        System.out.println("Scoren nach Geld:" + score);
+        System.out.println("Scoren nach Gelb:" + score);
 
         return score;
     }

@@ -9,7 +9,6 @@ public class Level {
 
     public static void riseLevel(){
         level++;
-        System.out.println("Level gewonnen! Nächstes Level ist: " + level);
     }
 
 

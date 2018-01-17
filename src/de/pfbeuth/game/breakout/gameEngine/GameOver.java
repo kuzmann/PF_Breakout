@@ -1,5 +1,6 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
+import de.pfbeuth.game.breakout.gamelogic.Level;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 
 class GameOver {
@@ -22,12 +23,29 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
             Life.loseLife();
-            breakout.getGuiNodes().getLifeInfo().setText("Lifes nach dem Tod: " + Life.getLife());
+            breakout.getGuiNodes().getLifeInfo().setText("Lifes: " + Life.getLife());
             if(Life.getIsGameOver()) {
                 gameOver();
             }
         }
     }
+    /** View, if player win a level*/
+    void endLevel(){
+        if(breakout.getBall().getLevelWon()){
+            breakout.getGameTimer().stop();
+            breakout.getGuiNodes().getGameOverInfo().setVisible(true);
+            breakout.getPaddle().resetState();
+            breakout.getBall().resetState();
+            breakout.getGuiNodes().getStartButton().setVisible(true);
+            breakout.getGuiNodes().getStartButton().setDisable(false);
+            breakout.getGuiNodes().getStartButton().setCancelButton(false);
+            breakout.getGuiNodes().getStartButton().setVisible(true);
+            Level.riseLevel();
+            breakout.getGuiNodes().getLevelInfo().setText("Level: " + Level.getLevel());
+        }
+    }
+
+
 
     // TODO screen design makeover
     /** View, if player loose whole lifes*/

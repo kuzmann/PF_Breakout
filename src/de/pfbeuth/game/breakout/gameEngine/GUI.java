@@ -330,9 +330,8 @@ public class GUI {
 
         //TODO: Ausgabe des Levels aktuell halten. Wird erst wieder angezeigt, wenn
         if(breakout.getBall().getLevelWon()) {
-            getLevelInfo().setText("Level neu: " + Level.getLevel());
+            getLevelInfo().setText("Level: " + Level.getLevel());
         }
-
         showGameInfos();
 
         gameIsPaused = false;
