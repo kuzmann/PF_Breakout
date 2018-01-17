@@ -63,8 +63,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
         createSpriteManager();
         createStartGamePlayTimer();
 
-        //System.out.println("scene width " + scene.getWidth());
-        //System.out.println("scene height " + scene.getHeight());
+        System.out.println("scene width " + scene.getWidth());
+        System.out.println("scene height " + scene.getHeight());
 
     }
 
@@ -106,7 +106,7 @@ import de.pfbeuth.game.breakout.controller.Controller;
                brickGrid.add(brick);
 
                //TODO delete print statement
-               //System.out.println("brick hoehe " + brickImage.getRequestedHeight() + "brick breite " + brickImage.getRequestedWidth());
+               System.out.println("brick hoehe " + brickImage.getRequestedHeight() + "brick breite " + brickImage.getRequestedWidth());
              }
         }
     }
@@ -133,7 +133,6 @@ import de.pfbeuth.game.breakout.controller.Controller;
         root.getChildren().add(guiNodes.getBackgroundLayer());
         root.getChildren().add(guiNodes.getMenueOverlay());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
-
     }
 
     private void createStartGamePlayTimer(){

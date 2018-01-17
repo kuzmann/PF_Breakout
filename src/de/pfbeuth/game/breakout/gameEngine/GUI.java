@@ -333,11 +333,6 @@ public class GUI {
         return lifeInfo;
     }
 
-    //Brauchen wir das?
-    public Text getLevelInfo() {
-        return levelInfo;
-    }
-
     public ImageView getBackgroundLayer() {
         return backgroundLayer;
     }

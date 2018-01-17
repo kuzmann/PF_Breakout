@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class LevelDesign {
 
+    private Scanner file = null;
+
+    public static int levelnumber = 1;
 
 
         /*public Level (String level) {
