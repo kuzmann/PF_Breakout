@@ -2,11 +2,8 @@ package de.pfbeuth.game.breakout.gameEngine;
 
 import de.pfbeuth.game.breakout.dataHandeling.*;
 import de.pfbeuth.game.breakout.gamelogic.Level;
-import de.pfbeuth.game.breakout.gamelogic.LevelDesign;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -166,7 +162,7 @@ public class GUI {
         lifeInfo.setWrappingWidth(200);
         lifeInfo.setFill(Color.WHITE);
         lifeInfo.setTextAlignment(TextAlignment.CENTER);
-        lifeInfo.setText("Lifes: " + Life.getLife());
+        lifeInfo.setText("Lives: " + Life.getLife());
 
         scoreInfo = new Text();
         scoreInfo.setVisible(false);
@@ -229,7 +225,7 @@ public class GUI {
         startButton.setDisable(true);
         startButton.setOnAction(e -> {
 
-            resumeGameEvents();
+            runGameEvents();
             if (startButton.getText().equals(playAgainText)) {
                 lifeInfo.setText("Lifes: " + Life.getLife());
                 startButton.setText(startText);
@@ -311,17 +307,17 @@ public class GUI {
 
     }
     /** View: Start new Game*/
-    public void resumeGameEvents() {
+    public void runGameEvents() {
 
 
-         //TODO countdown before game starts
-        /* for (int i = 3; i > 0; i--) {
+        /* //TODO countdown before game starts
+         for (int i = 3; i > 0; i--) {
             startButton.setText("" + i);
             System.out.println("" + startButton.getText());
-           *//* try {
+            try {
                 Thread.sleep(500);
             }
-            catch(InterruptedException e1) {}*//*
+            catch(InterruptedException e1) {}
         }*/
 
         breakout.getGameTimer().start();

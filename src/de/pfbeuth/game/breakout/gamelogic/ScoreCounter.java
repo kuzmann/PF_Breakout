@@ -11,6 +11,7 @@ public class ScoreCounter {
 
 
     /** Increases the score by an amount according to the colour of the brick which has been hit. */
+    //TODO refactor to Switch statement or ENUMs
     public static int countgreen() {
         score +=5;
         System.out.println("Score nach Grün:" + score);
