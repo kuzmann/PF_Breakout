@@ -40,36 +40,43 @@ public class Ball extends AnimatedGameObject {
     }
     private void checkCollision(){
         for (int i = 0; i < breakout.getSpriteManager().getCurrentObjects().size(); i++) {
+
             GameObject collisionObject = breakout.getSpriteManager().getCurrentObjects().get(i);
             collision(collisionObject);
+
             if (collision(collisionObject) && collisionObject instanceof Brick){
                 ((Brick) collisionObject).destroyBrick();
 
                 destroyedBrick = (Brick) collisionObject;
-                //TODO @Anna new method to compare brick colors
-                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
-                    ScoreCounter.counter();
-                    System.out.println("green brick hit");
-                }
-                brickCollision();
-                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.getBrickImageRed())) {
-                    ScoreCounter.counter();
-                    System.out.println("red brick hit");
-                }
-                brickCollision();
-                if (((Brick)collisionObject).spriteImage.getImage().equals(breakout.getBrickImageOrange())) {
-                    ScoreCounter.counter();
-                    System.out.println("orange brick hit");
-                }
+                checkBrickColorHit();
                 brickCollision();
                 checkLevelEnd();
-
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
                 ballPaddleCollision();
             }
         }
     }
+    
+    private void checkBrickColorHit() {
+                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
+                    ScoreCounter.countgreen();
+                    //System.out.println("green brick hit");
+                }
+                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageRed())) {
+                    ScoreCounter.countred();
+                    //System.out.println("red brick hit");
+                }
+                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageOrange())) {
+                    ScoreCounter.countorange();
+                    //System.out.println("orange brick hit");
+                }
+                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageYellow())) {
+                    ScoreCounter.countyellow();
+                    //System.out.println("yellow brick hit");
+                }
+    }
+
 
     private void checkLevelEnd(){
         //TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
