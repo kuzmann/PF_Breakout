@@ -28,7 +28,6 @@ class SpriteManager {
     public void  resetCurrentObjects (){
         CURRENT_OBJECTS.clear();
     }
-
     public Set getRemovedObjects() {
         return REMOVED_OBJECTS;
     }

@@ -1,6 +1,5 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
-import de.pfbeuth.game.breakout.gamelogic.Level;
 import de.pfbeuth.game.breakout.gamelogic.LevelDesign;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
@@ -55,7 +54,7 @@ public class GUI {
         startButtonContainer.setAlignment(Pos.TOP_CENTER);
         startButtonContainer.setPadding(buttonContainerPadding);
 
-        //**Container for Gameinformation: Level, Life and Score
+        //Container for Gameinformation: Level, Life and Score
         infoContainer = new HBox(12);
         infoContainer.setPrefHeight(Breakout.HEIGHT/22);
         infoContainer.setAlignment(Pos.BOTTOM_CENTER);
@@ -73,7 +72,7 @@ public class GUI {
         levelInfo.setWrappingWidth(200);
         levelInfo.setFill(Color.WHITE);
         levelInfo.setTextAlignment(TextAlignment.CENTER);
-        levelInfo.setText("Level: " + Level.getLevel());
+        levelInfo.setText("Level: " + LevelDesign.levelnumber);
 
         lifeInfo = new Text();
         lifeInfo.setVisible(false);
@@ -113,6 +112,7 @@ public class GUI {
             hideGameInfos();
         });
         startButton = new Button();
+
         startButton.setPrefSize(100, 100);
         startButton.setText("START");
         startButton.setTextAlignment(TextAlignment.CENTER);
@@ -205,11 +205,6 @@ public class GUI {
         creditsButton.setVisible(false);
         creditsButton.setDisable(true);
 
-        //TODO: Ausgabe des Levels aktuell halten. Nocg wird immer hur »1« agezeigt
-        if(breakout.getBall().getLevelWon()) {
-            getLevelInfo().setText("Level neu: " + Level.getLevel());
-        }
-
         showGameInfos();
 
         gameIsPaused = false;
@@ -263,11 +258,6 @@ public class GUI {
 
     public Text getLifeInfo() {
         return lifeInfo;
-    }
-
-    //Brauchen wir das?
-    public Text getLevelInfo() {
-        return levelInfo;
     }
 
     public ImageView getBackgroundLayer() {
