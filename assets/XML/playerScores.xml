@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlayerScores>
+  <Player>
+    <username>erster User</username>
+    <score>0</score>
+  </Player>
+  <Player>
+    <username>test1</username>
+    <score>0</score>
+  </Player>
+  <Player>
+    <username>test</username>
+    <score>0</score>
+  </Player>
+  <Player>
+    <username />
+    <score>0</score>
+  </Player>
+</PlayerScores>
