@@ -93,8 +93,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
      // TODO:muss das Leveldesign nicht in die Gamelogic???
      void createBrickGrid(){
         brickGrid = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 8; j++) {
                if(j <= 1) brickImage = brickImageRed;
                else if(j >= 2 &&  j < 4) brickImage = brickImageOrange;
                else if(j >= 4 && j < 6) brickImage = brickImageYellow;
