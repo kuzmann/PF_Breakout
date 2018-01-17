@@ -213,11 +213,10 @@ public class LoadXMLTable {
                 }
             }
         }
-
-        printOnConsole();
+        createHighscoreList();
     }
 
-    private void printOnConsole() {
+    private void createHighscoreList() {
         for (int i=0; i < HighscoreList.size() && i < 10; i++){
             HighscoreList.get(i);
             System.out.println((i+1)+". "+ HighscoreList.get(i).getPlayerName() + " ........ " + HighscoreList.get(i).getPlayerScore());

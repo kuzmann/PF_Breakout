@@ -2,7 +2,7 @@ package de.pfbeuth.game.breakout.gamelogic;
 
 public class Life {
 
-    private static int life = 3;
+    private static int life = 2;
     private static boolean gameOver;
 
     public static void loseLife(){

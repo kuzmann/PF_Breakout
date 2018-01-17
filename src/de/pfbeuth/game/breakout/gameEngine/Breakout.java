@@ -63,8 +63,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
         createSpriteManager();
         createStartGamePlayTimer();
 
-        System.out.println("scene width " + scene.getWidth());
-        System.out.println("scene height " + scene.getHeight());
+        //System.out.println("scene width " + scene.getWidth());
+        //System.out.println("scene height " + scene.getHeight());
 
     }
 
@@ -131,8 +131,12 @@ import de.pfbeuth.game.breakout.controller.Controller;
         root.getChildren().add(guiNodes.getInfoContainer());
         root.getChildren().add(guiNodes.getPlayBackground());
         root.getChildren().add(guiNodes.getBackgroundLayer());
+        root.getChildren().add(guiNodes.getHighscoreContainer());
+        root.getChildren().add(guiNodes.getIntroductionContainer());
+        root.getChildren().add(guiNodes.getCreditContainer());
         root.getChildren().add(guiNodes.getMenueOverlay());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
+
     }
 
     private void createStartGamePlayTimer(){

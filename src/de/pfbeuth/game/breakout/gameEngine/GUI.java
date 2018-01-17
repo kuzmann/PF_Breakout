@@ -24,13 +24,13 @@ import javafx.scene.text.TextAlignment;
 public class GUI {
 
     private Breakout breakout;
-    private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer;
+    private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer, highscoreContainer, introductionContainer,creditContainer ;
 
-    private VBox masterButtonContainer;
+    private VBox masterButtonContainer,textContainer ;
 
     private Button playButton, helpButton, highscoreButton, creditsButton, startButton, confirmButton;
-    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo;
-    private Insets buttonContainerPadding;
+    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo, highscoreList, instructionText, creditText;
+    private Insets buttonContainerPadding, topContainerPadding;
     private ImageView backgroundLayer;
     private ImageView menueOverlay;
     private ImageView playBackground;
@@ -41,7 +41,7 @@ public class GUI {
     public static String pauseGameText = "PAUSED\n(hit enter)";
 
     /**NEUE HighscoreContrainer*/
-    private GridPane HighscoreContainer;
+    private GridPane PlayerInputContainer;
     private Insets HighscoreContainerPadding;
     //dataHandeling
     private CreatePlayer Player;
@@ -54,10 +54,14 @@ public class GUI {
 
     void createGUINodes(){
         buttonContainerPadding = new Insets(0, 0, 12, 0);
-
+        topContainerPadding = new Insets (250,0,0,0);
 
         masterButtonContainer = new VBox(12);
         masterButtonContainer.setAlignment(Pos.BOTTOM_LEFT);
+
+        /*textContainer = new VBox(12);
+        textContainer.setAlignment(Pos.TOP_CENTER);
+        textContainer.setPadding(topContainerPadding);*/
 
         buttonContainer = new HBox(12);
         buttonContainer.setAlignment(Pos.BOTTOM_CENTER);
@@ -79,22 +83,39 @@ public class GUI {
         gameOverContainer.setAlignment(Pos.TOP_CENTER);
         gameOverContainer.setPadding(buttonContainerPadding);
 
+        //**Container for showing Highscore List
+        highscoreContainer = new HBox(12);
+        highscoreContainer.setPrefHeight(Breakout.HEIGHT/50);
+        highscoreContainer.setAlignment(Pos.TOP_CENTER);
+        highscoreContainer.setPadding(topContainerPadding);
+
+        introductionContainer = new HBox(12);
+        introductionContainer.setPrefHeight(Breakout.HEIGHT/50);
+        introductionContainer.setAlignment(Pos.TOP_CENTER);
+        introductionContainer.setPadding(topContainerPadding);
+
+        creditContainer = new HBox(12);
+        creditContainer.setPrefHeight(Breakout.HEIGHT/50);
+        creditContainer.setAlignment(Pos.TOP_CENTER);
+        creditContainer.setPadding(topContainerPadding);
+
+
         //**Container for Enter the user name*/
-        HighscoreContainer = new GridPane();
-        HighscoreContainer.setAlignment(Pos.CENTER);
+        PlayerInputContainer = new GridPane();
+        PlayerInputContainer.setAlignment(Pos.CENTER);
         int padding = 60; int Vgap = 8; int Hgap = 10;
-        HighscoreContainer.setPadding(new Insets(padding,padding,padding,padding));
-        HighscoreContainer.setVgap(Vgap);
-        HighscoreContainer.setHgap(Hgap);
+        PlayerInputContainer.setPadding(new Insets(padding,padding,padding,padding));
+        PlayerInputContainer.setVgap(Vgap);
+        PlayerInputContainer.setHgap(Hgap);
 
         //**Label, input and Button for enter the user name*/
         Label nameLabel = new Label("Payer name:");
         nameLabel.setTextFill(Color.WHITE);
-        HighscoreContainer.setConstraints(nameLabel,0,0);
+        PlayerInputContainer.setConstraints(nameLabel,0,0);
         //TextField nameInput = new TextField("Player");
         TextField nameInput = new TextField ();
         nameInput.setPromptText("Choose player name");
-        HighscoreContainer.setConstraints(nameInput,1,0);
+        PlayerInputContainer.setConstraints(nameInput,1,0);
 
         confirmButton = new Button();
         confirmButton.setText("Confirm");
@@ -125,7 +146,7 @@ public class GUI {
             //scoreboard.display();
             //menueOverlay.setVisible(false);
         });
-        HighscoreContainer.setConstraints(confirmButton,1,1);
+        PlayerInputContainer.setConstraints(confirmButton,1,1);
 
 
 
@@ -162,6 +183,31 @@ public class GUI {
         gameOverInfo.setTextAlignment(TextAlignment.JUSTIFY);
         gameOverInfo.setText("GAME OVER");
 
+        highscoreList = new Text();
+        highscoreList.setVisible(false);
+        highscoreList.setFont(new Font("arial", 18));
+        highscoreList.setWrappingWidth(200);
+        highscoreList.setFill(Color.WHITE);
+        highscoreList.setTextAlignment(TextAlignment.CENTER);
+        highscoreList.setText("Highscore Liste wird hier angezeigt: ");
+
+        instructionText = new Text();
+        instructionText.setVisible(false);
+        instructionText.setFont(new Font("arial", 18));
+        instructionText.setWrappingWidth(200);
+        instructionText.setFill(Color.WHITE);
+        instructionText.setTextAlignment(TextAlignment.CENTER);
+        instructionText.setText("Spielanteilung: ");
+
+        creditText = new Text();
+        creditText.setVisible(false);
+        creditText.setFont(new Font("arial", 18));
+        creditText.setWrappingWidth(200);
+        creditText.setFill(Color.WHITE);
+        creditText.setTextAlignment(TextAlignment.CENTER);
+        creditText.setText("Hier stehen die Credits: ");
+
+
         /** Buttons Setup */
         playButton = new Button();
         playButton.setPrefWidth(100);
@@ -173,7 +219,6 @@ public class GUI {
             menueOverlay.setVisible(false);
             playBackground.setVisible(true);
             playBackground.toBack();
-
             hideGameInfos();
         });
         startButton = new Button();
@@ -197,9 +242,12 @@ public class GUI {
             menueOverlay.setImage(highscoreImage);
             startButton.setVisible(false);
             startButton.setDisable(true);
-
+            highscoreList.setVisible(true);
+            creditText.setVisible(false);
+            instructionText.setVisible(false);
             hideGameInfos();
         });
+
         helpButton = new Button();
         helpButton.setText("INSTRUCTIONS");
         helpButton.setOnAction(e -> {
@@ -208,9 +256,12 @@ public class GUI {
             menueOverlay.setImage(helpImage);
             startButton.setVisible(false);
             startButton.setDisable(true);
-
             hideGameInfos();
+            highscoreList.setVisible(false);
+            creditText.setVisible(false);
+            instructionText.setVisible(true);
         });
+
         creditsButton = new Button();
         creditsButton.setText("CREDITS");
         creditsButton.setOnAction(e -> {
@@ -219,15 +270,21 @@ public class GUI {
             menueOverlay.setImage(creditsImage);
             startButton.setVisible(false);
             startButton.setDisable(true);
-
+            creditText.setVisible(true);
+            instructionText.setVisible(false);
+            highscoreList.setVisible(false);
             hideGameInfos();
         });
 
         /** Add GUI Nodes to scene */
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
+        introductionContainer.getChildren().add(instructionText);
+        creditContainer.getChildren().add(creditText);
+        highscoreContainer.getChildren().add(highscoreList);
+        //textContainer.getChildren().addAll(introductionContainer,creditContainer,highscoreContainer);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton, creditsButton);
         startButtonContainer.getChildren().add(startButton);
-        HighscoreContainer.getChildren().addAll(nameLabel,nameInput,confirmButton);
+        PlayerInputContainer.getChildren().addAll(nameLabel,nameInput,confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
 
 
@@ -252,7 +309,7 @@ public class GUI {
         playBackgroundImage = new Image("/background_play.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
 
     }
-
+    /** View: Start new Game*/
     public void resumeGameEvents() {
         breakout.getGameTimer().start();
         startButton.setVisible(false);
@@ -280,7 +337,7 @@ public class GUI {
 
         gameIsPaused = false;
     }
-
+    /** View: Pause new Game*/
     public void pauseGameEvents(){
         breakout.getGameTimer().stop();
 
@@ -349,8 +406,18 @@ public class GUI {
         return infoContainer;
     }
 
-    public GridPane getHighscoreContainer() {
-        return HighscoreContainer;
+    public HBox getHighscoreContainer() {
+        return highscoreContainer;
+    }
+    public HBox getIntroductionContainer() {
+        return introductionContainer;
+    }
+    public HBox getCreditContainer() {
+        return creditContainer;
+    }
+
+    public GridPane getPlayerInputContainer() {
+        return PlayerInputContainer;
     }
 
     public VBox getMasterButtonContainer() {
