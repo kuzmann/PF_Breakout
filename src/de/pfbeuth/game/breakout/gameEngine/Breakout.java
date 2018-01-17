@@ -2,17 +2,9 @@
  * @author Thomas Glaesser
  * */
 package de.pfbeuth.game.breakout.gameEngine;
-import de.pfbeuth.game.breakout.gamelogic.LevelDesign;
-import de.pfbeuth.game.breakout.gamelogic.Life;
-import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -73,12 +65,12 @@ import de.pfbeuth.game.breakout.controller.Controller;
     }
 
     private void loadImageAssets(){
-        paddleImage = new Image("/paddle.png", 100, 25, true, false, true);
-        brickImageRed = new Image("/brick_red.png", WIDTH/10-2, 22, true, false, true);
-        brickImageOrange = new Image("/brick_orange.png", WIDTH/10-2, 22, true, false, true);
-        brickImageYellow = new Image("/brick_yellow.png", WIDTH/10-2, 22, true, false, true);
-        brickImageGreen = new Image("/brick_green.png", WIDTH/10-2, 22, true, false, true);
-        ballImage = new Image("/ball.png", 200/12, 200/12, true, false, true);
+        paddleImage = new Image("/assets/graphics/paddle.png", 100, 25, true, false, true);
+        brickImageRed = new Image("/assets/graphics/brick_red.png", WIDTH/10-2, 22, true, false, true);
+        brickImageOrange = new Image("/assets/graphics/brick_orange.png", WIDTH/10-2, 22, true, false, true);
+        brickImageYellow = new Image("/assets/graphics/brick_yellow.png", WIDTH/10-2, 22, true, false, true);
+        brickImageGreen = new Image("/assets/graphics/brick_green.png", WIDTH/10-2, 22, true, false, true);
+        ballImage = new Image("/assets/graphics/ball.png", 200/12, 200/12, true, false, true);
     }
 
     private void createGameObjects(){

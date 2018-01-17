@@ -299,11 +299,11 @@ public class GUI {
     }
 
      void loadImageAssets(){
-        backgroundImage = new Image("/background.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
-        helpImage = new Image("/help.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
-        highscoreImage = new Image("/highscore.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
-        creditsImage = new Image("/credits.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
-        playBackgroundImage = new Image("/background_play.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
+        backgroundImage = new Image("/assets/graphics/background.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
+        helpImage = new Image("/assets/graphics/help.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
+        highscoreImage = new Image("/assets/graphics/highscore.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
+        creditsImage = new Image("/assets/graphics/credits.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
+        playBackgroundImage = new Image("/assets/graphics/background_play.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
 
     }
     /** View: Start new Game*/
