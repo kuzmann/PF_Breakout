@@ -32,9 +32,9 @@ class GameOver {
     void gameOver(){
         Life.setLife(3);
         breakout.getGameTimer().stop();
-
-        breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);
-        breakout.getGuiNodes().getStartButton().setVisible(true);
+        //TODO: Hier muss der User seinen Namen eingeben
+        //breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);
+        //breakout.getGuiNodes().getStartButton().setVisible(true);
         breakout.getGuiNodes().getStartButton().setDisable(false);
         breakout.getGuiNodes().getStartButton().setCancelButton(false);
 
