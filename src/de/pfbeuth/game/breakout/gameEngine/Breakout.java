@@ -1,7 +1,9 @@
  /**
- * @author Thomas Glaesser
+ * @authors Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
  * */
+
 package de.pfbeuth.game.breakout.gameEngine;
+
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -10,6 +12,10 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.util.ArrayList;
 import de.pfbeuth.game.breakout.controller.Controller;
+import de.pfbeuth.game.breakout.gamelogic.Level;
+import de.pfbeuth.game.breakout.gamelogic.Life;
+
+
 
  public class Breakout extends Application  {
     static final double WIDTH = 540, HEIGHT = 675;
@@ -28,6 +34,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
     private Image paddleImage, brickImage, brickImageRed, brickImageOrange, brickImageYellow, brickImageGreen, ballImage;
     private GUI guiNodes;
     private GameOver gameOver;
+    private Level level;
+    private Life life;
 
 
     @Override
@@ -41,7 +49,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        //createSceneEventHandling();
+        life = new Life(this);
+        level = new Level(this);
         gameOver = new GameOver(this);
         guiNodes = new GUI(this);
         controller = new Controller(this);
@@ -85,8 +94,8 @@ import de.pfbeuth.game.breakout.controller.Controller;
      // TODO:muss das Leveldesign nicht in die Gamelogic???
      void createBrickGrid(){
         brickGrid = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 2; j++) {
                if(j <= 1) brickImage = brickImageRed;
                else if(j >= 2 &&  j < 4) brickImage = brickImageOrange;
                else if(j >= 4 && j < 6) brickImage = brickImageYellow;
@@ -179,6 +188,12 @@ import de.pfbeuth.game.breakout.controller.Controller;
      }
     public GameOver getGameOver(){
         return gameOver;
+    }
+    public Level getLevel(){
+        return level;
+    }
+    public  Life getLife(){
+        return life;
     }
 
  }
