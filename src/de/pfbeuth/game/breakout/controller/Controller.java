@@ -12,11 +12,11 @@ public class Controller {
     private boolean down;
     private Breakout breakout;
 
-    public Controller (Breakout ibreakout){
-        this.breakout = ibreakout;
+    public Controller (Breakout breakout){
+        this.breakout = breakout;
     }
 
-    //eventhandling for gameobjects
+    /** Event Listener */
     public void createSceneEventHandling(){
         breakout.getScene().setOnKeyPressed(e -> {
             switch (e.getCode()) {
@@ -32,13 +32,8 @@ public class Controller {
                     break;
                 case D: right = true;
                     break;
-                case NUMPAD4: left = true;
-                    break;
-                case NUMPAD6: right = true;
-                    break;
             }
         });
-
         breakout.getScene().setOnKeyReleased(e -> {
             switch(e.getCode()) {
                 case LEFT: left = false;
@@ -52,10 +47,6 @@ public class Controller {
                 case A: left = false;
                     break;
                 case D: right = false;
-                    break;
-                case NUMPAD4: left = false;
-                    break;
-                case NUMPAD6: right = false;
                     break;
                 case ESCAPE: breakout.getGuiNodes().pauseGameEvents();
                     break;
@@ -72,7 +63,7 @@ public class Controller {
         });
     }
 
-    //Getter for key values
+    /** Get key values */
     public boolean isLeft() {
         return left;
     }
@@ -80,13 +71,4 @@ public class Controller {
     public boolean isRight() {
         return right;
     }
-
-    public boolean isUp() {
-        return up;
-    }
-
-    public boolean isDown() {
-        return down;
-    }
-
 }
