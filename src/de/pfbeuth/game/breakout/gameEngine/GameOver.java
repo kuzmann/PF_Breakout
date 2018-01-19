@@ -1,9 +1,6 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
-import de.pfbeuth.game.breakout.gamelogic.Level;
-import de.pfbeuth.game.breakout.gamelogic.Life;
-
-class GameOver {
+public class GameOver {
 
     private Breakout breakout;
 
@@ -22,9 +19,9 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setDisable(false);
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
-            Life.loseLife();
-            breakout.getGuiNodes().getLifeInfo().setText("Lifes: " + Life.getLife());
-            if(Life.getIsGameOver()) {
+            breakout.getLife().loseLife();
+            breakout.getGuiNodes().getLifeInfo().setText("Lives: " + breakout.getLife().getActualLife());
+            if(breakout.getLife().getIsGameOver()) {
                 gameOver();
             }
         }
@@ -40,17 +37,17 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setDisable(false);
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
-            Level.riseLevel();
-            breakout.getGuiNodes().getLevelInfo().setText("Level: " + Level.getLevel());
+            breakout.getLevel().riseLevel();
+            breakout.getGuiNodes().getLevelInfo().setText("Level: " + breakout.getLevel().getLevel());
         }
     }
 
 
 
     // TODO screen design makeover
-    /** View, if player loose whole lifes*/
+    /** View, if player loose whole lives*/
     void gameOver(){
-        Life.setLife(3);
+        breakout.getLife().setLife(3);
         System.out.println("GAME OVER");
         breakout.getGameTimer().stop();
         //TODO: Hier muss der User seinen Namen eingeben

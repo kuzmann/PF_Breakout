@@ -1,11 +1,18 @@
 package de.pfbeuth.game.breakout.gamelogic;
 
+import de.pfbeuth.game.breakout.gameEngine.Breakout;
+
 public class Life {
 
-    private static int life = 3;
-    private static boolean gameOver;
+    private  int life = 3;
+    private  boolean gameOver;
+    private Breakout breakout;
 
-    public static void loseLife(){
+    public Life (Breakout breakout){
+        this.breakout = breakout;
+    }
+
+    public  void loseLife(){
         if(life > 0){
             life--;
             gameOver = false;
@@ -16,16 +23,16 @@ public class Life {
         }
     }
 
-    public static boolean getIsGameOver(){
+    public  boolean getIsGameOver(){
         return gameOver;
     }
 
-    public static int getLife() {
+    public  int getActualLife() {
         return life;
     }
 
-    public static void setLife(int life) {
-        Life.life = life;
+    public  void setLife(int life){
+        this.life = life;
     }
 }
 

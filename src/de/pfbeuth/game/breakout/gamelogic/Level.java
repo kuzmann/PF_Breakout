@@ -4,15 +4,22 @@ import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 public class Level {
 
-    public static int level = 1;
-    private static Breakout breakout;
+    private  int level = 1;
+    private  int levelSpeed = 5;
+    private  Breakout breakout;
 
-    public static void riseLevel(){
-        level++;
+    public Level (Breakout breakout) {
+        this.breakout = breakout;
     }
 
+    public  void riseLevel(){
+        level++;
+        breakout.getBall().setVelocityX(breakout.getBall().getVelocityX()+ levelSpeed);
+        breakout.getBall().setVelocityY(breakout.getBall().getVelocityY()+ levelSpeed);
+    }
 
-    public static int getLevel() {
+    //TODO change name
+    public  int getLevel() {
         return level;
     }
 

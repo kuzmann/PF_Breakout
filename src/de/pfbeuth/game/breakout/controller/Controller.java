@@ -53,9 +53,9 @@ public class Controller {
                 case ENTER:
                     {
                         breakout.getGuiNodes().runGameEvents();
-                        breakout.getGuiNodes().getLifeInfo().setText("Lifes: " + Life.getLife());
-                        if(breakout.getGuiNodes().getStartButton().getText().equals(GUI.playAgainText)) {
-                            breakout.getGuiNodes().getStartButton().setText(GUI.startText);
+                        breakout.getGuiNodes().getLifeInfo().setText("Lifes: " + breakout.getLife().getActualLife());
+                        if(breakout.getGuiNodes().getStartButton().getText().equals(breakout.getGuiNodes().getPlayAgainText())) {
+                            breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
                         }
                     }
                     break;

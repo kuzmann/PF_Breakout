@@ -1,7 +1,6 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
 import de.pfbeuth.game.breakout.dataHandeling.*;
-import de.pfbeuth.game.breakout.gamelogic.Level;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.geometry.Insets;
@@ -21,20 +20,19 @@ public class GUI {
 
     private Breakout breakout;
     private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer, highscoreContainer, introductionContainer,creditContainer ;
-
     private VBox masterButtonContainer,textContainer ;
-
     private Button playButton, helpButton, highscoreButton, creditsButton, startButton, confirmButton;
     private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo, highscoreList, instructionText, creditText;
     private Insets buttonContainerPadding, topContainerPadding;
-    private ImageView backgroundLayer;
-    private ImageView menueOverlay;
-    private ImageView playBackground;
+    private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, creditsImage, highscoreImage;
     private boolean gameIsPaused;
-    public static String startText = "START\n(hit enter)";
-    public static String playAgainText = "PLAY AGAIN\n(hit enter)";
-    public static String pauseGameText = "PAUSED\n(hit enter)";
+    final String startText = "START\n(hit enter)";
+    final String playAgainText = "PLAY AGAIN\n(hit enter)";
+
+
+
+    final String pauseGameText = "PAUSED\n(hit enter)";
 
     /**NEUE HighscoreContrainer*/
     private GridPane PlayerInputContainer;
@@ -57,7 +55,7 @@ public class GUI {
 
         /*textContainer = new VBox(12);
         textContainer.setAlignment(Pos.TOP_CENTER);
-        textContainer.setPadding(topContainerPadding);*/
+        textContainer.setPadding(topContainerPadding); */
 
         buttonContainer = new HBox(12);
         buttonContainer.setAlignment(Pos.BOTTOM_CENTER);
@@ -68,7 +66,7 @@ public class GUI {
         startButtonContainer.setAlignment(Pos.TOP_CENTER);
         startButtonContainer.setPadding(buttonContainerPadding);
 
-        //**Container for Gameinformation: Level, Life and Score
+        // Container for Gameinformation: Level, Life and Score
         infoContainer = new HBox(12);
         infoContainer.setPrefHeight(Breakout.HEIGHT/22);
         infoContainer.setAlignment(Pos.BOTTOM_CENTER);
@@ -79,7 +77,7 @@ public class GUI {
         gameOverContainer.setAlignment(Pos.TOP_CENTER);
         gameOverContainer.setPadding(buttonContainerPadding);
 
-        //**Container for showing Highscore List
+        // Container for showing Highscore List
         highscoreContainer = new HBox(12);
         highscoreContainer.setPrefHeight(Breakout.HEIGHT/50);
         highscoreContainer.setAlignment(Pos.TOP_CENTER);
@@ -147,14 +145,15 @@ public class GUI {
 
 
 
+
         /** levelInfo, lifeInfo, ScoreInfo Setup */
-        levelInfo = new Text();
-        levelInfo.setVisible(false);
+        levelInfo = new InfoText();
+        /*levelInfo.setVisible(false);
         levelInfo.setFont(new Font("arial", 18));
         levelInfo.setWrappingWidth(200);
         levelInfo.setFill(Color.WHITE);
         levelInfo.setTextAlignment(TextAlignment.CENTER);
-        levelInfo.setText("Level: " + Level.getLevel());
+        */levelInfo.setText("Level: " + breakout.getLevel().getLevel());
 
         lifeInfo = new Text();
         lifeInfo.setVisible(false);
@@ -162,7 +161,7 @@ public class GUI {
         lifeInfo.setWrappingWidth(200);
         lifeInfo.setFill(Color.WHITE);
         lifeInfo.setTextAlignment(TextAlignment.CENTER);
-        lifeInfo.setText("Lives: " + Life.getLife());
+        lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
 
         scoreInfo = new Text();
         scoreInfo.setVisible(false);
@@ -227,7 +226,7 @@ public class GUI {
 
             runGameEvents();
             if (startButton.getText().equals(playAgainText)) {
-                lifeInfo.setText("Lifes: " + Life.getLife());
+                lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
                 startButton.setText(startText);
             }
         });
@@ -259,6 +258,7 @@ public class GUI {
             instructionText.setVisible(true);
         });
 
+        //TODO delete Credits
         creditsButton = new Button();
         creditsButton.setText("CREDITS");
         creditsButton.setOnAction(e -> {
@@ -284,7 +284,6 @@ public class GUI {
         PlayerInputContainer.getChildren().addAll(nameLabel,nameInput,confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
 
-
         backgroundLayer = new ImageView();
         backgroundLayer.setImage(backgroundImage);
 
@@ -294,8 +293,6 @@ public class GUI {
         playBackground = new ImageView();
         playBackground.setImage(playBackgroundImage);
         playBackground.setVisible(false);
-
-
     }
 
      void loadImageAssets(){
@@ -339,7 +336,7 @@ public class GUI {
 
         //TODO: Ausgabe des Levels aktuell halten. Wird erst wieder angezeigt, wenn
         if(breakout.getBall().getLevelWon()) {
-            getLevelInfo().setText("Level: " + Level.getLevel());
+            getLevelInfo().setText("Level: " + breakout.getLevel().getLevel());
         }
         showGameInfos();
 
@@ -389,31 +386,24 @@ public class GUI {
     public Button getStartButton() {
         return startButton;
     }
-
     public Text getGameOverInfo() {
         return gameOverInfo;
     }
-
     public Text getLifeInfo() {
         return lifeInfo;
     }
-
     public Text getLevelInfo(){
         return levelInfo;
     }
-
     public ImageView getBackgroundLayer() {
         return backgroundLayer;
     }
-
     public ImageView getPlayBackground() {
         return playBackground;
     }
-
     public HBox getInfoContainer() {
         return infoContainer;
     }
-
     public HBox getHighscoreContainer() {
         return highscoreContainer;
     }
@@ -423,21 +413,28 @@ public class GUI {
     public HBox getCreditContainer() {
         return creditContainer;
     }
-
     public GridPane getPlayerInputContainer() {
         return PlayerInputContainer;
     }
-
     public VBox getMasterButtonContainer() {
         return masterButtonContainer;
     }
-
     public ImageView getMenueOverlay() {
         return menueOverlay;
     }
-
     public boolean isGameIsPaused() {
         return gameIsPaused;
+    }
+    public String getStartText() {
+        return startText;
+    }
+
+    public String getPlayAgainText() {
+        return playAgainText;
+    }
+
+    public String getPauseGameText() {
+        return pauseGameText;
     }
 
 }
