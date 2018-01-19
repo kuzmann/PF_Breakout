@@ -2,6 +2,7 @@
  * @author Thomas Glaesser
  * */
 package de.pfbeuth.game.breakout.gameEngine;
+import de.pfbeuth.game.breakout.gamelogic.Level;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -9,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.util.ArrayList;
+import java.util.Random;
+
 import de.pfbeuth.game.breakout.controller.Controller;
 
  public class Breakout extends Application  {
@@ -83,24 +86,47 @@ import de.pfbeuth.game.breakout.controller.Controller;
 
     //creates bricks which must be destroyed in the game
      // TODO:muss das Leveldesign nicht in die Gamelogic???
-     void createBrickGrid(){
-        brickGrid = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 8; j++) {
-               if(j <= 1) brickImage = brickImageRed;
-               else if(j >= 2 &&  j < 4) brickImage = brickImageOrange;
-               else if(j >= 4 && j < 6) brickImage = brickImageYellow;
-               else brickImage = brickImageGreen;
-               brick = new Brick(this, "M.5,3.91V28.66c0,3.75,1.37,4.62,4.62,4.62H84c2.25,0,3.44-.75,3.44-3.44s-.08-22.06,0-26.19C87.5.45,88.07.5,84.29.5H3.5C.25.5.5,3.91.5,3.91Z", 0, 0, brickImage);
-               brick.spriteImage.setTranslateX(-WIDTH/2+i*(brickImage.getRequestedWidth()+2)+(brickImage.getRequestedWidth()/2) + 1);
-               brick.spriteImage.setTranslateY(-HEIGHT/2+j*(brickImage.getRequestedHeight()+2.5)+(brickImage.getRequestedHeight()/2+ 50));
-               root.getChildren().add(brick.spriteImage);
-               brickGrid.add(brick);
-
-               //TODO delete print statement
-               System.out.println("brick hoehe " + brickImage.getRequestedHeight() + "brick breite " + brickImage.getRequestedWidth());
+     void createBrickGrid() {
+         brickGrid = new ArrayList<>();
+         for (int i = 0; i < 10; i++) {
+             for (int j = 0; j < 8; j++) {
+                 if (j <= 1) brickImage = brickImageRed;
+                 else if (j >= 2 && j < 4) brickImage = brickImageOrange;
+                 else if (j >= 4 && j < 6) brickImage = brickImageYellow;
+                 else brickImage = brickImageGreen;
+                 brick = new Brick(this, "M.5,3.91V28.66c0,3.75,1.37,4.62,4.62,4.62H84c2.25,0,3.44-.75,3.44-3.44s-.08-22.06,0-26.19C87.5.45,88.07.5,84.29.5H3.5C.25.5.5,3.91.5,3.91Z", 0, 0, brickImage);
+                 brick.spriteImage.setTranslateX(-WIDTH / 2 + i * (brickImage.getRequestedWidth() + 2) + (brickImage.getRequestedWidth() / 2) + 1);
+                 brick.spriteImage.setTranslateY(-HEIGHT / 2 + j * (brickImage.getRequestedHeight() + 2.5) + (brickImage.getRequestedHeight() / 2 + 50));
+                    switch (Level.getLevel()) {
+                        case 1:
+                            root.getChildren().add(brick.spriteImage);
+                        break;
+                        case 2:
+                            if((i % 2 == 0) && (j % 2 == 0) || (i % 2 != 0) && (j % 2 != 0)) {
+                                root.getChildren().add(brick.spriteImage);
+                            }
+                        break;
+                        case 3:
+                            Random rand = new Random();
+                            int r = rand.nextInt(10);
+                            if (r <= 5) {
+                                root.getChildren().add(brick.spriteImage);
+                            }
+                        break;
+                        case 4:
+                            if(i<j) {
+                                root.getChildren().add(brick.spriteImage);
+                            }
+                        break;
+                        case 5:
+                            if(i>j) {
+                                root.getChildren().add(brick.spriteImage);
+                            }
+                        break;
+                    }
+                 brickGrid.add(brick);
              }
-        }
+         }
     }
 
     void addGameObjectsNodes(){
