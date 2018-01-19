@@ -12,8 +12,8 @@ public class Controller {
     private boolean down;
     private Breakout breakout;
 
-    public Controller (Breakout ibreakout){
-        this.breakout = ibreakout;
+    public Controller (Breakout breakout){
+        this.breakout = breakout;
     }
 
     //eventhandling for gameobjects
@@ -32,10 +32,6 @@ public class Controller {
                     break;
                 case D: right = true;
                     break;
-                case NUMPAD4: left = true;
-                    break;
-                case NUMPAD6: right = true;
-                    break;
             }
         });
 
@@ -52,10 +48,6 @@ public class Controller {
                 case A: left = false;
                     break;
                 case D: right = false;
-                    break;
-                case NUMPAD4: left = false;
-                    break;
-                case NUMPAD6: right = false;
                     break;
                 case ESCAPE: breakout.getGuiNodes().pauseGameEvents();
                     break;
@@ -80,13 +72,4 @@ public class Controller {
     public boolean isRight() {
         return right;
     }
-
-    public boolean isUp() {
-        return up;
-    }
-
-    public boolean isDown() {
-        return down;
-    }
-
 }
