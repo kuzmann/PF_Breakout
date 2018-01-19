@@ -16,7 +16,7 @@ public class Controller {
         this.breakout = breakout;
     }
 
-    //eventhandling for gameobjects
+    /** Event Listener */
     public void createSceneEventHandling(){
         breakout.getScene().setOnKeyPressed(e -> {
             switch (e.getCode()) {
@@ -34,7 +34,6 @@ public class Controller {
                     break;
             }
         });
-
         breakout.getScene().setOnKeyReleased(e -> {
             switch(e.getCode()) {
                 case LEFT: left = false;
@@ -64,7 +63,7 @@ public class Controller {
         });
     }
 
-    //Getter for key values
+    /** Get key values */
     public boolean isLeft() {
         return left;
     }
