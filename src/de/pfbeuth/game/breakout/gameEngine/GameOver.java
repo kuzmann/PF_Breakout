@@ -20,7 +20,7 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
             breakout.getLife().loseLife();
-            breakout.getGuiNodes().getLifeInfo().setText("Lives: " + breakout.getLife().getActualLife());
+            breakout.getGuiNodes().getLifeInfo().setText("LIVES: " + breakout.getLife().getActualLife());
             if(breakout.getLife().getIsGameOver()) {
                 gameOver();
             }
@@ -38,7 +38,7 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
             breakout.getLevel().riseLevel();
-            breakout.getGuiNodes().getLevelInfo().setText("Level: " + breakout.getLevel().getLevelNumber());
+            breakout.getGuiNodes().getLevelInfo().setText("LEVEL: " + breakout.getLevel().getLevelNumber());
         }
     }
 

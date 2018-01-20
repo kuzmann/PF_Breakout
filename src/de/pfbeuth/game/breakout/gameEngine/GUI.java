@@ -2,6 +2,8 @@ package de.pfbeuth.game.breakout.gameEngine;
 
 import de.pfbeuth.game.breakout.dataHandling.*;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -34,9 +36,9 @@ public class GUI {
     private final String HELP_BUTTON_TEXT = "HELP";
     private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
 	private final String CONFIRM_BUTTON_TEXT = "CONFIRM";
-	private final String LEVEL_INFO_TEXT = "LEVEL";
-	private final String LIVES_INFO_TEXT = "LIVES";
-	private final String SCORE_INFO_TEXT = "SCORE";
+	private final String LEVEL_INFO_TEXT = "LEVEL: ";
+	private final String LIVES_INFO_TEXT = "LIVES: ";
+	private final String SCORE_INFO_TEXT = "SCORE: ";
 
 	/* ------ NEUE HighscoreContrainer ------ */
     private GridPane playerInputContainer;
@@ -159,6 +161,9 @@ public class GUI {
 */
     }
 
+    Observer playerScore = new Observer();
+
+
     private void createInfoText(){
 
         /** levelInfo, lifeInfo, ScoreInfo Setup */
@@ -170,6 +175,7 @@ public class GUI {
 
         scoreInfo = new InfoText();
         scoreInfo.setText(SCORE_INFO_TEXT + ScoreCounter.score);
+        //scoreInfo.setText(SCORE_INFO_TEXT + playerScore.playerScoreProperty().addListener(  (property, oldval, newval) -> System.out.println(newval) );
 
         gameOverInfo = new InfoText();
         gameOverInfo.setFont(Font.font(30));
@@ -194,7 +200,7 @@ public class GUI {
 		startButton.setOnAction(e -> {
 			runGameEvents();
 			if (startButton.getText().equals(PLAY_AGAIN_TEXT)) {
-				lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
+				lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
 				startButton.setText(START_BUTTON_TEXT);
 			}
 		});
