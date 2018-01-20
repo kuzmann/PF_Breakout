@@ -34,9 +34,9 @@ public class GUI {
     private final String HELP_BUTTON_TEXT = "HELP";
     private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
 	private final String CONFIRM_BUTTON_TEXT = "CONFIRM";
-	private final String LEVEL_INFO_TEXT = "LEVEL";
-	private final String LIVES_INFO_TEXT = "LIVES";
-	private final String SCORE_INFO_TEXT = "SCORE";
+	private final String LEVEL_INFO_TEXT = "LEVEL: ";
+	private final String LIVES_INFO_TEXT = "LIVES: ";
+	private final String SCORE_INFO_TEXT = "SCORE: ";
 
 	/* ------ NEUE HighscoreContrainer ------ */
     private GridPane playerInputContainer;
@@ -194,7 +194,7 @@ public class GUI {
 		startButton.setOnAction(e -> {
 			runGameEvents();
 			if (startButton.getText().equals(PLAY_AGAIN_TEXT)) {
-				lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
+				lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
 				startButton.setText(START_BUTTON_TEXT);
 			}
 		});
@@ -378,4 +378,7 @@ public class GUI {
     public String getPauseGameText() {
         return PAUSE_GAME_TEXT;
     }
+    public String getLIVES_INFO_TEXT(){
+    	return LIVES_INFO_TEXT;
+	}
 }

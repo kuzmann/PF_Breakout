@@ -20,7 +20,7 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
             breakout.getLife().loseLife();
-            breakout.getGuiNodes().getLifeInfo().setText("Lives: " + breakout.getLife().getActualLife());
+            breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
             if(breakout.getLife().getIsGameOver()) {
                 gameOver();
             }
@@ -38,7 +38,7 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
             breakout.getLevel().riseLevel();
-            breakout.getGuiNodes().getLevelInfo().setText("Level: " + breakout.getLevel().getLevelNumber());
+            breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLevel().getLevelNumber());
         }
     }
 
@@ -56,7 +56,7 @@ class GameOver {
         breakout.getGuiNodes().getGameOverInfo().setVisible(true);
         breakout.getGuiNodes().getStartButton().setDisable(false);
         breakout.getGuiNodes().getStartButton().setCancelButton(false);
-        breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
+        //breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
 
         /*breakout.getSpriteManager().resetCurrentObjects();
         breakout.getSpriteManager().resetRemovedObjects();
