@@ -42,8 +42,6 @@ public class Ball extends AnimatedGameObject {
             if (collision(collisionObject) && collisionObject instanceof Brick){
                 ((Brick) collisionObject).destroyBrick();
                 brickCollision();
-               /* setXYPosition();
-                translateBall();*/
                 destroyedBrick = (Brick) collisionObject;
                 checkBrickColorHit();
                 checkLevelEnd();
@@ -57,16 +55,15 @@ public class Ball extends AnimatedGameObject {
     @Override
     boolean collision(GameObject object){
         boolean collisionDetect = false;
-        //two step collision detection
-        if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent()))
-        {
+        /* ------ two step collision detection ------ */
+        if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent())) {
             Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
             if(intersection.getBoundsInLocal().getWidth() != -1){
-                return true;
-                //collisionDetect = true;
+                //return true;
+                collisionDetect = true;
             }
         }
-        /*if (collisionDetect){
+        if (collisionDetect){
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().removeCurrentObjects(object);
                 breakout.getSpriteManager().addToRemovedObjects(object);
@@ -74,7 +71,7 @@ public class Ball extends AnimatedGameObject {
                 //breakout.getSpriteManager().resetRemovedObjects();
             }
             return true;
-        }*/
+        }
         return false;
     }
 
@@ -98,7 +95,6 @@ public class Ball extends AnimatedGameObject {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.YELLOW);
         }
     }
-
 
     private void checkLevelEnd(){
         //TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2

@@ -62,10 +62,8 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         controller = new Controller(this);
         controller.createSceneEventHandling();
         loadImageAssets();
-        //guiNodes.loadImageAssets();
         createGameObjects();
         addGameObjectsNodes();
-        //guiNodes.createGUINodes();
         addNodesToStackPane();
         createSpriteManager();
         createStartGamePlayTimer();
@@ -102,8 +100,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
 
     private void addGameObjectsNodes(){
         createInitBrickGrid();
-
-        root.getChildren().add(paddle.spriteImage);
+		root.getChildren().add(paddle.spriteImage);
         root.getChildren().add(ball.spriteImage);
     }
 

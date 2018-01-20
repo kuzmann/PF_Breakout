@@ -42,13 +42,13 @@ class GameOver {
         }
     }
 
-
-
     // TODO screen design makeover
     /** View, if player loose whole lives*/
     private void gameOver(){
         breakout.getLife().setLife(3);
-        System.out.println("GAME OVER");
+        //TODO delete print statement
+        //System.out.println("GAME OVER");
+
         breakout.getGameTimer().stop();
         //TODO: Hier muss der User seinen Namen eingeben
         //breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);

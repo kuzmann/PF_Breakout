@@ -2,8 +2,6 @@ package de.pfbeuth.game.breakout.gameEngine;
 
 import de.pfbeuth.game.breakout.dataHandling.*;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -123,7 +121,6 @@ public class GUI {
         creditContainer.setPadding(topContainerPadding);
 
         /*
-
         //Container for Enter the user name
         playerInputContainer = new GridPane();
         playerInputContainer.setAlignment(Pos.CENTER);
@@ -133,7 +130,6 @@ public class GUI {
         playerInputContainer.setPadding(new Insets(padding, padding, padding, padding));
         playerInputContainer.setVgap(Vgap);
         playerInputContainer.setHgap(Hgap);
-
         */
 
         /** Add GUI Nodes to scene */
@@ -163,10 +159,13 @@ public class GUI {
 
     Observer playerScore = new Observer();
 
+	public void updateScoreInfo (){
+		scoreInfo.textProperty().bind(breakout.getScoreCounter().score);
+	}
 
     private void createInfoText(){
 
-        /** levelInfo, lifeInfo, ScoreInfo Setup */
+        /* ------ levelInfo, lifeInfo, ScoreInfo Setup ------ */
         levelInfo = new InfoText();
         levelInfo.setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
 
@@ -174,8 +173,23 @@ public class GUI {
         lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
 
         scoreInfo = new InfoText();
-        scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScore());
-        //scoreInfo.setText(SCORE_INFO_TEXT + playerScore.playerScoreProperty().addListener(  (property, oldval, newval) -> System.out.println(newval) );
+		scoreInfo.setText(SCORE_INFO_TEXT + 0);
+
+	/*
+		if (breakout.getScoreCounter().getScoreNumber() == 0) {
+			breakout.getScoreCounter().counter(ScoreCounter.BrickColor.INIT);
+		}
+
+		if (breakout.getScoreCounter().getScoreNumber() == 0) {
+			scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScoreNumber());
+
+		} else {
+			scoreInfo.textProperty().bind(breakout.getScoreCounter().score);
+		}
+	*/
+
+		//scoreInfo.textProperty().setValue(this.breakout.getGuiNodes().getSCORE_INFO_TEXT() + 0);
+		//if(breakout.getScoreCounter().score > 0)
 
         gameOverInfo = new InfoText();
         gameOverInfo.setFont(Font.font(30));
@@ -345,6 +359,9 @@ public class GUI {
     public Text getLevelInfo(){
         return levelInfo;
     }
+    public Text getScoreInfo(){
+    	return scoreInfo;
+	}
     public ImageView getBackgroundLayer() {
         return backgroundLayer;
     }
@@ -386,5 +403,8 @@ public class GUI {
     }
     public String getLIVES_INFO_TEXT(){
     	return LIVES_INFO_TEXT;
+	}
+	public String getSCORE_INFO_TEXT(){
+    	return SCORE_INFO_TEXT;
 	}
 }
