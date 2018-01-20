@@ -38,9 +38,6 @@ public class GUI {
 	private final String LIVES_INFO_TEXT = "LIVES";
 	private final String SCORE_INFO_TEXT = "SCORE";
 
-
-
-
 	/* ------ NEUE HighscoreContrainer ------ */
     private GridPane playerInputContainer;
     private Insets highscoreContainerPadding;

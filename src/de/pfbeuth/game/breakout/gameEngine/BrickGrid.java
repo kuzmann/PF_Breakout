@@ -13,6 +13,23 @@ public class BrickGrid {
         this.breakout = breakout;
     }
 
+
+    public void createTestGrid (){
+        // standard Brick Grid
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 1; j++) {
+                if (j <= 1) breakout.setBrickImage(breakout.getBrickImageRed());
+                else if (j >= 2 && j < 4) breakout.setBrickImage(breakout.getBrickImageOrange());
+                else if (j >= 4 && j < 6) breakout.setBrickImage(breakout.getBrickImageYellow());
+                else breakout.setBrickImage(breakout.getBrickImageGreen());
+                createBrick();
+                translateXY(i, j);
+                addBricksToScene();
+            }
+        }
+    }
+
+
     public void createLevelOneGrid (){
         // standard Brick Grid
         for (int i = 0; i < 10; i++) {
