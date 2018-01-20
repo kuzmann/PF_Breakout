@@ -174,7 +174,7 @@ public class GUI {
         lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
 
         scoreInfo = new InfoText();
-        scoreInfo.setText(SCORE_INFO_TEXT + ScoreCounter.score);
+        scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScore());
         //scoreInfo.setText(SCORE_INFO_TEXT + playerScore.playerScoreProperty().addListener(  (property, oldval, newval) -> System.out.println(newval) );
 
         gameOverInfo = new InfoText();

@@ -4,7 +4,7 @@ import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 public class Life {
 
-    private int life = 3;
+    private int life = 1;
     private boolean gameOver;
     private Breakout breakout;
 
@@ -23,15 +23,15 @@ public class Life {
         }
     }
 
-    public  boolean getIsGameOver(){
+    public boolean getIsGameOver(){
         return gameOver;
     }
 
-    public  int getActualLife() {
+    public int getActualLife() {
         return life;
     }
 
-    public  void setLife(int life){
+    public void setLife(int life){
         this.life = life;
     }
 }

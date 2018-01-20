@@ -5,6 +5,7 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
 import de.pfbeuth.game.breakout.gamelogic.Level;
+import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -35,6 +36,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     private GameOver gameOver;
     private Level level;
     private Life life;
+    private ScoreCounter scoreCounter;
 
     @Override
     public void start(Stage primaryStage) {
@@ -53,6 +55,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         level = new Level(this);
         life = new Life(this);
         gameOver = new GameOver(this);
+        scoreCounter = new ScoreCounter(this);
 
         /** method calls */
         guiNodes = new GUI(this);
@@ -189,4 +192,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public Image getPaddleImage() {
         return paddleImage;
     }
+    public ScoreCounter getScoreCounter(){
+    	return scoreCounter;
+	}
  }
