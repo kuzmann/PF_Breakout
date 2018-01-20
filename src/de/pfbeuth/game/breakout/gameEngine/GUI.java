@@ -5,6 +5,7 @@ import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +38,7 @@ public class GUI {
 	private final String LEVEL_INFO_TEXT = "LEVEL: ";
 	private final String LIVES_INFO_TEXT = "LIVES: ";
 	private final String SCORE_INFO_TEXT = "SCORE: ";
+	private String HIGHSCORELIST;
 
 	/* ------ NEUE HighscoreContrainer ------ */
     private GridPane playerInputContainer;
@@ -122,6 +124,44 @@ public class GUI {
 
         /*
         //Container for Enter the user name
+        /* ------ Label, input and button for enter the user name ------ */
+        Label nameLabel = new Label("Payer name:");
+        nameLabel.setTextFill(Color.WHITE);
+
+        //TextField nameInput = new TextField("Player");
+        TextField nameInput = new TextField();
+        nameInput.setPromptText("Choose player name");
+
+
+        /* ------ Confirm-button with actions ------ */
+        confirmButton = new Button();
+        confirmButton.setText(CONFIRM_BUTTON_TEXT);
+
+        /*confirmButton.setOnAction(e -> {
+            if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
+				nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
+                }
+		  	else{
+				nameLabel.setText("You have not left a player name.");
+                }
+        });*/
+
+        confirmButton.setOnAction(e -> {
+            playerName = nameInput.getText();
+            System.out.println("Player name is: " + playerName);
+            //HighscoreContainer.setVisible(false);
+            Player = new CreatePlayer(playerName);
+            UpdateXMLTable updater = new UpdateXMLTable();
+            updater.add(Player);
+            LoadXMLTable loader = new LoadXMLTable();
+            loader.loadTable();
+            loader.displayHighscore();
+            Scoreboard scoreboard = new Scoreboard();
+            //scoreboard.display();
+            //menueOverlay.setVisible(false);
+        });
+
+        /* ------ Container for Enter the user name ------ */
         playerInputContainer = new GridPane();
         playerInputContainer.setAlignment(Pos.CENTER);
         int padding = 60;
@@ -130,7 +170,11 @@ public class GUI {
         playerInputContainer.setPadding(new Insets(padding, padding, padding, padding));
         playerInputContainer.setVgap(Vgap);
         playerInputContainer.setHgap(Hgap);
-        */
+        playerInputContainer.setConstraints(nameLabel, 0, 0);
+        playerInputContainer.setConstraints(nameInput, 1, 0);
+        playerInputContainer.setConstraints(confirmButton, 1, 1);
+
+
 
         /** Add GUI Nodes to scene */
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
@@ -139,25 +183,15 @@ public class GUI {
         //textContainer.getChildren().addAll(introductionContainer,creditContainer,highscoreContainer);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
         startButtonContainer.getChildren().add(startButton);
-       // playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
+        playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
 
 
-/* //Label, input and Button for enter the user name*//*
 
-        Label nameLabel = new Label("Payer name:");
-        nameLabel.setTextFill(Color.WHITE);
-        playerInputContainer.setConstraints(nameLabel, 0, 0);
-        //TextField nameInput = new TextField("Player");
-        TextField nameInput = new TextField();
-        nameInput.setPromptText("Choose player name");
-        playerInputContainer.setConstraints(nameInput, 1, 0);
-
-        playerInputContainer.setConstraints(confirmButton, 1, 1);
-*/
     }
 
-    Observer playerScore = new Observer();
+    //TODO: hier war der Versucht, den Score durch Databinding einzubinden -> siehe Klasse Observer
+    //Observer playerScore = new Observer();
 
 	public void updateScoreInfo (){
 		scoreInfo.textProperty().bind(breakout.getScoreCounter().score);
@@ -204,6 +238,8 @@ public class GUI {
         helpText.setText("Spielanteilung: ");	//TODO convert String to Constant
     }
 
+
+
     private void createButtons(){
 		startButton = new Button();
 		startButton.setPrefSize(100, 100);
@@ -231,6 +267,8 @@ public class GUI {
 			playBackground.toBack();
 			highscoreList.setVisible(false);
 			hideGameInfos();
+            helpText.setVisible(false);
+            highscoreList.setVisible(false);
 		});
 
         highscoreButton = new Button();
@@ -243,6 +281,7 @@ public class GUI {
             startButton.setVisible(false);
             startButton.setDisable(true);
             highscoreList.setVisible(true);
+            displayHighscoreList();
             helpText.setVisible(false);
             hideGameInfos();
         });
@@ -260,33 +299,6 @@ public class GUI {
             highscoreList.setVisible(false);
             helpText.setVisible(true);
         });
-
-        confirmButton = new Button();
-        confirmButton.setText(CONFIRM_BUTTON_TEXT);
-        /*
-        confirmButton.setOnAction(e -> {
-            if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
-				nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
-                }
-		  	else{
-				nameLabel.setText("You have not left a player name.");
-                }
-        });
-        */
-        confirmButton.setOnAction(e -> {
-            playerName = nameInput.getText();
-            System.out.println("Player name is: " + playerName);
-            //HighscoreContainer.setVisible(false);
-            Player = new CreatePlayer(playerName);
-            UpdateXMLTable updater = new UpdateXMLTable();
-            updater.add(Player);
-            LoadXMLTable loader = new LoadXMLTable();
-            loader.loadTable();
-            loader.displayHighscore();
-            Scoreboard scoreboard = new Scoreboard();
-            //scoreboard.display();
-            //menueOverlay.setVisible(false);
-        });
     }
 
 	private void showGameInfos(){
@@ -299,6 +311,32 @@ public class GUI {
 		lifeInfo.setVisible(false);
 		scoreInfo.setVisible(false);
 	}
+
+	//TODO: Ausgabe des Highscores final umsetzen
+    private void displayHighscoreList(){
+
+        LoadXMLTable loader = new LoadXMLTable();
+        for (int i=0; i < loader.getHighscoreList().size() && i < 10; i++){
+            loader.getHighscoreList().get(i);
+            //System.out.println((i+1)+". "+"\t"+ loader.getHighscoreList().get(i).getPlayerName() + "\t"+"......"+ loader.getHighscoreList().get(i).getPlayerScore());
+
+            return;
+        }
+    }
+
+    //TODO: hier der Versuch die Inputfelder auf der Start-Screen nicht anzuzeigen
+	private void showInputForm(){
+        nameLabel.setVisible(true);
+        nameInput.setVisible(true);
+        confirmButton.setVisible(true);
+    }
+
+    private void hideInputForm(){
+        nameLabel.setVisible(false);
+        nameInput.setVisible(false);
+        confirmButton.setVisible(false);
+    }
+
 	/* ------ View: Start new Game ------ */
     public void runGameEvents() {
 
@@ -326,6 +364,7 @@ public class GUI {
             getLevelInfo().setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
         }
         showGameInfos();
+        hideInputForm();
         gameIsPaused = false;
     }
 	/* ------ View: Pause new Game ------ */

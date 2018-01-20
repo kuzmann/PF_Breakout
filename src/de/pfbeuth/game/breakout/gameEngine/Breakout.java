@@ -124,6 +124,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         root.getChildren().add(guiNodes.getCreditContainer());
         root.getChildren().add(guiNodes.getMenueOverlay());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
+        //root.getChildren().add(guiNodes.getPlayerInputContainer());
     }
 
     private void createStartGamePlayTimer(){
@@ -192,4 +193,6 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public ScoreCounter getScoreCounter(){
     	return scoreCounter;
 	}
+
+
  }

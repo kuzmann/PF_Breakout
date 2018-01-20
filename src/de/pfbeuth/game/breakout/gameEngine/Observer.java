@@ -8,8 +8,6 @@ import javafx.beans.property.StringProperty;
 
 public class Observer {
 
-  /*  private  Breakout breakout;
-
     private IntegerProperty playerScore  = new SimpleIntegerProperty();
 
     public IntegerProperty playerScoreProperty(){
@@ -18,12 +16,12 @@ public class Observer {
 
 
 
-    *//* ------ GETTER & SETTER ------ *//*
+    /* ------ GETTER & SETTER ------ */
     public Integer getPlayerScore(){
         return playerScore.get();
     }
 
-    public void setPlayerScore(Integer breakout.getScoreCounter().getScore()){
-        playerScore.set(ScoreCounter.getScore());
-    }*/
+    public void setPlayerScore(Integer score){
+        playerScore.set(score);
+    }
 }
