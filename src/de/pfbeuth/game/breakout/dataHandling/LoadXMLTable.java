@@ -39,7 +39,7 @@ public class LoadXMLTable {
 
 
 
-    private static String outputPath = new File("out/playerScores.xml").getAbsolutePath();
+    private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
     private static List XMLTable = new List() {
         @Override
         public int size() {

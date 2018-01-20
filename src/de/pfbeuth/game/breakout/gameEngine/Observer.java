@@ -21,7 +21,7 @@ public class Observer {
         return playerScore.get();
     }
 
-    public void setPlayerScore(Integer ScoreCounter.getScore()){
-        playerScore.set(ScoreCounter.getScore());
+    public void setPlayerScore(Integer score){
+        playerScore.set(score);
     }
 }

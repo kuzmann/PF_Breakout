@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -122,10 +123,8 @@ public class GUI {
         creditContainer.setAlignment(Pos.TOP_CENTER);
         creditContainer.setPadding(topContainerPadding);
 
-        /*
-
-        //Container for Enter the user name
-        playerInputContainer = new GridPane();
+        /* ------ Container for Enter the user name ------ */
+        /*playerInputContainer = new GridPane();
         playerInputContainer.setAlignment(Pos.CENTER);
         int padding = 60;
         int Vgap = 8;
@@ -133,8 +132,48 @@ public class GUI {
         playerInputContainer.setPadding(new Insets(padding, padding, padding, padding));
         playerInputContainer.setVgap(Vgap);
         playerInputContainer.setHgap(Hgap);
+        playerInputContainer.setConstraints(nameLabel, 0, 0);
+        playerInputContainer.setConstraints(nameInput, 1, 0);
+        playerInputContainer.setConstraints(confirmButton, 1, 1);*/
 
+
+        /* ------ Label, input and button for enter the user name ------ */
+        /*Label nameLabel = new Label("Payer name:");
+        nameLabel.setTextFill(Color.WHITE);
+
+        //TextField nameInput = new TextField("Player");
+        TextField nameInput = new TextField();
+        nameInput.setPromptText("Choose player name");*/
+
+
+        /* ------ Confirm-button with actions ------ */
+        /*confirmButton = new Button();
+        confirmButton.setText(CONFIRM_BUTTON_TEXT);
+        /*
+        confirmButton.setOnAction(e -> {
+            if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
+				nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
+                }
+		  	else{
+				nameLabel.setText("You have not left a player name.");
+                }
+        });
         */
+        /*confirmButton.setOnAction(e -> {
+            playerName = nameInput.getText();
+            System.out.println("Player name is: " + playerName);
+            //HighscoreContainer.setVisible(false);
+            Player = new CreatePlayer(playerName);
+            UpdateXMLTable updater = new UpdateXMLTable();
+            updater.add(Player);
+            LoadXMLTable loader = new LoadXMLTable();
+            loader.loadTable();
+            loader.displayHighscore();
+            Scoreboard scoreboard = new Scoreboard();
+            //scoreboard.display();
+            //menueOverlay.setVisible(false);
+        });*/
+
 
         /** Add GUI Nodes to scene */
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
@@ -143,25 +182,16 @@ public class GUI {
         //textContainer.getChildren().addAll(introductionContainer,creditContainer,highscoreContainer);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
         startButtonContainer.getChildren().add(startButton);
-       // playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
-        masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
+        playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
+        //playerInputContainer.getChildren().addAll(nameLabel, nameInput);
+        masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer, playerInputContainer);
 
 
-/* //Label, input and Button for enter the user name*//*
 
-        Label nameLabel = new Label("Payer name:");
-        nameLabel.setTextFill(Color.WHITE);
-        playerInputContainer.setConstraints(nameLabel, 0, 0);
-        //TextField nameInput = new TextField("Player");
-        TextField nameInput = new TextField();
-        nameInput.setPromptText("Choose player name");
-        playerInputContainer.setConstraints(nameInput, 1, 0);
-
-        playerInputContainer.setConstraints(confirmButton, 1, 1);
-*/
     }
 
-    Observer playerScore = new Observer();
+    //TODO: hier war der Versucht, den Score durch Databinding einzubinden -> siehe Klasse Observer
+    //Observer playerScore = new Observer();
 
 
     private void createInfoText(){
@@ -245,33 +275,6 @@ public class GUI {
             hideGameInfos();
             highscoreList.setVisible(false);
             helpText.setVisible(true);
-        });
-
-        confirmButton = new Button();
-        confirmButton.setText(CONFIRM_BUTTON_TEXT);
-        /*
-        confirmButton.setOnAction(e -> {
-            if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
-				nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
-                }
-		  	else{
-				nameLabel.setText("You have not left a player name.");
-                }
-        });
-        */
-        confirmButton.setOnAction(e -> {
-            playerName = nameInput.getText();
-            System.out.println("Player name is: " + playerName);
-            //HighscoreContainer.setVisible(false);
-            Player = new CreatePlayer(playerName);
-            UpdateXMLTable updater = new UpdateXMLTable();
-            updater.add(Player);
-            LoadXMLTable loader = new LoadXMLTable();
-            loader.loadTable();
-            loader.displayHighscore();
-            Scoreboard scoreboard = new Scoreboard();
-            //scoreboard.display();
-            //menueOverlay.setVisible(false);
         });
     }
 
