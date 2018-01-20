@@ -1,6 +1,5 @@
 package de.pfbeuth.game.breakout.gameEngine;
-import de.pfbeuth.game.breakout.gamelogic.Level;
-import de.pfbeuth.game.breakout.gamelogic.Life;
+
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
@@ -18,13 +17,11 @@ public class Ball extends AnimatedGameObject {
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/4);
     private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS/4);
     private static final double BOTTOM_SCREEN_BOUNDARY = HEIGHT/2 + BALL_RADIUS/4;
-    boolean ballPaddleCollision;
-    boolean up = true;
-    boolean right = true;
-    double lastX, lastY;
-    boolean ballIsDead;
-    public Brick destroyedBrick;
-    boolean wonLevel;
+    private boolean up = true;
+    private boolean right = true;
+    private boolean ballIsDead;
+    private  Brick destroyedBrick;
+    private boolean wonLevel;
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -134,17 +131,18 @@ public class Ball extends AnimatedGameObject {
             positionX -= velocityX;
         }
 
+        //Control Ball with arrow keys
         //TODO delete following lines in final stage
-     /*   if(breakout.controller.isLeft()) {
+      /*  if(breakout.getController().isLeft()) {
             positionX -= velocityX;
         }
-        if(breakout.controller.isRight()) {
+        if(breakout.getController().isRight()) {
             positionX += velocityX;
         }
-        if(breakout.controller.isUp()) {
+        if(breakout.getController().isUp()) {
             positionY -= velocityY;
         }
-        if(breakout.controller.isDown()) {
+        if(breakout.getController().isDown()) {
             positionY += velocityY;
         }
 

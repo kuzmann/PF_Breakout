@@ -28,10 +28,10 @@ class Paddle extends AnimatedGameObject {
     }
 
     private void setXYPosition(){
-        if(breakout.controller.isLeft()) {
+        if(breakout.getController().isLeft()) {
             positionX -= velocityX;
         }
-        if(breakout.controller.isRight()) {
+        if(breakout.getController().isRight()) {
             positionX += velocityX;
         }
     }

@@ -4,9 +4,9 @@ import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 public class Level {
 
-    private  int level = 1;
-    private  int levelSpeed = 5;
-    private  Breakout breakout;
+    private int level = 1;
+    private int levelSpeed = 5;
+    private Breakout breakout;
 
     public Level (Breakout breakout) {
         this.breakout = breakout;

@@ -71,4 +71,12 @@ public class Controller {
     public boolean isRight() {
         return right;
     }
+
+    // only for test purposes
+    public boolean isUp(){
+        return up;
+    }
+    public boolean isDown(){
+        return down;
+    }
 }

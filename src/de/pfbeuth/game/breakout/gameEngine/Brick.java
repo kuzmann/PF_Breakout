@@ -5,13 +5,13 @@ import javafx.util.Duration;
 
 class Brick extends GameObject {
     private Breakout breakout;  //creates context to Breakout-Class
-    double leftBorder, rightBorder, topBorder, bottomBorder;
+    private double leftBorder, rightBorder, topBorder, bottomBorder;
 
-    protected Brick (Breakout iBrick, String SVGdata, double xLocation, double yLocation, Image... sprites){
+    Brick (Breakout breakout, String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
         spriteImage.setTranslateX(xLocation);
         spriteImage.setTranslateY(yLocation);
-        breakout = iBrick;
+        this.breakout = breakout;
     }
 
     @Override
