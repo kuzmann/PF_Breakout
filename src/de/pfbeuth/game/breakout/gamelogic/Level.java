@@ -12,13 +12,13 @@ public class Level {
         this.breakout = breakout;
     }
 
-    public  void riseLevel(){
+    public void raiseLevel(){
         level++;
         breakout.getBall().setVelocityX(breakout.getBall().getVelocityX()+ levelSpeed);
         breakout.getBall().setVelocityY(breakout.getBall().getVelocityY()+ levelSpeed);
     }
 
-    public  int getLevelNumber() {
+    public int getLevelNumber() {
         return level;
     }
 

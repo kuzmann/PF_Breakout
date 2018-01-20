@@ -23,15 +23,15 @@ public class Life {
         }
     }
 
-    public  boolean getIsGameOver(){
+    public boolean getIsGameOver(){
         return gameOver;
     }
 
-    public  int getActualLife() {
+    public int getActualLife() {
         return life;
     }
 
-    public  void setLife(int life){
+    public void setLife(int life){
         this.life = life;
     }
 }

@@ -41,10 +41,11 @@ public class Ball extends AnimatedGameObject {
             collision(collisionObject);
             if (collision(collisionObject) && collisionObject instanceof Brick){
                 ((Brick) collisionObject).destroyBrick();
-
+                brickCollision();
+               /* setXYPosition();
+                translateBall();*/
                 destroyedBrick = (Brick) collisionObject;
                 checkBrickColorHit();
-                brickCollision();
                 checkLevelEnd();
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
@@ -53,19 +54,48 @@ public class Ball extends AnimatedGameObject {
         }
     }
 
+    @Override
+    boolean collision(GameObject object){
+        boolean collisionDetect = false;
+        //two step collision detection
+        if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent()))
+        {
+            Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
+            if(intersection.getBoundsInLocal().getWidth() != -1){
+                return true;
+                //collisionDetect = true;
+            }
+        }
+        /*if (collisionDetect){
+            if (!(object instanceof Paddle) && !(object instanceof Ball)) {
+                breakout.getSpriteManager().removeCurrentObjects(object);
+                breakout.getSpriteManager().addToRemovedObjects(object);
+                //breakout.getRoot().getChildren().remove(object.getSpriteImage());
+                //breakout.getSpriteManager().resetRemovedObjects();
+            }
+            return true;
+        }*/
+        return false;
+    }
+
+    private void brickCollision(){
+        up = !up;
+        right = !right;
+    }
+
     private void checkBrickColorHit() {
 
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
-            ScoreCounter.counter(ScoreCounter.BrickColor.GREEN);
+            breakout.getScoreCounter().counter(ScoreCounter.BrickColor.GREEN);
         }
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageRed())) {
-            ScoreCounter.counter(ScoreCounter.BrickColor.RED);
+            breakout.getScoreCounter().counter(ScoreCounter.BrickColor.RED);
         }
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageOrange())) {
-            ScoreCounter.counter(ScoreCounter.BrickColor.ORANGE);
+            breakout.getScoreCounter().counter(ScoreCounter.BrickColor.ORANGE);
         }
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageYellow())) {
-            ScoreCounter.counter(ScoreCounter.BrickColor.YELLOW);
+            breakout.getScoreCounter().counter(ScoreCounter.BrickColor.YELLOW);
         }
     }
 
@@ -85,36 +115,12 @@ public class Ball extends AnimatedGameObject {
         return wonLevel;
     }
 
-    @Override
-    boolean collision(GameObject object){
-        boolean collisionDetect = false;
-        //two step collision detection
-        if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent()))
-        {
-            Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
-            if(intersection.getBoundsInLocal().getWidth() != -1){
-                collisionDetect = true;
-            }
-        }
-        if (collisionDetect){
-            if (!(object instanceof Paddle) && !(object instanceof Ball)) {
-                breakout.getSpriteManager().removeCurrentObjects(object);
-                breakout.getSpriteManager().addToRemovedObjects(object);
-                //breakout.getRoot().getChildren().remove(object.getSpriteImage());
-                //breakout.getSpriteManager().resetRemovedObjects();
-            }
-            return true;
-
-        }
-        return false;
-    }
-
     public Brick getDestroyedBrick(){
         return destroyedBrick;
     }
 
-
     //set XY coordinates when arrow keys are used for gameobject control
+
     private void setXYPosition(){
         if (up) {
             positionY -= velocityY;
@@ -155,10 +161,6 @@ public class Ball extends AnimatedGameObject {
         if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
             positionY += velocityY;
         }*/
-    }
-
-    private void brickCollision(){
-       up = false;
     }
 
     private void setScreenBoundaries(){

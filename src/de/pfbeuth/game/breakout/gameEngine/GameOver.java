@@ -20,7 +20,7 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
             breakout.getLife().loseLife();
-            breakout.getGuiNodes().getLifeInfo().setText("LIVES: " + breakout.getLife().getActualLife());
+            breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
             if(breakout.getLife().getIsGameOver()) {
                 gameOver();
             }
@@ -37,8 +37,8 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setDisable(false);
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
-            breakout.getLevel().riseLevel();
-            breakout.getGuiNodes().getLevelInfo().setText("LEVEL: " + breakout.getLevel().getLevelNumber());
+            breakout.getLevel().raiseLevel();
+            breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLevel().getLevelNumber());
         }
     }
 
@@ -61,7 +61,9 @@ class GameOver {
         /*breakout.getSpriteManager().resetCurrentObjects();
         breakout.getSpriteManager().resetRemovedObjects();
         breakout.getSpriteManager().resetCollideCheckList();*/
-
+		breakout.getSpriteManager().resetCurrentObjects();
+		breakout.getSpriteManager().resetCollideCheckList();
+		breakout.getSpriteManager().resetRemovedObjects();
         breakout.createInitBrickGrid();
         breakout.createSpriteManager();
     }
