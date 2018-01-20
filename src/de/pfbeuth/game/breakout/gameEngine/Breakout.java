@@ -20,17 +20,18 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     private StackPane root;
     private Scene scene;
     private Controller controller;
-    //Game Objects
     private ArrayList<Brick> brickGridList;
     private GamePlayTimer gameTimer;
+
     private SpriteManager spriteManager;
-    private Paddle paddle;
     private Brick brick;
+    private Paddle paddle;
     private Ball ball;
     private BrickGrid brickGrid;
-    //Images
+
     private Image paddleImage, brickImage, brickImageRed, brickImageOrange, brickImageYellow, brickImageGreen, ballImage;
     private GUI guiNodes;
+
     private GameOver gameOver;
     private Level level;
     private Life life;

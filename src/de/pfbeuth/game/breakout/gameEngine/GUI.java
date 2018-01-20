@@ -5,7 +5,6 @@ import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,20 +20,31 @@ public class GUI {
     private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer, highscoreContainer, introductionContainer,creditContainer ;
     private VBox masterButtonContainer;
     private Button playButton, helpButton, highscoreButton, startButton, confirmButton;
-    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo, highscoreList, instructionText;
+    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo, highscoreList, helpText;
     private Insets buttonContainerPadding, topContainerPadding;
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage;
     private boolean gameIsPaused;
-    private final String startText = "START\n(hit enter)";
-    private final String playAgainText = "PLAY AGAIN\n(hit enter)";
-    private final String gameOver = "GAME OVER";
-    private final String pauseGameText = "PAUSED\n(hit enter)";
 
-    /**NEUE HighscoreContrainer*/
+    private final String START_BUTTON_TEXT = "START\n(hit enter)";
+    private final String PLAY_BUTTON_TEXT = "PLAY";
+    private final String PLAY_AGAIN_TEXT = "PLAY AGAIN\n(hit enter)";
+    private final String GAME_OVER_TEXT = "GAME OVER";
+    private final String PAUSE_GAME_TEXT = "PAUSED\n(hit enter)";
+    private final String HELP_BUTTON_TEXT = "HELP";
+    private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
+	private final String CONFIRM_BUTTON_TEXT = "CONFIRM";
+	private final String LEVEL_INFO_TEXT = "LEVEL";
+	private final String LIVES_INFO_TEXT = "LIVES";
+	private final String SCORE_INFO_TEXT = "SCORE";
+
+
+
+
+	/* ------ NEUE HighscoreContrainer ------ */
     private GridPane playerInputContainer;
     private Insets highscoreContainerPadding;
-    //dataHandling
+    /* ------ dataHandling ------ */
     private CreatePlayer Player;
     private String playerName;
     private TextField nameInput, nameLabel;
@@ -46,14 +56,17 @@ public class GUI {
         createInfoText();
         createButtons();
         createGUIContainer();
-
     }
 
     private void loadImageAssets(){
-        backgroundImage = new Image("/assets/graphics/background.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
-        helpImage = new Image("/assets/graphics/help.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
-        highscoreImage = new Image("/assets/graphics/highscore.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
-        playBackgroundImage = new Image("/assets/graphics/background_play.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
+        backgroundImage = new Image("/assets/graphics/background.png",
+						  Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
+        helpImage = new Image("/assets/graphics/help.png",
+						  Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
+        highscoreImage = new Image("/assets/graphics/highscore.png",
+					   	  Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
+        playBackgroundImage = new Image("/assets/graphics/background_play.png",
+						  Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
     }
 
     private void createGUIImages(){
@@ -83,7 +96,7 @@ public class GUI {
         startButtonContainer.setAlignment(Pos.TOP_CENTER);
         startButtonContainer.setPadding(buttonContainerPadding);
 
-        // Container for Gameinformation: Level, Life and Score
+        /* ------ Container for Gameinformation: Level, Life and Score ------ */
         infoContainer = new HBox(12);
         infoContainer.setPrefHeight(Breakout.HEIGHT / 22);
         infoContainer.setAlignment(Pos.BOTTOM_CENTER);
@@ -94,7 +107,7 @@ public class GUI {
         gameOverContainer.setAlignment(Pos.TOP_CENTER);
         gameOverContainer.setPadding(buttonContainerPadding);
 
-        // Container for showing Highscore List
+        /* ------ Container for showing Highscore List ------ */
         highscoreContainer = new HBox(12);
         highscoreContainer.setPrefHeight(Breakout.HEIGHT / 50);
         highscoreContainer.setAlignment(Pos.TOP_CENTER);
@@ -126,7 +139,7 @@ public class GUI {
 
         /** Add GUI Nodes to scene */
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
-        introductionContainer.getChildren().add(instructionText);
+        introductionContainer.getChildren().add(helpText);
         highscoreContainer.getChildren().add(highscoreList);
         //textContainer.getChildren().addAll(introductionContainer,creditContainer,highscoreContainer);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
@@ -153,55 +166,59 @@ public class GUI {
 
         /** levelInfo, lifeInfo, ScoreInfo Setup */
         levelInfo = new InfoText();
-        levelInfo.setText("Level: " + breakout.getLevel().getLevel());
+        levelInfo.setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevel());
 
         lifeInfo = new InfoText();
-        lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
+        lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
 
         scoreInfo = new InfoText();
-        scoreInfo.setText("Score: " + ScoreCounter.score);
+        scoreInfo.setText(SCORE_INFO_TEXT + ScoreCounter.score);
 
         gameOverInfo = new InfoText();
         gameOverInfo.setFont(Font.font(30));
         gameOverInfo.setFill(Color.RED);
-        gameOverInfo.setText(gameOver);
+        gameOverInfo.setText(GAME_OVER_TEXT);
 
         highscoreList = new InfoText();
         highscoreList.setText("Highscore Liste wird hier angezeigt: ");
+        highscoreList.setVisible(true);
 
-        instructionText = new InfoText();
-        instructionText.setText("Spielanteilung: ");
+        helpText = new InfoText();
+        helpText.setText("Spielanteilung: ");	//TODO convert String to Constant
     }
 
     private void createButtons(){
+		startButton = new Button();
+		startButton.setPrefSize(100, 100);
+		startButton.setText(START_BUTTON_TEXT);
+		startButton.setTextAlignment(TextAlignment.CENTER);
+		startButton.setVisible(false);
+		startButton.setDisable(true);
+		startButton.setOnAction(e -> {
+			runGameEvents();
+			if (startButton.getText().equals(PLAY_AGAIN_TEXT)) {
+				lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
+				startButton.setText(START_BUTTON_TEXT);
+			}
+		});
 
-        playButton = new Button();
-        playButton.setPrefWidth(100);
-        playButton.setText("PLAY");
-        playButton.setOnAction(e -> {
-            startButton.setVisible(true);
-            startButton.setDisable(false);
-            backgroundLayer.setVisible(false);
-            menueOverlay.setVisible(false);
-            playBackground.setVisible(true);
-            playBackground.toBack();
-            hideGameInfos();
-        });
-        startButton = new Button();
-        startButton.setPrefSize(100, 100);
-        startButton.setText("START");
-        startButton.setTextAlignment(TextAlignment.CENTER);
-        startButton.setVisible(false);
-        startButton.setDisable(true);
-        startButton.setOnAction(e -> {
-            runGameEvents();
-            if (startButton.getText().equals(playAgainText)) {
-                lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
-                startButton.setText(startText);
-            }
-        });
+		playButton = new Button();
+		playButton.setPrefWidth(100);
+		playButton.setText(PLAY_BUTTON_TEXT);
+		playButton.setOnAction(e -> {
+			startButton.setVisible(true);
+			startButton.setDisable(false);
+			backgroundLayer.setVisible(false);
+			menueOverlay.setVisible(false);
+			playBackground.setVisible(true);
+			playBackground.toBack();
+			highscoreList.setVisible(false);
+			hideGameInfos();
+		});
+
         highscoreButton = new Button();
-        highscoreButton.setText("HIGH SCORES");
+		highscoreButton.setPrefWidth(100);
+        highscoreButton.setText(HIGHSCORE_BUTTON_TEXT);
         highscoreButton.setOnAction(e -> {
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
@@ -209,11 +226,13 @@ public class GUI {
             startButton.setVisible(false);
             startButton.setDisable(true);
             highscoreList.setVisible(true);
-            instructionText.setVisible(false);
+            helpText.setVisible(false);
             hideGameInfos();
         });
+
         helpButton = new Button();
-        helpButton.setText("INSTRUCTIONS");
+		helpButton.setPrefWidth(100);
+        helpButton.setText(HELP_BUTTON_TEXT);
         helpButton.setOnAction(e -> {
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
@@ -222,20 +241,21 @@ public class GUI {
             startButton.setDisable(true);
             hideGameInfos();
             highscoreList.setVisible(false);
-            instructionText.setVisible(true);
+            helpText.setVisible(true);
         });
+
         confirmButton = new Button();
-        confirmButton.setText("Confirm");
-        /*confirmButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
-                    nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
-                } else {
-                    nameLabel.setText("You have not left a player name.");
+        confirmButton.setText(CONFIRM_BUTTON_TEXT);
+        /*
+        confirmButton.setOnAction(e -> {
+            if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
+				nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
                 }
-            }
-        });*/
+		  	else{
+				nameLabel.setText("You have not left a player name.");
+                }
+        });
+        */
         confirmButton.setOnAction(e -> {
             playerName = nameInput.getText();
             System.out.println("Player name is: " + playerName);
@@ -252,7 +272,17 @@ public class GUI {
         });
     }
 
-    /** View: Start new Game*/
+	private void showGameInfos(){
+		levelInfo.setVisible(true);
+		lifeInfo.setVisible(true);
+		scoreInfo.setVisible(true);
+	}
+	private void hideGameInfos(){
+		levelInfo.setVisible(false);
+		lifeInfo.setVisible(false);
+		scoreInfo.setVisible(false);
+	}
+	/* ------ View: Start new Game ------ */
     public void runGameEvents() {
 
         /* //TODO countdown before game starts
@@ -281,13 +311,13 @@ public class GUI {
         showGameInfos();
         gameIsPaused = false;
     }
-    /** View: Pause new Game*/
+	/* ------ View: Pause new Game ------ */
     public void pauseGameEvents(){
         breakout.getGameTimer().stop();
         startButton.setVisible(true);
         startButton.setDisable(false);
         startButton.setCancelButton(false);
-        startButton.setText(pauseGameText);
+        startButton.setText(PAUSE_GAME_TEXT);
         startButton.setTextAlignment(TextAlignment.CENTER);
         playButton.setVisible(true);
         playButton.setDisable(false);
@@ -299,17 +329,7 @@ public class GUI {
         gameIsPaused = true;
     }
 
-    private void showGameInfos(){
-        levelInfo.setVisible(true);
-        lifeInfo.setVisible(true);
-        scoreInfo.setVisible(true);
-    }
-    private void hideGameInfos(){
-        levelInfo.setVisible(false);
-        lifeInfo.setVisible(false);
-        scoreInfo.setVisible(false);
-    }
-
+    /* ------ GETTER ------ */
     public Button getStartButton() {
         return startButton;
     }
@@ -353,12 +373,12 @@ public class GUI {
         return gameIsPaused;
     }
     public String getStartText() {
-        return startText;
+        return START_BUTTON_TEXT;
     }
     public String getPlayAgainText() {
-        return playAgainText;
+        return PLAY_AGAIN_TEXT;
     }
     public String getPauseGameText() {
-        return pauseGameText;
+        return PAUSE_GAME_TEXT;
     }
 }
