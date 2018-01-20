@@ -13,6 +13,7 @@ class GameOver {
         if(breakout.getBall().getBallIsDead()){
             breakout.getGameTimer().stop();
             //breakout.getGuiNodes().getGameOverInfo().setVisible(true);
+            System.out.println("Ball ist verloren");
             breakout.getPaddle().resetState();
             breakout.getBall().resetState();
             breakout.getGuiNodes().getStartButton().setVisible(true);
@@ -30,6 +31,7 @@ class GameOver {
     void endLevel(){
         if(breakout.getBall().getLevelWon()){
             breakout.getGameTimer().stop();
+            System.out.println("Level erfolgreich abgeschlossen");
             //breakout.getGuiNodes().getGameOverInfo().setVisible(true);
             breakout.getPaddle().resetState();
             breakout.getBall().resetState();
@@ -49,14 +51,16 @@ class GameOver {
     private void gameOver(){
         //breakout.getLife().setLife(3);
         System.out.println("GAME OVER der Methode private void gameOver()");
+        breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
         breakout.getGameTimer().stop();
+
         //TODO: Hier muss der User seinen Namen eingeben
         //breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);
-        breakout.getGuiNodes().getStartButton().setVisible(true);
+
         breakout.getGuiNodes().getGameOverInfo().setVisible(true);
+        /*breakout.getGuiNodes().getStartButton().setVisible(true);
         breakout.getGuiNodes().getStartButton().setDisable(false);
-        breakout.getGuiNodes().getStartButton().setCancelButton(false);
-        breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
+        breakout.getGuiNodes().getStartButton().setCancelButton(false);*/
 
         /*breakout.getSpriteManager().resetCurrentObjects();
         breakout.getSpriteManager().resetRemovedObjects();

@@ -123,43 +123,29 @@ public class GUI {
         creditContainer.setAlignment(Pos.TOP_CENTER);
         creditContainer.setPadding(topContainerPadding);
 
-        /* ------ Container for Enter the user name ------ */
-        /*playerInputContainer = new GridPane();
-        playerInputContainer.setAlignment(Pos.CENTER);
-        int padding = 60;
-        int Vgap = 8;
-        int Hgap = 10;
-        playerInputContainer.setPadding(new Insets(padding, padding, padding, padding));
-        playerInputContainer.setVgap(Vgap);
-        playerInputContainer.setHgap(Hgap);
-        playerInputContainer.setConstraints(nameLabel, 0, 0);
-        playerInputContainer.setConstraints(nameInput, 1, 0);
-        playerInputContainer.setConstraints(confirmButton, 1, 1);*/
-
-
         /* ------ Label, input and button for enter the user name ------ */
-        /*Label nameLabel = new Label("Payer name:");
+        Label nameLabel = new Label("Payer name:");
         nameLabel.setTextFill(Color.WHITE);
 
         //TextField nameInput = new TextField("Player");
         TextField nameInput = new TextField();
-        nameInput.setPromptText("Choose player name");*/
+        nameInput.setPromptText("Choose player name");
 
 
         /* ------ Confirm-button with actions ------ */
-        /*confirmButton = new Button();
+        confirmButton = new Button();
         confirmButton.setText(CONFIRM_BUTTON_TEXT);
-        /*
-        confirmButton.setOnAction(e -> {
+
+        /*confirmButton.setOnAction(e -> {
             if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
 				nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
                 }
 		  	else{
 				nameLabel.setText("You have not left a player name.");
                 }
-        });
-        */
-        /*confirmButton.setOnAction(e -> {
+        });*/
+
+        confirmButton.setOnAction(e -> {
             playerName = nameInput.getText();
             System.out.println("Player name is: " + playerName);
             //HighscoreContainer.setVisible(false);
@@ -172,7 +158,21 @@ public class GUI {
             Scoreboard scoreboard = new Scoreboard();
             //scoreboard.display();
             //menueOverlay.setVisible(false);
-        });*/
+        });
+
+        /* ------ Container for Enter the user name ------ */
+        playerInputContainer = new GridPane();
+        playerInputContainer.setAlignment(Pos.CENTER);
+        int padding = 60;
+        int Vgap = 8;
+        int Hgap = 10;
+        playerInputContainer.setPadding(new Insets(padding, padding, padding, padding));
+        playerInputContainer.setVgap(Vgap);
+        playerInputContainer.setHgap(Hgap);
+        playerInputContainer.setConstraints(nameLabel, 0, 0);
+        playerInputContainer.setConstraints(nameInput, 1, 0);
+        playerInputContainer.setConstraints(confirmButton, 1, 1);
+
 
 
         /** Add GUI Nodes to scene */
@@ -183,8 +183,7 @@ public class GUI {
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
         startButtonContainer.getChildren().add(startButton);
         playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
-        //playerInputContainer.getChildren().addAll(nameLabel, nameInput);
-        masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer, playerInputContainer);
+        masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
 
 
 
@@ -219,6 +218,8 @@ public class GUI {
         helpText = new InfoText();
         helpText.setText("Spielanteilung: ");	//TODO convert String to Constant
     }
+
+
 
     private void createButtons(){
 		startButton = new Button();
@@ -259,6 +260,7 @@ public class GUI {
             startButton.setVisible(false);
             startButton.setDisable(true);
             highscoreList.setVisible(true);
+            displayHighscoreList();
             helpText.setVisible(false);
             hideGameInfos();
         });
@@ -288,6 +290,28 @@ public class GUI {
 		lifeInfo.setVisible(false);
 		scoreInfo.setVisible(false);
 	}
+
+	//TODO: Ausgabe des Highscores final umsetzen
+    private void displayHighscoreList(){
+        LoadXMLTable loader = new LoadXMLTable();
+        for (int i=0; i < loader.getHighscoreList().size() && i < 10; i++){
+            loader.getHighscoreList().get(i);
+            //System.out.println((i+1)+". "+"\t"+ loader.getHighscoreList().get(i).getPlayerName() + "\t"+"......"+ loader.getHighscoreList().get(i).getPlayerScore());
+        }
+    }
+
+	private void showInputForm(){
+        nameLabel.setVisible(true);
+        nameInput.setVisible(true);
+        confirmButton.setVisible(true);
+    }
+
+    private void hideInputForm(){
+        nameLabel.setVisible(false);
+        nameInput.setVisible(false);
+        confirmButton.setVisible(false);
+    }
+
 	/* ------ View: Start new Game ------ */
     public void runGameEvents() {
 
@@ -315,6 +339,7 @@ public class GUI {
             getLevelInfo().setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
         }
         showGameInfos();
+        hideInputForm();
         gameIsPaused = false;
     }
 	/* ------ View: Pause new Game ------ */
