@@ -38,7 +38,7 @@ class GameOver {
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getGuiNodes().getStartButton().setVisible(true);
             breakout.getLevel().riseLevel();
-            breakout.getGuiNodes().getLevelInfo().setText("Level: " + breakout.getLevel().getLevel());
+            breakout.getGuiNodes().getLevelInfo().setText("Level: " + breakout.getLevel().getLevelNumber());
         }
     }
 
