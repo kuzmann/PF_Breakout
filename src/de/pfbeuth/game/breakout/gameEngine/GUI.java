@@ -40,6 +40,7 @@ public class GUI {
 	private final String LEVEL_INFO_TEXT = "LEVEL: ";
 	private final String LIVES_INFO_TEXT = "LIVES: ";
 	private final String SCORE_INFO_TEXT = "SCORE: ";
+	private String HIGHSCORELIST;
 
 	/* ------ NEUE HighscoreContrainer ------ */
     private GridPane playerInputContainer;
@@ -248,6 +249,8 @@ public class GUI {
 			playBackground.toBack();
 			highscoreList.setVisible(false);
 			hideGameInfos();
+            helpText.setVisible(false);
+            highscoreList.setVisible(false);
 		});
 
         highscoreButton = new Button();
@@ -293,13 +296,17 @@ public class GUI {
 
 	//TODO: Ausgabe des Highscores final umsetzen
     private void displayHighscoreList(){
+
         LoadXMLTable loader = new LoadXMLTable();
         for (int i=0; i < loader.getHighscoreList().size() && i < 10; i++){
             loader.getHighscoreList().get(i);
             //System.out.println((i+1)+". "+"\t"+ loader.getHighscoreList().get(i).getPlayerName() + "\t"+"......"+ loader.getHighscoreList().get(i).getPlayerScore());
+
+            return;
         }
     }
 
+    //TODO: hier der Versuch die Inputfelder auf der Start-Screen nicht anzuzeigen
 	private void showInputForm(){
         nameLabel.setVisible(true);
         nameInput.setVisible(true);
