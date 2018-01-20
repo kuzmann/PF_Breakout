@@ -16,16 +16,12 @@ public class ScoreCounter {
     	this.breakout = breakout;
     	scoreNumber = 0;
     	score = new SimpleStringProperty();
-    	//score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber = 0));
-
-
 	}
 
     /** Increases the score by an amount according to the colour of the brick which has been hit. */
     public enum BrickColor {
         GREEN, YELLOW, ORANGE, RED
     }
-
     public void counter(BrickColor brickcolor) {
     	switch (brickcolor) {
 			case GREEN:
@@ -50,34 +46,9 @@ public class ScoreCounter {
 				break;
 		}
 	}
-
     public int getScoreNumber(){
         	return scoreNumber;
 	}
-
-
-	/*public IntegerProperty scoreProperty() {
-    	if(score == null) {
-    		score = new SimpleIntegerProperty();
-		}
-		return score;
-	}
-*/
-
-
-	/*public int getScore(){
-		return score.get();
-	}*/
-	//TODO: Überprüfen ob, mann diese Methode noch braucht. Sonst löschen.
-
-    /*stopcounting(){
-        endscore = score.get();
-        System.out.println("EndScore:" + endscore);
-        return endscore;
-    }*/
-
-
-
 }
 
 

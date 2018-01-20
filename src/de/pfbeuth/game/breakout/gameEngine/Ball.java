@@ -43,7 +43,7 @@ public class Ball extends AnimatedGameObject {
                 ((Brick) collisionObject).destroyBrick();
                 brickCollision();
                 destroyedBrick = (Brick) collisionObject;
-                checkBrickColorHit();
+                checkBrickHitColor();
                 checkLevelEnd();
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
@@ -80,7 +80,7 @@ public class Ball extends AnimatedGameObject {
         right = !right;
     }
 
-    private void checkBrickColorHit() {
+    private void checkBrickHitColor() {
 
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.GREEN);
@@ -110,12 +110,9 @@ public class Ball extends AnimatedGameObject {
     public boolean getLevelWon(){
         return wonLevel;
     }
-
-    public Brick getDestroyedBrick(){
+	public Brick getDestroyedBrick(){
         return destroyedBrick;
     }
-
-    //set XY coordinates when arrow keys are used for gameobject control
 
     private void setXYPosition(){
         if (up) {
@@ -158,7 +155,6 @@ public class Ball extends AnimatedGameObject {
             positionY += velocityY;
         }*/
     }
-
     private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
            positionX = RIGHT_SCREEN_BOUNDARY - BALL_RADIUS;
@@ -184,7 +180,6 @@ public class Ball extends AnimatedGameObject {
 
         }
     }
-
     private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
@@ -193,11 +188,9 @@ public class Ball extends AnimatedGameObject {
     public boolean getBallIsDead(){
         return ballIsDead;
     }
-
     private void ballPaddleCollision(){
         up = true;
     }
-
     void resetState(){
         up = true;
         right = true;
@@ -209,6 +202,7 @@ public class Ball extends AnimatedGameObject {
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
 
+    /* ------ GETTER ------ */
     public boolean isRight() {
         return right;
     }
