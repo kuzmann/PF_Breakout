@@ -384,4 +384,7 @@ public class GUI {
     public String getPauseGameText() {
         return PAUSE_GAME_TEXT;
     }
+    public String getLIVES_INFO_TEXT(){
+    	return LIVES_INFO_TEXT;
+	}
 }
