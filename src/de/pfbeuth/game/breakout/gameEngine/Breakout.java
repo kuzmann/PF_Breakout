@@ -91,11 +91,15 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
      /** creates bricks which must be destroyed in the game */
     void createInitBrickGrid() {
          brickGridList = new ArrayList<>();
+         // Comment out for testing
          brickGrid.createLevelOneGrid();
+         //uncomment for Testting
+         //brickGrid.createTestGrid();
     }
 
     private void addGameObjectsNodes(){
         createInitBrickGrid();
+
         root.getChildren().add(paddle.spriteImage);
         root.getChildren().add(ball.spriteImage);
     }
