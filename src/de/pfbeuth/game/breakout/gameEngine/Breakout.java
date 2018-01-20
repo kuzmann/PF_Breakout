@@ -35,7 +35,6 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     private Level level;
     private Life life;
 
-
     @Override
     public void start(Stage primaryStage) {
         /** Stage and Scene Setup */
@@ -48,20 +47,21 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         primaryStage.show();
 
         /** Create class instances */
-        brickGrid = new BrickGrid(this);
-        life = new Life(this);
-        level = new Level(this);
-        gameOver = new GameOver(this);
-        guiNodes = new GUI(this);
         controller = new Controller(this);
+        //guiNodes = new GUI(this);
+        level = new Level(this);
+        life = new Life(this);
+        brickGrid = new BrickGrid(this);
+        gameOver = new GameOver(this);
 
         /** method calls */
         controller.createSceneEventHandling();
         loadImageAssets();
-        guiNodes.loadImageAssets();
+        //guiNodes.loadImageAssets();
         createGameObjects();
+        guiNodes = new GUI(this);
         addGameObjectsNodes();
-        guiNodes.createGUINodes();
+        //guiNodes.createGUINodes();
         addNodesToStackPane();
         createSpriteManager();
         createStartGamePlayTimer();

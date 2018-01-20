@@ -1,4 +1,4 @@
-package de.pfbeuth.game.breakout.dataHandeling;
+package de.pfbeuth.game.breakout.dataHandling;
 
 import org.jdom2.Document;
 import org.jdom2.Element;

@@ -1,4 +1,4 @@
-package de.pfbeuth.game.breakout.dataHandeling;
+package de.pfbeuth.game.breakout.dataHandling;
 
 
 public class CreatePlayer {

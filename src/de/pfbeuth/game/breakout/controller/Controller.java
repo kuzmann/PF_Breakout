@@ -1,11 +1,8 @@
 package de.pfbeuth.game.breakout.controller;
 
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
-import de.pfbeuth.game.breakout.gameEngine.GUI;
-import de.pfbeuth.game.breakout.gamelogic.Life;
 
 public class Controller {
-
     private boolean left;
     private boolean right;
     private boolean up;
@@ -63,16 +60,14 @@ public class Controller {
         });
     }
 
-    /** Get key values */
+    /** GETTER */
     public boolean isLeft() {
         return left;
     }
-
     public boolean isRight() {
         return right;
     }
-
-    // only for test purposes
+    //TODO Delete - only for test purposes
     public boolean isUp(){
         return up;
     }

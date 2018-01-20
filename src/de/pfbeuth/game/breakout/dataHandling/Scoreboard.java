@@ -1,4 +1,4 @@
-package de.pfbeuth.game.breakout.dataHandeling;
+package de.pfbeuth.game.breakout.dataHandling;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -4,8 +4,8 @@ import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 public class Life {
 
-    private  int life = 3;
-    private  boolean gameOver;
+    private int life = 3;
+    private boolean gameOver;
     private Breakout breakout;
 
     public Life (Breakout breakout){

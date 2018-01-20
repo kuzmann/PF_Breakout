@@ -35,6 +35,8 @@ public class Ball extends AnimatedGameObject {
         setScreenBoundaries();
         translateBall();
     }
+
+    /** Collision Detection */
     private void checkCollision(){
         for (int i = 0; i < breakout.getSpriteManager().getCurrentObjects().size(); i++) {
             GameObject collisionObject = breakout.getSpriteManager().getCurrentObjects().get(i);
