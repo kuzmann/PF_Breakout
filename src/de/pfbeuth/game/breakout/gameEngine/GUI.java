@@ -153,7 +153,7 @@ public class GUI {
 
         /** levelInfo, lifeInfo, ScoreInfo Setup */
         levelInfo = new InfoText();
-        levelInfo.setText("Level: " + breakout.getLevel().getLevel());
+        levelInfo.setText("Level: " + breakout.getLevel().getLevelNumber());
 
         lifeInfo = new InfoText();
         lifeInfo.setText("Lives: " + breakout.getLife().getActualLife());
@@ -276,7 +276,7 @@ public class GUI {
         helpButton.setDisable(true);
         //TODO: Ausgabe des Levels aktuell halten. Wird erst wieder angezeigt, wenn
         if(breakout.getBall().getLevelWon()) {
-            getLevelInfo().setText("Level: " + breakout.getLevel().getLevel());
+            getLevelInfo().setText("Level: " + breakout.getLevel().getLevelNumber());
         }
         showGameInfos();
         gameIsPaused = false;
