@@ -1,6 +1,6 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
-public class GameOver {
+class GameOver {
 
     private Breakout breakout;
 
@@ -46,7 +46,7 @@ public class GameOver {
 
     // TODO screen design makeover
     /** View, if player loose whole lives*/
-    void gameOver(){
+    private void gameOver(){
         breakout.getLife().setLife(3);
         System.out.println("GAME OVER");
         breakout.getGameTimer().stop();
@@ -62,7 +62,7 @@ public class GameOver {
         breakout.getSpriteManager().resetRemovedObjects();
         breakout.getSpriteManager().resetCollideCheckList();*/
 
-        breakout.createBrickGrid();
+        breakout.createInitBrickGrid();
         breakout.createSpriteManager();
     }
 }

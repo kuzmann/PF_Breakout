@@ -8,13 +8,14 @@ class Paddle extends AnimatedGameObject {
 
     private final double PADDLE_INIT_X_POS = 0;
     private final double PADDLE_INIT_Y_POS = HEIGHT*0.42;
-    private final double PADDLE_DIM_X = 200/2;
-    private final double PADDLE_DIM_Y = 12.5;
-    private final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - PADDLE_DIM_X/2;
-    private final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - PADDLE_DIM_X/2);
-    private double velocity;
 
-    public Paddle (Breakout iPaddle, String SVGdata, double xLocation, double yLocation, Image... sprites){
+    private static final double PADDLE_DIM_X = 200/2;
+    private static final double PADDLE_DIM_Y = 12.5;
+
+    private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - PADDLE_DIM_X/2;
+    private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - PADDLE_DIM_X/2);
+
+    protected Paddle (Breakout iPaddle, String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iPaddle;
     }
@@ -49,13 +50,13 @@ class Paddle extends AnimatedGameObject {
         spriteImage.setTranslateY(positionY);
     }
 
-    public void resetState(){
-        velocity = 15;
-        setVelocityX(velocity);
+    void resetState(){
+        setVelocityX(15);
         this.positionX = PADDLE_INIT_X_POS;
         this.positionY = PADDLE_INIT_Y_POS;
         spriteImage.setTranslateX(PADDLE_INIT_X_POS);
         spriteImage.setTranslateY(PADDLE_INIT_Y_POS);
     }
+
 }
 

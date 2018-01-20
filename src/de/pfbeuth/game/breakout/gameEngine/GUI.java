@@ -26,10 +26,10 @@ public class GUI {
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage;
     private boolean gameIsPaused;
-    final String startText = "START\n(hit enter)";
-    final String playAgainText = "PLAY AGAIN\n(hit enter)";
-    final String gameOver = "GAME OVER";
-    final String pauseGameText = "PAUSED\n(hit enter)";
+    private final String startText = "START\n(hit enter)";
+    private final String playAgainText = "PLAY AGAIN\n(hit enter)";
+    private final String gameOver = "GAME OVER";
+    private final String pauseGameText = "PAUSED\n(hit enter)";
 
     /**NEUE HighscoreContrainer*/
     private GridPane playerInputContainer;
@@ -47,6 +47,20 @@ public class GUI {
         createButtons();
         createGUIContainer();
 
+    }
+
+    private void loadImageAssets(){
+        backgroundImage = new Image("/assets/graphics/background.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
+        helpImage = new Image("/assets/graphics/help.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
+        highscoreImage = new Image("/assets/graphics/highscore.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
+        playBackgroundImage = new Image("/assets/graphics/background_play.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
+    }
+
+    private void createGUIImages(){
+        backgroundLayer = new ImageView(backgroundImage);
+        menueOverlay = new ImageView(highscoreImage);
+        playBackground = new ImageView(playBackgroundImage);
+        playBackground.setVisible(false);
     }
 
     private void createGUIContainer() {
@@ -96,7 +110,9 @@ public class GUI {
         creditContainer.setAlignment(Pos.TOP_CENTER);
         creditContainer.setPadding(topContainerPadding);
 
-        //**Container for Enter the user name*/
+        /*
+
+        //Container for Enter the user name
         playerInputContainer = new GridPane();
         playerInputContainer.setAlignment(Pos.CENTER);
         int padding = 60;
@@ -106,6 +122,8 @@ public class GUI {
         playerInputContainer.setVgap(Vgap);
         playerInputContainer.setHgap(Hgap);
 
+        */
+
         /** Add GUI Nodes to scene */
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
         introductionContainer.getChildren().add(instructionText);
@@ -113,10 +131,12 @@ public class GUI {
         //textContainer.getChildren().addAll(introductionContainer,creditContainer,highscoreContainer);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
         startButtonContainer.getChildren().add(startButton);
-        playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
+       // playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
 
-        //**Label, input and Button for enter the user name*/
+
+/* //Label, input and Button for enter the user name*//*
+
         Label nameLabel = new Label("Payer name:");
         nameLabel.setTextFill(Color.WHITE);
         playerInputContainer.setConstraints(nameLabel, 0, 0);
@@ -126,6 +146,7 @@ public class GUI {
         playerInputContainer.setConstraints(nameInput, 1, 0);
 
         playerInputContainer.setConstraints(confirmButton, 1, 1);
+*/
     }
 
     private void createInfoText(){
@@ -229,23 +250,6 @@ public class GUI {
             //scoreboard.display();
             //menueOverlay.setVisible(false);
         });
-    }
-
-    private void loadImageAssets(){
-        backgroundImage = new Image("/assets/graphics/background.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
-        helpImage = new Image("/assets/graphics/help.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
-        highscoreImage = new Image("/assets/graphics/highscore.png", Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
-        playBackgroundImage = new Image("/assets/graphics/background_play.png", Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
-    }
-
-    private void createGUIImages(){
-        backgroundLayer = new ImageView();
-        backgroundLayer.setImage(backgroundImage);
-        menueOverlay = new ImageView();
-        menueOverlay.setImage(highscoreImage);
-        playBackground = new ImageView();
-        playBackground.setImage(playBackgroundImage);
-        playBackground.setVisible(false);
     }
 
     /** View: Start new Game*/

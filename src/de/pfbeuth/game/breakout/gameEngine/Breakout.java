@@ -1,5 +1,5 @@
  /**
- * @authors Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
+ * authors Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
  * */
 
 package de.pfbeuth.game.breakout.gameEngine;
@@ -47,19 +47,19 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         primaryStage.show();
 
         /** Create class instances */
-        controller = new Controller(this);
         //guiNodes = new GUI(this);
+        brickGrid = new BrickGrid(this);
         level = new Level(this);
         life = new Life(this);
-        brickGrid = new BrickGrid(this);
         gameOver = new GameOver(this);
 
         /** method calls */
+        guiNodes = new GUI(this);
+        controller = new Controller(this);
         controller.createSceneEventHandling();
         loadImageAssets();
         //guiNodes.loadImageAssets();
         createGameObjects();
-        guiNodes = new GUI(this);
         addGameObjectsNodes();
         //guiNodes.createGUINodes();
         addNodesToStackPane();
@@ -88,13 +88,13 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     }
 
      /** creates bricks which must be destroyed in the game */
-     void createBrickGrid() {
+    void createInitBrickGrid() {
          brickGridList = new ArrayList<>();
          brickGrid.createLevelOneGrid();
     }
 
-    void addGameObjectsNodes(){
-        createBrickGrid();
+    private void addGameObjectsNodes(){
+        createInitBrickGrid();
         root.getChildren().add(paddle.spriteImage);
         root.getChildren().add(ball.spriteImage);
     }
@@ -103,7 +103,6 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         spriteManager = new SpriteManager();
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
-
         for (Brick aBrickGrid : brickGridList) {
             brick = aBrickGrid;
             spriteManager.addCurrentObjects(brick);
@@ -111,7 +110,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     }
 
     /** First View of the GAME*/
-    void addNodesToStackPane(){
+    private void addNodesToStackPane(){
         root.getChildren().add(guiNodes.getInfoContainer());
         root.getChildren().add(guiNodes.getPlayBackground());
         root.getChildren().add(guiNodes.getBackgroundLayer());
