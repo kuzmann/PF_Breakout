@@ -54,22 +54,19 @@ public class Ball extends AnimatedGameObject {
     }
 
     private void checkBrickColorHit() {
-                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
-                    ScoreCounter.countgreen();
-                    //System.out.println("green brick hit");
-                }
-                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageRed())) {
-                    ScoreCounter.countred();
-                    //System.out.println("red brick hit");
-                }
-                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageOrange())) {
-                    ScoreCounter.countorange();
-                    //System.out.println("orange brick hit");
-                }
-                if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageYellow())) {
-                    ScoreCounter.countyellow();
-                    //System.out.println("yellow brick hit");
-                }
+
+        if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
+            ScoreCounter.counter(ScoreCounter.BrickColor.GREEN);
+        }
+        if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageRed())) {
+            ScoreCounter.counter(ScoreCounter.BrickColor.RED);
+        }
+        if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageOrange())) {
+            ScoreCounter.counter(ScoreCounter.BrickColor.ORANGE);
+        }
+        if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageYellow())) {
+            ScoreCounter.counter(ScoreCounter.BrickColor.YELLOW);
+        }
     }
 
 

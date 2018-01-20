@@ -17,7 +17,7 @@ public class Level {
         breakout.getBall().setVelocityX(breakout.getBall().getVelocityX()+ levelSpeed);
         breakout.getBall().setVelocityY(breakout.getBall().getVelocityY()+ levelSpeed);
     }
-    
+
     public  int getLevelNumber() {
         return level;
     }

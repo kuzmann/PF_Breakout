@@ -9,36 +9,33 @@ public class ScoreCounter {
     public static int score = 0;
     public static int endscore;
 
-
     /** Increases the score by an amount according to the colour of the brick which has been hit. */
-    //TODO refactor to Switch statement or ENUMs
-    public static int countgreen() {
-        score +=5;
-        System.out.println("Score nach Grün:" + score);
-
-        return score;
+    public enum BrickColor {
+        GREEN, YELLOW, ORANGE, RED
     }
 
-    public static int countyellow() {
-        score +=10;
-        System.out.println("Scoren nach Gelb:" + score);
+    public static void counter(BrickColor brickcolor){
+        switch (brickcolor){
 
-        return score;
+            case GREEN:
+                score +=5;
+                System.out.println("Score nach Grün:" + score);
+                break;
+            case YELLOW:
+                score +=10;
+                System.out.println("Score nach Gelb:" + score);
+                break;
+            case ORANGE:
+                score +=25;
+                System.out.println("Score nach Organge:" + score);
+                break;
+            case RED:
+                score +=50;
+                System.out.println("Score nach Rot:" + score);
+                break;
+        }
     }
 
-    public static int countorange() {
-        score +=25;
-        System.out.println("Score nach Orange:" + score);
-
-        return score;
-    }
-
-    public static int countred() {
-        score +=50;
-        System.out.println("Score nach Rot:" + score);
-
-        return score;
-    }
 
     //TODO: Überprüfen ob, mann diese Methode noch braucht. Sonst löschen.
     public static int stopcounting(){
