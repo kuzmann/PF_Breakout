@@ -196,4 +196,6 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public ScoreCounter getScoreCounter(){
     	return scoreCounter;
 	}
+
+
  }
