@@ -11,6 +11,7 @@ class GameOver {
     //* View, if player loose a life*/
     void ballDied(){
         if(breakout.getBall().getBallIsDead()){
+            System.out.println("Ball died");
             breakout.getGameTimer().stop();
             breakout.getGuiNodes().getGameOverInfo().setVisible(true);
             breakout.getPaddle().resetState();
@@ -28,6 +29,7 @@ class GameOver {
     }
     /** View, if player win a level*/
     void endLevel(){
+            System.out.println("Level end. Start new level");
             breakout.getGameTimer().stop();
             breakout.getGuiNodes().getGameOverInfo().setVisible(true);
             breakout.getPaddle().resetState();
@@ -46,6 +48,7 @@ class GameOver {
     private void gameOver(){
         breakout.getLife().setLife(3);
         breakout.getGameTimer().stop();
+        System.out.println("GAME OVER");
 
         //TODO: Hier muss der User seinen Namen eingeben
         //breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);
@@ -63,7 +66,7 @@ class GameOver {
         breakout.getSpriteManager().resetCurrentObjects();
         breakout.getSpriteManager().resetCollideCheckList();
         breakout.getSpriteManager().resetRemovedObjects();
-
+        System.out.println("ResetGAME");
         breakout.getBrickGridList().clear();
         switch(breakout.getLevel().getLevelNumber()){
             case (1):
