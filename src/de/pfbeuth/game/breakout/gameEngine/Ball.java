@@ -43,8 +43,12 @@ public class Ball extends AnimatedGameObject {
                 ((Brick) collisionObject).destroyBrick();
                 brickCollision();
                 destroyedBrick = (Brick) collisionObject;
+                breakout.getRoot().getChildren().remove(collisionObject.getSpriteImage());
+                //breakout.getSpriteManager().resetRemovedObjects();
                 checkBrickHitColor();
-                checkLevelEnd();
+                if(checkLevelEnd()){
+                	breakout.getGameStates().levelFinished();
+                }
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
                 ballPaddleCollision();
@@ -59,7 +63,6 @@ public class Ball extends AnimatedGameObject {
         if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent())) {
             Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
             if(intersection.getBoundsInLocal().getWidth() != -1){
-                //return true;
                 collisionDetect = true;
             }
         }
@@ -67,8 +70,7 @@ public class Ball extends AnimatedGameObject {
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().removeCurrentObjects(object);
                 breakout.getSpriteManager().addToRemovedObjects(object);
-                //breakout.getRoot().getChildren().remove(object.getSpriteImage());
-                //breakout.getSpriteManager().resetRemovedObjects();
+
             }
             return true;
         }
@@ -91,7 +93,7 @@ public class Ball extends AnimatedGameObject {
         }
     }
 	private void setXYPosition(){
-        if (up) {
+    /*    if (up) {
             positionY -= velocityY;
         } else {
             positionY += velocityY;
@@ -101,8 +103,8 @@ public class Ball extends AnimatedGameObject {
             positionX += velocityX;
         } else {
             positionX -= velocityX;
-        }
-      /*  //Control Ball with arrow keys
+        }*/
+        //Control Ball with arrow keys
         //TODO delete following lines in final stage
         if(breakout.getController().isLeft()) {
             positionX -= velocityX;
@@ -128,7 +130,7 @@ public class Ball extends AnimatedGameObject {
         }
         if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
             positionY += velocityY;
-        }*/
+        }
     }
 	private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
@@ -148,7 +150,7 @@ public class Ball extends AnimatedGameObject {
         }
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
-            breakout.getGameOver().ballDied();
+            breakout.getGameStates().ballDied();
             //TODO: eine Verbindung zu der Klasse LIFE schaffen -> Wahrscheinlich brauchen wir es nicht mebr zu tun. Leben wird bei der Klasse GameOver abgezogen
             //life.loseLife();
             //ScoreCounter.stopcounting();
@@ -176,14 +178,13 @@ public class Ball extends AnimatedGameObject {
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
-	private void checkLevelEnd(){
+	private boolean checkLevelEnd(){
 		//TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
-		//if(breakout.getSpriteManager().getCurrentObjects().isEmpty()) {
 		if (breakout.getSpriteManager().getCurrentObjects().size() == 2) {
 			wonLevel = true;
-			breakout.getGameOver().endLevel();
 		}
 		else { wonLevel = false; }
+		return wonLevel;
 	}
 	/** ------ GETTER ------ */
     public boolean isRight() {
