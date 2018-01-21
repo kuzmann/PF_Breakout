@@ -37,7 +37,6 @@ public class GameStates {
 			breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getNEXT_LEVEL_TEXT() + breakout.getLevel().getLevelNumber());
 		}
 		breakout.getGuiNodes().showGameInfos();
-		breakout.getGuiNodes().hideInputForm();
 		gameIsPaused = false;
 	}
 	/* ------ View: Pause new Game ------ */
@@ -62,15 +61,12 @@ public class GameStates {
 	private void gameOver(){
 		breakout.getGameTimer().stop();
 		//TODO: Hier muss der User seinen Namen eingeben
-		//breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);
-		//breakout.getGuiNodes().getStartButton().setVisible(true);
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getGAME_OVER_TEXT());
-		//breakout.getGuiNodes().getStartButton().setVisible(true);
-		//breakout.getGuiNodes().getStartButton().setDisable(false);
+		breakout.getGuiNodes().getStartButton().setVisible(false);
+		breakout.getGuiNodes().getStartButton().setDisable(true);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
-		breakout.getGuiNodes().showInputForm();
-
+		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
 	}
 	/** View, if player win a level*/
 	void levelFinished(){
