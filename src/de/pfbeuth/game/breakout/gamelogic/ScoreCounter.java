@@ -27,22 +27,18 @@ public class ScoreCounter {
 			case GREEN:
 				breakout.getGuiNodes().updateScoreInfo();
 				score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber += 5));
-				System.out.println("Score nach Grün:" + score);
 				break;
 			case YELLOW:
 				breakout.getGuiNodes().updateScoreInfo();
 				score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber += 10));
-				System.out.println("Score nach Gelb:" + score);
 				break;
 			case ORANGE:
 				breakout.getGuiNodes().updateScoreInfo();
 				score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber += 25));
-				System.out.println("Score nach Organge:" + score);
 				break;
 			case RED:
 				breakout.getGuiNodes().updateScoreInfo();
 				score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber += 50));
-				System.out.println("Score nach Rot:" + score);
 				break;
 		}
 	}
