@@ -20,7 +20,7 @@ public class Ball extends AnimatedGameObject {
     private boolean up = true;
     private boolean right = true;
     private boolean ballIsDead;
-    private  Brick destroyedBrick;
+    private Brick destroyedBrick;
     private boolean wonLevel;
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {

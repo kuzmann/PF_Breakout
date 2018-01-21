@@ -25,7 +25,6 @@ public class GUI {
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage;
 
-    private boolean gameIsPaused;
     private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo, highscoreList, helpText;
     private final String START_BUTTON_TEXT = "START\n(hit enter)";
     private final String PLAY_BUTTON_TEXT = "PLAY";
@@ -116,10 +115,8 @@ public class GUI {
 		helpContainer.setAlignment(Pos.TOP_CENTER);
 		helpContainer.setPadding(topContainerPadding);
 
-        /*
-        //Container for Enter the user name
         /* ------ Label, input and button for enter the user name ------ */
-        Label nameLabel = new Label("Payer name:");
+        Label nameLabel = new Label("Player name:");
         nameLabel.setTextFill(Color.WHITE);
 
         //TextField nameInput = new TextField("Player");
@@ -145,19 +142,11 @@ public class GUI {
         helpContainer.getChildren().add(helpText);
         highscoreContainer.getChildren().add(highscoreList);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
-        startButtonContainer.getChildren().addAll(startButton, confirmButton);
-        //playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
+        startButtonContainer.getChildren().addAll(startButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
-    }
-
-	public void updateScoreInfo (){
-		scoreInfo.textProperty().bind(breakout.getScoreCounter().scoreProperty());
-	}
-	public void updateLivesInfo() {
-		lifeInfo.textProperty().bind(breakout.getLevel().levelStringProperty());
+		playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
 	}
     private void createInfoText(){
-
         /* ------ levelInfo, lifeInfo, ScoreInfo Setup ------ */
         levelInfo = new InfoText();
         levelInfo.setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
@@ -183,7 +172,7 @@ public class GUI {
 		startButton.setVisible(false);
 		startButton.setDisable(true);
 		startButton.setOnAction(e -> {
-			runGameEvents();
+			breakout.getGameStates().runGameEvents();
 			//TODO trigger resetGame when game over or level up
 			/*if (startButton.getText().equals(PLAY_AGAIN_TEXT)) {
 				lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
@@ -239,6 +228,7 @@ public class GUI {
          /* ------ Confirm-button with actions ------ */
 		confirmButton = new Button();
 		confirmButton.setText(CONFIRM_BUTTON_TEXT);
+		confirmButton.setVisible(false);
         /*confirmButton.setOnAction(e -> {
             if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
 				nameLabel.setText(nameInput.getText() + ", " + "thank you for your comment!");
@@ -263,23 +253,23 @@ public class GUI {
 		});*/
     }
 
-	private void showGameInfos(){
+	public void showGameInfos(){
 		levelInfo.setVisible(true);
 		lifeInfo.setVisible(true);
 		scoreInfo.setVisible(true);
 	}
-	private void hideGameInfos(){
+	public void hideGameInfos(){
 		levelInfo.setVisible(false);
 		lifeInfo.setVisible(false);
 		scoreInfo.setVisible(false);
 	}
 	//TODO: hier der Versuch die Inputfelder auf der Start-Screen nicht anzuzeigen
-	private void showInputForm(){
+	public void showInputForm(){
 		nameLabel.setVisible(true);
 		nameInput.setVisible(true);
 		confirmButton.setVisible(true);
 	}
-	private void hideInputForm(){
+	public void hideInputForm(){
 		nameLabel.setVisible(false);
 		nameInput.setVisible(false);
 		confirmButton.setVisible(false);
@@ -293,60 +283,38 @@ public class GUI {
             //System.out.println((i+1)+". "+"\t"+ loader.getHighscoreList().get(i).getPlayerName() + "\t"+"......"+ loader.getHighscoreList().get(i).getPlayerScore());
         }
     }
-	/** ------ View: Start new Game ------ */
-    public void runGameEvents() {
-		//TODO countdown before game starts
-        /*
-         for (int i = 3; i > 0; i--) {
-            startButton.setText("" + i);
-            System.out.println("" + startButton.getText());
-            try {
-                Thread.sleep(500);
-            }
-            catch(InterruptedException e1) {}
-        }*/
-        breakout.getGameTimer().start();
-        startButton.setVisible(false);
-        startButton.setDisable(true);
-        startButton.setCancelButton(true);
-        playButton.setVisible(false);
-        playButton.setDisable(true);
-        highscoreButton.setVisible(false);
-        highscoreButton.setDisable(true);
-        helpButton.setVisible(false);
-        helpButton.setDisable(true);
-        //TODO: Ausgabe des Levels aktuell halten. Wird erst wieder angezeigt, wenn
-        if(breakout.getBall().getLevelWon()) {
-            getLevelInfo().setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
-        }
-        showGameInfos();
-        hideInputForm();
-        gameIsPaused = false;
-    }
-	/* ------ View: Pause new Game ------ */
-    public void pauseGameEvents(){
-        breakout.getGameTimer().stop();
-        startButton.setVisible(true);
-        startButton.setDisable(false);
-        startButton.setCancelButton(false);
-        startButton.setText(PAUSE_GAME_TEXT);
-        startButton.setTextAlignment(TextAlignment.CENTER);
-        playButton.setVisible(true);
-        playButton.setDisable(false);
-        highscoreButton.setVisible(true);
-        highscoreButton.setDisable(false);
-        helpButton.setVisible(true);
-        helpButton.setDisable(false);
-        hideGameInfos();
-        gameIsPaused = true;
-    }
+	public void updateScoreInfo (){
+		scoreInfo.textProperty().bind(breakout.getScoreCounter().scoreProperty());
+	}
+	public void updateLivesInfo() {
+		lifeInfo.textProperty().bind(breakout.getLevel().levelStringProperty());
+	}
+
     /* ------ GETTER ------ */
     public Button getStartButton() {
         return startButton;
     }
-    public Text getGameOverInfo() {
+
+	public Button getConfirmButton() {
+		return confirmButton;
+	}
+
+	public Button getPlayButton() {
+		return playButton;
+	}
+
+	public Button getHighscoreButton() {
+		return highscoreButton;
+	}
+
+	public Button getHelpButton() {
+		return helpButton;
+	}
+
+	public Text getGameOverInfo() {
         return gameOverInfo;
     }
+
     public Text getLifeInfo() {
         return lifeInfo;
     }
@@ -380,9 +348,6 @@ public class GUI {
     public ImageView getMenueOverlay() {
         return menueOverlay;
     }
-    public boolean isGameIsPaused() {
-        return gameIsPaused;
-    }
     public String getStartText() {
         return START_BUTTON_TEXT;
     }
@@ -404,4 +369,5 @@ public class GUI {
 	public String getGAME_OVER_TEXT(){
 		return GAME_OVER_TEXT;
 	}
+
 }
