@@ -145,7 +145,7 @@ public class GUI {
         helpContainer.getChildren().add(helpText);
         highscoreContainer.getChildren().add(highscoreList);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
-        startButtonContainer.getChildren().addAll(startButton, confirmButton);
+        startButtonContainer.getChildren().addAll(startButton);
         //playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
     }
@@ -247,7 +247,7 @@ public class GUI {
 				nameLabel.setText("You have not left a player name.");
                 }
         });*/
-		/*confirmButton.setOnAction(e -> {
+		confirmButton.setOnAction(e -> {
 			playerName = nameInput.getText();
 			System.out.println("Player name is: " + playerName);
 			//HighscoreContainer.setVisible(false);
@@ -260,7 +260,7 @@ public class GUI {
 			Scoreboard scoreboard = new Scoreboard();
 			//scoreboard.display();
 			//menueOverlay.setVisible(false);
-		});*/
+		});
     }
 
 	private void showGameInfos(){
@@ -320,7 +320,7 @@ public class GUI {
             getLevelInfo().setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
         }
         showGameInfos();
-        hideInputForm();
+        //hideInputForm();
         gameIsPaused = false;
     }
 	/* ------ View: Pause new Game ------ */
