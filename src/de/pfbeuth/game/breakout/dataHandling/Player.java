@@ -3,7 +3,7 @@ package de.pfbeuth.game.breakout.dataHandling;
 
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
-class Player implements Comparable<Player>{
+public class Player implements Comparable<Player>{
     String playerScore;
     String playerName;
 

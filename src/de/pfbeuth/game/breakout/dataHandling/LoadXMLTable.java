@@ -215,16 +215,15 @@ public class LoadXMLTable {
                 }
             }
         }
-        //createHighscoreList();
+        createHighscoreList();
     }
 
-    /*private void createHighscoreList() {
-
+    private void createHighscoreList() {
         for (int i=0; i < HighscoreList.size() && i < 10; i++){
             HighscoreList.get(i);
             System.out.println((i+1)+". "+"\t"+ HighscoreList.get(i).getPlayerName() + "\t"+"......"+ HighscoreList.get(i).getPlayerScore());
         }
-    }*/
+    }
 
 
     public static List getXMLTable() {

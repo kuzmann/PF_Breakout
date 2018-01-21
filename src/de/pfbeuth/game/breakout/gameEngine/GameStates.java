@@ -60,13 +60,16 @@ public class GameStates {
 	/** View, if player loose whole lives*/
 	private void gameOver(){
 		breakout.getGameTimer().stop();
-		//TODO: Hier muss der User seinen Namen eingeben
-		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getGAME_OVER_TEXT());
+		//breakout.getGuiNodes().getStartButton().setText("" + breakout.getScoreCounter().getScoreNumber());
 		breakout.getGuiNodes().getStartButton().setVisible(false);
 		breakout.getGuiNodes().getStartButton().setDisable(true);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
 		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
+		breakout.getGuiNodes().getMenueOverlay().setImage(breakout.getGuiNodes().getGameOverImage());
+		breakout.getGuiNodes().getMenueOverlay().setVisible(true);
+		breakout.getGuiNodes().getGameOverInfo().setText(breakout.getGuiNodes().getScoreInfo().getText());
+
 	}
 	/** View, if player win a level*/
 	void levelFinished(){
@@ -81,8 +84,8 @@ public class GameStates {
 		//breakout.getGuiNodes().updateLivesInfo();
 		//breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLevel().getLevelNumber());
 	}
-	//* View, if player loose a life*/
 
+	/* View, if player loose a life */
 	void ballDied(){
         if(breakout.getBall().getBallIsDead()){
             breakout.getGameTimer().stop();

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import de.pfbeuth.game.breakout.controller.Controller;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 
+import de.pfbeuth.game.breakout.dataHandling.*;
+
  public class Breakout extends Application  {
     static final double WIDTH = 540, HEIGHT = 675;
     private StackPane root;
@@ -67,6 +69,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         addNodesToStackPane();
         createSpriteManager();
         createStartGamePlayTimer();
+        guiNodes.createHighScoreScreen();
     }
 
     public static void main(String[] args) {

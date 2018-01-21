@@ -22,7 +22,7 @@ public class ScoreCounter {
 	}
 
 	/** Increases the score by an amount according to the colour of the brick which has been hit. */
-	public void counter(BrickColor brickcolor) {
+	public int counter(BrickColor brickcolor) {
     	switch (brickcolor) {
 			case GREEN:
 				breakout.getGuiNodes().updateScoreInfo();
@@ -41,6 +41,7 @@ public class ScoreCounter {
 				score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber += 50));
 				break;
 		}
+		return scoreNumber;
 	}
 
 	public SimpleStringProperty scoreProperty() {

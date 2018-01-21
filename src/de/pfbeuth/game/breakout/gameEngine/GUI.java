@@ -24,7 +24,7 @@ public class GUI {
     private Insets buttonContainerPadding, topContainerPadding;
     private Button playButton, helpButton, highscoreButton, startButton, confirmButton;
     private ImageView backgroundLayer, menueOverlay, playBackground;
-    private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage;
+    private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage, gameOverImage;
 
     private Text levelInfo, lifeInfo, scoreInfo, highscoreList, helpText, gameOverInfo;
     private final String START_BUTTON_TEXT = "START\n(hit enter)";
@@ -49,6 +49,7 @@ public class GUI {
     private String playerName;
     private TextField nameInput;
 	private Label nameLabel;
+	private LoadXMLTable loader;
 
     /* ------ CONSTRUCTOR ------ */
     GUI(Breakout breakout){
@@ -68,12 +69,16 @@ public class GUI {
 					   	  Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
         playBackgroundImage = new Image("/assets/graphics/background_play.png",
 						  Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
+		gameOverImage = new Image("/assets/graphics/gameOver.png",
+						  Breakout.WIDTH, Breakout.HEIGHT, true, false, true);
     }
     private void createGUIImages(){
         backgroundLayer = new ImageView(backgroundImage);
         menueOverlay = new ImageView(highscoreImage);
         playBackground = new ImageView(playBackgroundImage);
         playBackground.setVisible(false);
+       /* gameOver = new ImageView(gameOverImage);
+        gameOver.setVisible(false);*/
     }
     private void createGUIContainer() {
         buttonContainerPadding = new Insets(0, 0, 12, 0);
@@ -155,17 +160,16 @@ public class GUI {
         lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
 
         scoreInfo = new InfoText();
-		scoreInfo.setText(SCORE_INFO_TEXT + 0);
+		scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScoreNumber());
 
         highscoreList = new InfoText();
-        highscoreList.setText("Highscore Liste wird hier angezeigt: ");
         highscoreList.setVisible(true);
 
         helpText = new InfoText();
         helpText.setText("Spielanteilung: ");	//TODO convert String to Constant
 
 		gameOverInfo = new InfoText();
-		gameOverInfo.setText(GAME_OVER_TEXT);
+
     }
     private void createButtons(){
 		startButton = new Button();
@@ -209,11 +213,9 @@ public class GUI {
             startButton.setVisible(false);
             startButton.setDisable(true);
             highscoreList.setVisible(true);
-            displayHighscoreList();
+            //displayHighscoreList();
             helpText.setVisible(false);
             hideGameInfos();
-
-
         });
 
         helpButton = new Button();
@@ -239,14 +241,15 @@ public class GUI {
 				nameLabel.setText(nameInput.getText());
 				playerName = nameInput.getText();
 				System.out.println("Player name is: " + playerName);
-				//HighscoreContainer.setVisible(false);
 				Player = new CreatePlayer(playerName);
+
+				//TODO Ausgabe der Highscoreliste fertigstellen
 				UpdateXMLTable updater = new UpdateXMLTable();
 				updater.add(Player);
-				LoadXMLTable loader = new LoadXMLTable();
 				loader.loadTable();
 				loader.displayHighscore();
-				Scoreboard scoreboard = new Scoreboard();
+				createHighScoreScreen();
+
 
 				backgroundLayer.setVisible(true);
 				menueOverlay.setVisible(true);
@@ -254,18 +257,24 @@ public class GUI {
 				startButton.setVisible(false);
 				startButton.setDisable(true);
 				highscoreList.setVisible(true);
-				displayHighscoreList();
+				//displayHighscoreList();
 				helpText.setVisible(false);
 				hideGameInfos();
 
 				playerInputContainer.setVisible(false);
 				playerInputContainer.setDisable(true);
+
+				breakout.getGuiNodes().getPlayButton().setVisible(true);
+				breakout.getGuiNodes().getPlayButton().setDisable(false);
+				breakout.getGuiNodes().getHighscoreButton().setVisible(true);
+				breakout.getGuiNodes().getHighscoreButton().setDisable(false);
+				breakout.getGuiNodes().getHelpButton().setVisible(true);
+				breakout.getGuiNodes().getHelpButton().setDisable(false);
+				breakout.getGuiNodes().hideGameInfos();
 			}
 			else{
 				nameLabel.setText("Please enter your name!");
 			}
-			//scoreboard.display();
-			//menueOverlay.setVisible(false);
 		});
     }
 
@@ -282,16 +291,20 @@ public class GUI {
 		playerInputContainer.setDisable(true);
 	}
 
-	//TODO: Ausgabe des Highscores final umsetzen
-    private void displayHighscoreList(){
-        LoadXMLTable loader = new LoadXMLTable();
-        for (int i=0; i < loader.getHighscoreList().size() && i < 10; i++){
-            loader.getHighscoreList().get(i);
-            //System.out.println((i+1)+". "+"\t"+ loader.getHighscoreList().get(i).getPlayerName() + "\t"+"......"+ loader.getHighscoreList().get(i).getPlayerScore());
-        }
-    }
 	public void updateScoreInfo (){
 		scoreInfo.textProperty().bind(breakout.getScoreCounter().scoreProperty());
+	}
+	public void createHighScoreScreen(){
+		loader = new LoadXMLTable();
+		loader.loadTable();
+		//TODO Was passiert wenn die Liste leer ist
+		if (loader.getHighscoreList().size() != 0) {
+			for (int i = 0; i < loader.getHighscoreList().size() && i < 10; i++) {
+				if( i < 9){
+					highscoreList.setText(loader.getHighscoreList().get(i).getPlayerName() + ".........." + loader.getHighscoreList().get(i).getPlayerScore() + "\n");
+				} else highscoreList.setText(loader.getHighscoreList().get(i).getPlayerName() + ".........." + loader.getHighscoreList().get(i).getPlayerScore());
+			}
+		}
 	}
 
     /* ------ GETTER ------ */
@@ -372,5 +385,9 @@ public class GUI {
 
 	public Text getGameOverInfo() {
 		return gameOverInfo;
+	}
+
+	public Image getGameOverImage() {
+		return gameOverImage;
 	}
 }
