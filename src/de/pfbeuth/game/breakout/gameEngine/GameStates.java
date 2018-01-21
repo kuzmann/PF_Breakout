@@ -1,10 +1,10 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
-class GameOver {
+class GameStates {
 
     private Breakout breakout;
 
-    GameOver(Breakout breakout) {
+    GameStates(Breakout breakout) {
         this.breakout = breakout;
     }
 
@@ -27,16 +27,15 @@ class GameOver {
         }
     }
     /** View, if player win a level*/
-    void endLevel(){
-            breakout.getGameTimer().stop();
-            breakout.getGuiNodes().getGameOverInfo().setVisible(true);
-            breakout.getPaddle().resetState();
-            breakout.getBall().resetState();
-            breakout.getGuiNodes().getStartButton().setVisible(true);
-            breakout.getGuiNodes().getStartButton().setDisable(false);
-            breakout.getGuiNodes().getStartButton().setCancelButton(false);
-            breakout.getGuiNodes().getStartButton().setVisible(true);
-            breakout.getLevel().raiseLevel();
+    void levelFinished(){
+        breakout.getGameTimer().stop();
+        breakout.getPaddle().resetState();
+        breakout.getBall().resetState();
+		breakout.getLevel().raiseLevel();
+		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getNEXT_LEVEL_TEXT());
+		breakout.getGuiNodes().getStartButton().setVisible(true);
+		breakout.getGuiNodes().getStartButton().setDisable(false);
+		breakout.getGuiNodes().getStartButton().setCancelButton(false);
             //breakout.getGuiNodes().updateLivesInfo();
             //breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLevel().getLevelNumber());
     }
@@ -44,19 +43,15 @@ class GameOver {
     // TODO screen design makeover
     /** View, if player loose whole lives*/
     private void gameOver(){
-        breakout.getLife().setLife(3);
         breakout.getGameTimer().stop();
-
         //TODO: Hier muss der User seinen Namen eingeben
         //breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);
         //breakout.getGuiNodes().getStartButton().setVisible(true);
-
-        breakout.getGuiNodes().getGameOverInfo().setVisible(true);
-        breakout.getGuiNodes().getStartButton().setDisable(false);
+		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getGAME_OVER_TEXT());
+        breakout.getGuiNodes().getStartButton().setVisible(true);
+		breakout.getGuiNodes().getStartButton().setDisable(false);
         breakout.getGuiNodes().getStartButton().setCancelButton(false);
         breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
-
-
     }
 
     private void resetGame(){

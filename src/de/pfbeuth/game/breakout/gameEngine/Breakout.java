@@ -34,7 +34,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
                   brickImageYellow, brickImageGreen, ballImage;
     private GUI guiNodes;
 
-    private GameOver gameOver;
+    private GameStates gameOver;
     private Level level;
     private Life life;
     private ScoreCounter scoreCounter;
@@ -54,7 +54,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         brickGrid = new BrickGrid(this);
         level = new Level(this);
         life = new Life(this);
-        gameOver = new GameOver(this);
+        gameOver = new GameStates(this);
         scoreCounter = new ScoreCounter(this);
 
         /** method calls */
@@ -90,9 +90,9 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     protected void createInitBrickGrid() {
          brickGridList = new ArrayList<>();
          // Comment out for testing
-         brickGrid.createLevelOneGrid();
+         //brickGrid.createLevelOneGrid();
          //uncomment for Testting
-         //brickGrid.createTestGrid();
+         brickGrid.createTestGrid();
     }
 
     private void addGameObjectsNodes(){
@@ -182,7 +182,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public Scene getScene() {
         return scene;
     }
-    public GameOver getGameOver(){
+    public GameStates getGameStates(){
         return gameOver;
     }
     public Paddle getPaddle() {
