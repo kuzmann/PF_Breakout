@@ -16,20 +16,8 @@ class SpriteManager {
         this.COLLIDE_CHECKLIST = new ArrayList<>();
     }
 
-    public List<GameObject> getCurrentObjects(){
-        return CURRENT_OBJECTS;
-    }
     public void addCurrentObjects (GameObject... objects){
         CURRENT_OBJECTS.addAll(Arrays.asList(objects));
-    }
-    public void removeCurrentObjects (GameObject... objects){
-        CURRENT_OBJECTS.removeAll(Arrays.asList(objects));
-    }
-    public void  resetCurrentObjects (){
-        CURRENT_OBJECTS.clear();
-    }
-    public Set getRemovedObjects() {
-        return REMOVED_OBJECTS;
     }
     public void addToRemovedObjects(GameObject... objects){
         if(objects.length > 1)
@@ -37,15 +25,28 @@ class SpriteManager {
         else
             REMOVED_OBJECTS.add(objects[0]);
     }
+    public void removeCurrentObjects (GameObject... objects){
+        CURRENT_OBJECTS.removeAll(Arrays.asList(objects));
+    }
+    public void  resetCurrentObjects (){
+        CURRENT_OBJECTS.clear();
+    }
     public  void resetRemovedObjects(){
         CURRENT_OBJECTS.removeAll(REMOVED_OBJECTS);
         REMOVED_OBJECTS.clear();
     }
-    public List getCollideCheckList() {
-        return COLLIDE_CHECKLIST;
-    }
     public void resetCollideCheckList() {
+        COLLIDE_CHECKLIST.removeAll(CURRENT_OBJECTS);
         COLLIDE_CHECKLIST.clear();
-        COLLIDE_CHECKLIST.addAll(CURRENT_OBJECTS);
+    }
+    /** ------ GETTER ------ */
+    public List<GameObject> getCurrentObjects(){
+        return CURRENT_OBJECTS;
+    }
+    public Set getRemovedObjects() {
+        return REMOVED_OBJECTS;
+    }
+    public List<GameObject> getCollideCheckList() {
+        return COLLIDE_CHECKLIST;
     }
 }

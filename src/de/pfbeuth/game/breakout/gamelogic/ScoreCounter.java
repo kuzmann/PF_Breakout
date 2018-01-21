@@ -6,23 +6,23 @@ import javafx.beans.property.*;
 public class ScoreCounter {
 
     private Breakout breakout;
-    public SimpleStringProperty score;
+    private SimpleStringProperty score;
     private int scoreNumber;
 
-    private int endscore;
-    private StringProperty scoreAsString;
-
+    /** ------ CONSTRUCTOR ------*/
     public ScoreCounter (Breakout breakout){
     	this.breakout = breakout;
     	scoreNumber = 0;
     	score = new SimpleStringProperty();
 	}
 
-    /** Increases the score by an amount according to the colour of the brick which has been hit. */
-    public enum BrickColor {
-        GREEN, YELLOW, ORANGE, RED
-    }
-    public void counter(BrickColor brickcolor) {
+	/** Enums constants for the bricks color */
+	public enum BrickColor {
+		GREEN, YELLOW, ORANGE, RED
+	}
+
+	/** Increases the score by an amount according to the colour of the brick which has been hit. */
+	public void counter(BrickColor brickcolor) {
     	switch (brickcolor) {
 			case GREEN:
 				breakout.getGuiNodes().updateScoreInfo();
@@ -46,6 +46,13 @@ public class ScoreCounter {
 				break;
 		}
 	}
+
+	public SimpleStringProperty scoreProperty() {
+		return score;
+	}
+
+	/** ------ GETTER ------ */
+
     public int getScoreNumber(){
         	return scoreNumber;
 	}

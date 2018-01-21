@@ -4,12 +4,14 @@ import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 public class Life {
 
-    private int life = 1;
+    private int life;
     private boolean gameOver;
     private Breakout breakout;
 
+    /* ------ CONSTRUCTOR ------ */
     public Life (Breakout breakout){
         this.breakout = breakout;
+        life = 3;
     }
 
     public  void loseLife(){

@@ -1,7 +1,6 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
 import de.pfbeuth.game.breakout.dataHandling.*;
-import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,15 +17,16 @@ import javafx.scene.text.TextAlignment;
 public class GUI {
 
     private Breakout breakout;
-    private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer, highscoreContainer, introductionContainer,creditContainer ;
+    private HBox buttonContainer, startButtonContainer, infoContainer, gameOverContainer,
+				 highscoreContainer, helpContainer;
     private VBox masterButtonContainer;
-    private Button playButton, helpButton, highscoreButton, startButton, confirmButton;
-    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo, highscoreList, helpText;
     private Insets buttonContainerPadding, topContainerPadding;
+    private Button playButton, helpButton, highscoreButton, startButton, confirmButton;
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage;
-    private boolean gameIsPaused;
 
+    private boolean gameIsPaused;
+    private Text levelInfo, lifeInfo, scoreInfo, gameOverInfo, highscoreList, helpText;
     private final String START_BUTTON_TEXT = "START\n(hit enter)";
     private final String PLAY_BUTTON_TEXT = "PLAY";
     private final String PLAY_AGAIN_TEXT = "PLAY AGAIN\n(hit enter)";
@@ -48,6 +48,7 @@ public class GUI {
     private String playerName;
     private TextField nameInput, nameLabel;
 
+    /* ------ CONSTRUCTOR ------ */
     GUI(Breakout breakout){
         this.breakout = breakout ;
         loadImageAssets();
@@ -56,7 +57,6 @@ public class GUI {
         createButtons();
         createGUIContainer();
     }
-
     private void loadImageAssets(){
         backgroundImage = new Image("/assets/graphics/background.png",
 						  Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
@@ -67,14 +67,12 @@ public class GUI {
         playBackgroundImage = new Image("/assets/graphics/background_play.png",
 						  Breakout.WIDTH, Breakout.HEIGHT, false, false, true);
     }
-
     private void createGUIImages(){
         backgroundLayer = new ImageView(backgroundImage);
         menueOverlay = new ImageView(highscoreImage);
         playBackground = new ImageView(playBackgroundImage);
         playBackground.setVisible(false);
     }
-
     private void createGUIContainer() {
         buttonContainerPadding = new Insets(0, 0, 12, 0);
         topContainerPadding = new Insets(250, 0, 0, 0);
@@ -95,7 +93,7 @@ public class GUI {
         startButtonContainer.setAlignment(Pos.TOP_CENTER);
         startButtonContainer.setPadding(buttonContainerPadding);
 
-        /* ------ Container for Gameinformation: Level, Life and Score ------ */
+        /* ------ Container for Gameinformation: Level, Lives and Score ------ */
         infoContainer = new HBox(12);
         infoContainer.setPrefHeight(Breakout.HEIGHT / 22);
         infoContainer.setAlignment(Pos.BOTTOM_CENTER);
@@ -112,15 +110,10 @@ public class GUI {
         highscoreContainer.setAlignment(Pos.TOP_CENTER);
         highscoreContainer.setPadding(topContainerPadding);
 
-        introductionContainer = new HBox(12);
-        introductionContainer.setPrefHeight(Breakout.HEIGHT / 50);
-        introductionContainer.setAlignment(Pos.TOP_CENTER);
-        introductionContainer.setPadding(topContainerPadding);
-
-        creditContainer = new HBox(12);
-        creditContainer.setPrefHeight(Breakout.HEIGHT / 50);
-        creditContainer.setAlignment(Pos.TOP_CENTER);
-        creditContainer.setPadding(topContainerPadding);
+        helpContainer = new HBox(12);
+		helpContainer.setPrefHeight(Breakout.HEIGHT / 50);
+		helpContainer.setAlignment(Pos.TOP_CENTER);
+		helpContainer.setPadding(topContainerPadding);
 
         /*
         //Container for Enter the user name
@@ -174,27 +167,21 @@ public class GUI {
         playerInputContainer.setConstraints(nameInput, 1, 0);
         playerInputContainer.setConstraints(confirmButton, 1, 1);
 
-
-
-        /** Add GUI Nodes to scene */
+        /* ------ Add GUI Nodes to scene ------ */
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
-        introductionContainer.getChildren().add(helpText);
+        helpContainer.getChildren().add(helpText);
         highscoreContainer.getChildren().add(highscoreList);
-        //textContainer.getChildren().addAll(introductionContainer,creditContainer,highscoreContainer);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
-        startButtonContainer.getChildren().add(startButton);
-        playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
+        startButtonContainer.getChildren().addAll(startButton, confirmButton);
+        //playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
-
-
-
     }
 
-    //TODO: hier war der Versucht, den Score durch Databinding einzubinden -> siehe Klasse Observer
-    //Observer playerScore = new Observer();
-
 	public void updateScoreInfo (){
-		scoreInfo.textProperty().bind(breakout.getScoreCounter().score);
+		scoreInfo.textProperty().bind(breakout.getScoreCounter().scoreProperty());
+	}
+	public void updateLivesInfo() {
+		lifeInfo.textProperty().bind(breakout.getLevel().levelStringProperty());
 	}
 
     private void createInfoText(){
@@ -209,22 +196,6 @@ public class GUI {
         scoreInfo = new InfoText();
 		scoreInfo.setText(SCORE_INFO_TEXT + 0);
 
-	/*
-		if (breakout.getScoreCounter().getScoreNumber() == 0) {
-			breakout.getScoreCounter().counter(ScoreCounter.BrickColor.INIT);
-		}
-
-		if (breakout.getScoreCounter().getScoreNumber() == 0) {
-			scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScoreNumber());
-
-		} else {
-			scoreInfo.textProperty().bind(breakout.getScoreCounter().score);
-		}
-	*/
-
-		//scoreInfo.textProperty().setValue(this.breakout.getGuiNodes().getSCORE_INFO_TEXT() + 0);
-		//if(breakout.getScoreCounter().score > 0)
-
         gameOverInfo = new InfoText();
         gameOverInfo.setFont(Font.font(30));
         gameOverInfo.setFill(Color.RED);
@@ -237,8 +208,6 @@ public class GUI {
         helpText = new InfoText();
         helpText.setText("Spielanteilung: ");	//TODO convert String to Constant
     }
-
-
 
     private void createButtons(){
 		startButton = new Button();
@@ -253,6 +222,7 @@ public class GUI {
 				lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
 				startButton.setText(START_BUTTON_TEXT);
 			}
+			//TODO trigger resetGame when game over or level up
 		});
 
 		playButton = new Button();
@@ -337,7 +307,7 @@ public class GUI {
         confirmButton.setVisible(false);
     }
 
-	/* ------ View: Start new Game ------ */
+	/** ------ View: Start new Game ------ */
     public void runGameEvents() {
 
         /* //TODO countdown before game starts
@@ -413,11 +383,8 @@ public class GUI {
     public HBox getHighscoreContainer() {
         return highscoreContainer;
     }
-    public HBox getIntroductionContainer() {
-        return introductionContainer;
-    }
-    public HBox getCreditContainer() {
-        return creditContainer;
+    public HBox getHelpContainer() {
+        return helpContainer;
     }
     public GridPane getPlayerInputContainer() {
         return playerInputContainer;

@@ -75,11 +75,6 @@ public class Ball extends AnimatedGameObject {
         return false;
     }
 
-    private void brickCollision(){
-        up = !up;
-        right = !right;
-    }
-
     private void checkBrickHitColor() {
 
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
@@ -95,26 +90,7 @@ public class Ball extends AnimatedGameObject {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.YELLOW);
         }
     }
-
-    private void checkLevelEnd(){
-        //TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
-        //if(breakout.getSpriteManager().getCurrentObjects().isEmpty()) {
-        int i = 2;
-        if (i == breakout.getSpriteManager().getCurrentObjects().size()) {
-            wonLevel = true;
-            breakout.getGameOver().endLevel();
-        }
-        else { wonLevel = false; }
-    }
-
-    public boolean getLevelWon(){
-        return wonLevel;
-    }
-	public Brick getDestroyedBrick(){
-        return destroyedBrick;
-    }
-
-    private void setXYPosition(){
+	private void setXYPosition(){
         if (up) {
             positionY -= velocityY;
         } else {
@@ -126,10 +102,9 @@ public class Ball extends AnimatedGameObject {
         } else {
             positionX -= velocityX;
         }
-
-        //Control Ball with arrow keys
+      /*  //Control Ball with arrow keys
         //TODO delete following lines in final stage
-      /*  if(breakout.getController().isLeft()) {
+        if(breakout.getController().isLeft()) {
             positionX -= velocityX;
         }
         if(breakout.getController().isRight()) {
@@ -155,7 +130,7 @@ public class Ball extends AnimatedGameObject {
             positionY += velocityY;
         }*/
     }
-    private void setScreenBoundaries(){
+	private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
            positionX = RIGHT_SCREEN_BOUNDARY - BALL_RADIUS;
            right = false;
@@ -180,18 +155,18 @@ public class Ball extends AnimatedGameObject {
 
         }
     }
-    private void translateBall () {
+	private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
     }
-
-    public boolean getBallIsDead(){
-        return ballIsDead;
-    }
-    private void ballPaddleCollision(){
+	private void brickCollision(){
+		up = !up;
+		right = !right;
+	}
+	private void ballPaddleCollision(){
         up = true;
     }
-    void resetState(){
+	protected void resetState(){
         up = true;
         right = true;
         setVelocityX(6);
@@ -201,9 +176,26 @@ public class Ball extends AnimatedGameObject {
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
-
-    /* ------ GETTER ------ */
+	private void checkLevelEnd(){
+		//TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
+		//if(breakout.getSpriteManager().getCurrentObjects().isEmpty()) {
+		if (breakout.getSpriteManager().getCurrentObjects().size() == 2) {
+			wonLevel = true;
+			breakout.getGameOver().endLevel();
+		}
+		else { wonLevel = false; }
+	}
+	/** ------ GETTER ------ */
     public boolean isRight() {
         return right;
+    }
+	public Brick getDestroyedBrick(){
+		return destroyedBrick;
+	}
+	public boolean getLevelWon(){
+		return wonLevel;
+	}
+	public boolean getBallIsDead(){
+        return ballIsDead;
     }
 }

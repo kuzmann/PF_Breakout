@@ -24,4 +24,8 @@
     <username>Test 2</username>
     <score>20</score>
   </Player>
+  <Player>
+    <username />
+    <score>0</score>
+  </Player>
 </PlayerScores>

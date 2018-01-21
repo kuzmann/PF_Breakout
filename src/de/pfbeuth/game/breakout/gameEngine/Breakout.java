@@ -20,17 +20,18 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     static final double WIDTH = 540, HEIGHT = 675;
     private StackPane root;
     private Scene scene;
-    private Controller controller;
-    private ArrayList<Brick> brickGridList;
     private GamePlayTimer gameTimer;
+    private Controller controller;
 
+    private ArrayList<Brick> brickGridList;
     private SpriteManager spriteManager;
     private Brick brick;
     private Paddle paddle;
     private Ball ball;
     private BrickGrid brickGrid;
 
-    private Image paddleImage, brickImage, brickImageRed, brickImageOrange, brickImageYellow, brickImageGreen, ballImage;
+    private Image paddleImage, brickImage, brickImageRed, brickImageOrange,
+                  brickImageYellow, brickImageGreen, ballImage;
     private GUI guiNodes;
 
     private GameOver gameOver;
@@ -50,7 +51,6 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         primaryStage.show();
 
         /** Create class instances */
-        //guiNodes = new GUI(this);
         brickGrid = new BrickGrid(this);
         level = new Level(this);
         life = new Life(this);
@@ -72,7 +72,6 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public static void main(String[] args) {
         launch(args);
     }
-
     private void loadImageAssets(){
         paddleImage = new Image("/assets/graphics/paddle.png", 100, 25, true, false, true);
         brickImageRed = new Image("/assets/graphics/brick_red.png", WIDTH/10-2, 22, true, false, true);
@@ -81,21 +80,19 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         brickImageGreen = new Image("/assets/graphics/brick_green.png", WIDTH/10-2, 22, true, false, true);
         ballImage = new Image("/assets/graphics/ball.png", 200/12, 200/12, true, false, true);
     }
-
     private void createGameObjects(){
         paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, 0, paddleImage);
         paddle.resetState();
         ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, 0, ballImage);
         ball.resetState();
     }
-
      /** creates bricks which must be destroyed in the game */
-    void createInitBrickGrid() {
+    protected void createInitBrickGrid() {
          brickGridList = new ArrayList<>();
          // Comment out for testing
-         //brickGrid.createLevelOneGrid();
+         brickGrid.createLevelOneGrid();
          //uncomment for Testting
-         brickGrid.createTestGrid();
+         //brickGrid.createTestGrid();
     }
 
     private void addGameObjectsNodes(){
@@ -104,7 +101,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         root.getChildren().add(ball.spriteImage);
     }
 
-    void createSpriteManager(){
+    protected void createSpriteManager(){
         spriteManager = new SpriteManager();
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
@@ -120,8 +117,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         root.getChildren().add(guiNodes.getPlayBackground());
         root.getChildren().add(guiNodes.getBackgroundLayer());
         root.getChildren().add(guiNodes.getHighscoreContainer());
-        root.getChildren().add(guiNodes.getIntroductionContainer());
-        root.getChildren().add(guiNodes.getCreditContainer());
+        root.getChildren().add(guiNodes.getHelpContainer());
         root.getChildren().add(guiNodes.getMenueOverlay());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
         //root.getChildren().add(guiNodes.getPlayerInputContainer());
@@ -139,7 +135,12 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public ArrayList<Brick> getBrickGridList() {
         return brickGridList;
     }
-    public StackPane getRoot() {
+
+	 public BrickGrid getBrickGrid() {
+		 return brickGrid;
+	 }
+
+	 public StackPane getRoot() {
         return root;
     }
     public Ball getBall() {
@@ -193,6 +194,4 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public ScoreCounter getScoreCounter(){
     	return scoreCounter;
 	}
-
-
  }
