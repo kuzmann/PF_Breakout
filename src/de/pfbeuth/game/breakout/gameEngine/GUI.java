@@ -146,7 +146,7 @@ public class GUI {
         highscoreContainer.getChildren().add(highscoreList);
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
         startButtonContainer.getChildren().addAll(startButton);
-        //playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
+        playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
         masterButtonContainer.getChildren().addAll(startButtonContainer, buttonContainer);
     }
 
@@ -344,6 +344,11 @@ public class GUI {
     public Button getStartButton() {
         return startButton;
     }
+
+    public Button getConfirmButton(){
+        return confirmButton;
+    }
+
     public Text getGameOverInfo() {
         return gameOverInfo;
     }

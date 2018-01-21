@@ -120,7 +120,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         root.getChildren().add(guiNodes.getHelpContainer());
         root.getChildren().add(guiNodes.getMenueOverlay());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
-        //root.getChildren().add(guiNodes.getPlayerInputContainer());
+        root.getChildren().add(guiNodes.getPlayerInputContainer());
     }
 
     private void createStartGamePlayTimer(){

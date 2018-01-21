@@ -11,6 +11,7 @@ class GameStates {
     //* View, if player loose a life*/
     void ballDied(){
         if(breakout.getBall().getBallIsDead()){
+            System.out.println("Ball ist runtergefallen");
             breakout.getGameTimer().stop();
             breakout.getGuiNodes().getGameOverInfo().setVisible(true);
             breakout.getPaddle().resetState();
@@ -28,6 +29,7 @@ class GameStates {
     }
     /** View, if player win a level*/
     void levelFinished(){
+        System.out.println("Hey, du hast gewonnen");
         breakout.getGameTimer().stop();
         breakout.getPaddle().resetState();
         breakout.getBall().resetState();
@@ -44,13 +46,15 @@ class GameStates {
     /** View, if player loose whole lives*/
     private void gameOver(){
         breakout.getGameTimer().stop();
-        //TODO: Hier muss der User seinen Namen eingeben
+        System.out.println("Du hast verloren");
         //breakout.getGuiNodes().getStartButton().setText(GUI.playAgainText);
         //breakout.getGuiNodes().getStartButton().setVisible(true);
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getGAME_OVER_TEXT());
         breakout.getGuiNodes().getStartButton().setVisible(true);
 		breakout.getGuiNodes().getStartButton().setDisable(false);
         breakout.getGuiNodes().getStartButton().setCancelButton(false);
+        //TODO: Hier muss der User seinen Namen eingeben
+        breakout.getGuiNodes().getConfirmButton().setVisible(true);
         breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
     }
 
