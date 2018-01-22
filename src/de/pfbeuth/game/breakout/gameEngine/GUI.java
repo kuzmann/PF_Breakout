@@ -148,7 +148,6 @@ public class GUI {
 		masterButtonContainer.getChildren().addAll(startButtonContainer, playerInputContainer, buttonContainer);
 	}
     private void createInfoText(){
-        /* ------ levelInfo, lifeInfo, ScoreInfo Setup ------ */
         levelInfo = new InfoText();
         levelInfo.setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
 
@@ -165,8 +164,6 @@ public class GUI {
         helpText.setText("INSTRUCTIONS: ");	//TODO convert String to Constant
 
 		gameOverInfo = new InfoText();
-		//gameOverInfo.setTranslateY(0);
-		//gameOverInfo.toBack();
     }
     private void createButtons(){
 		startButton = new Button();
@@ -237,12 +234,13 @@ public class GUI {
 		confirmButton.setOnAction(e ->
 			confirmButtonEvents());
     }
-
+	/** Displays game info texts */
 	public void showGameInfos(){
 		levelInfo.setVisible(true);
 		lifeInfo.setVisible(true);
 		scoreInfo.setVisible(true);
 	}
+	/** Hides game info texts */
 	public void hideGameInfos(){
 		levelInfo.setVisible(false);
 		lifeInfo.setVisible(false);
@@ -250,7 +248,7 @@ public class GUI {
 		playerInputContainer.setVisible(false);
 		playerInputContainer.setDisable(true);
 	}
-
+	/** Updates score info text through property binding */
 	public void updateScoreInfo (){
 		scoreInfo.textProperty().bind(breakout.getScoreCounter().scoreProperty());
 	}
@@ -267,7 +265,7 @@ public class GUI {
 		}
 	}
 
-
+	/** Triggers confirm button events */
 	public void confirmButtonEvents() {
 
 		if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
@@ -303,7 +301,6 @@ public class GUI {
 			nameLabel.setText("PLEASE ENTER\nYOUR NAME!");
 		}
 	}
-
 
 	/** sets Play Button visible and enabled without focus consume */
 	public void playButtonVisibliy(Boolean visibility){
