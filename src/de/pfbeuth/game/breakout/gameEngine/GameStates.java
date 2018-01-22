@@ -18,10 +18,14 @@ public class GameStates {
 		breakout.getGuiNodes().playButtonVisibliy(false);
 		breakout.getGuiNodes().highscoreButtonVisibliy(false);
 		breakout.getGuiNodes().helpButtonVisibliy(false);
+		breakout.getGuiNodes().getGameOverInfo().setVisible(false);
 
 		/* ------ Level accomplished events ------ */
-		if(breakout.getBall().getLevelWon()) {
+		if(breakout.getBall().isLevelWon()) {
 			startNextLevelEvents();
+		}
+		if(breakout.getLife().getIsGameOver()){
+			resetGame();
 		}
 		breakout.getGuiNodes().showGameInfos();
 		gameIsPaused = false;
@@ -41,44 +45,67 @@ public class GameStates {
 		breakout.getGuiNodes().hideGameInfos();
 		gameIsPaused = true;
 	}
-
 	/** View, if player loose whole lives*/
 	private void gameOver(){
 		breakout.getGameTimer().stop();
+		breakout.getBall().setWonLevel(false);
 		breakout.getGuiNodes().getStartButton().setPrefWidth(100);
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
 		breakout.getGuiNodes().startButtonVisibliy(false);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 		breakout.getGuiNodes().getStartButtonContainer().setDisable(true);
 		breakout.getGuiNodes().getStartButtonContainer().toBack();
-
-		resetGame();
 		breakout.getGuiNodes().getMenueOverlay().setImage(breakout.getGuiNodes().getGameOverImage());
 		breakout.getGuiNodes().getMenueOverlay().setVisible(true);
-
-
 		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
 		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
-
 		breakout.getGuiNodes().confirmButtonVisibliy(true);
+		breakout.getGuiNodes().getGameOverInfo().setVisible(true);
 		breakout.getGuiNodes().getGameOverInfo().setText(breakout.getGuiNodes().getScoreInfo().getText());
+		breakout.getLife().setLife(3);
 
+		breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
+		breakout.getLevel().setLevelNumber(1);
+		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
+		breakout.getScoreCounter().resetScoreNumber();
+		breakout.getScoreCounter().resetScoreProperty();
+//		breakout.getGuiNodes().getScoreInfo().setText(breakout.getGuiNodes().getSCORE_INFO_TEXT() + breakout.getScoreCounter().getScoreNumber());
+
+	}
+	private void resetGame(){
+		breakout.getPaddle().resetState();
+		breakout.getBall().resetState();
+		breakout.getSpriteManager().resetCurrentObjects();
+		breakout.getSpriteManager().resetCollideCheckList();
+		breakout.getSpriteManager().resetRemovedObjects();
+		breakout.getBrickGridList().clear();
+
+		breakout.getBrickGrid().createLevelOneGrid();
+
+
+		breakout.getSpriteManager().addCurrentObjects(breakout.getPaddle());
+		breakout.getSpriteManager().addCurrentObjects(breakout.getBall());
+		for (Brick aBrickGrid : breakout.getBrickGridList()) {
+			Brick brick = aBrickGrid;
+			breakout.getSpriteManager().addCurrentObjects(brick);
+		}
 
 	}
 	/** View, if player win a level*/
-	void levelFinished() {
+	void levelFinishedEvents() {
 		breakout.getGameTimer().stop();
-		breakout.getGuiNodes().getStartButton().setPrefWidth(200);
+		breakout.getGuiNodes().getStartButton().setPrefWidth(175);
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getNEXT_LEVEL_TEXT());
 		breakout.getGuiNodes().startButtonVisibliy(true);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 	}
-
 	private void startNextLevelEvents(){
 		breakout.getLevel().raiseLevelNumber();
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
+		breakout.getBall().setWonLevel(false);
 		createNextLevel();
 	}
+
 	private void createNextLevel(){
 		breakout.getPaddle().resetState();
 		breakout.getBall().resetState();
@@ -111,13 +138,13 @@ public class GameStates {
 
 		breakout.getSpriteManager().addCurrentObjects(breakout.getPaddle());
 		breakout.getSpriteManager().addCurrentObjects(breakout.getBall());
+
 		for (Brick aBrickGrid : breakout.getBrickGridList()) {
 			Brick brick = aBrickGrid;
 			breakout.getSpriteManager().addCurrentObjects(brick);
 		}
 
 	}
-
 	/* View, if player loose a life */
 	void ballDied(){
         if(breakout.getBall().getBallIsDead()){
@@ -125,8 +152,9 @@ public class GameStates {
             breakout.getGuiNodes().getGameOverInfo().setVisible(true);
             breakout.getPaddle().resetState();
             breakout.getBall().resetState();
-
-            breakout.getGuiNodes().startButtonVisibliy(true);
+			breakout.getGuiNodes().getStartButton().setPrefWidth(100);
+			breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
+			breakout.getGuiNodes().startButtonVisibliy(true);
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
             breakout.getLife().loseLife();
             breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
@@ -134,30 +162,6 @@ public class GameStates {
                 gameOver();
             }
         }
-    }
-
-	// TODO screen design makeover
-
-    private void resetGame(){
-
-		breakout.getPaddle().resetState();
-		breakout.getBall().resetState();
-
-        breakout.getSpriteManager().resetCurrentObjects();
-        breakout.getSpriteManager().resetCollideCheckList();
-        breakout.getSpriteManager().resetRemovedObjects();
-
-        breakout.getBrickGridList().clear();
-
-        breakout.getBrickGrid().createLevelOneGrid();
-
-        breakout.getSpriteManager().addCurrentObjects(breakout.getPaddle());
-        breakout.getSpriteManager().addCurrentObjects(breakout.getBall());
-        for (Brick aBrickGrid : breakout.getBrickGridList()) {
-            Brick brick = aBrickGrid;
-            breakout.getSpriteManager().addCurrentObjects(brick);
-        }
-
     }
 
 	public boolean isGameIsPaused() {

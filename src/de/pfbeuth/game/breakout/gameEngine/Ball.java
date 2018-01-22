@@ -21,7 +21,7 @@ public class Ball extends AnimatedGameObject {
     private boolean right = true;
     private boolean ballIsDead;
     private Brick destroyedBrick;
-    private boolean wonLevel;
+    private boolean wonLevel = false;
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -46,8 +46,8 @@ public class Ball extends AnimatedGameObject {
                 breakout.getRoot().getChildren().remove(collisionObject.getSpriteImage());
                 //breakout.getSpriteManager().resetRemovedObjects();
                 checkBrickHitColor();
-                if(checkLevelEnd()){
-                	breakout.getGameStates().levelFinished();
+                if(checkLevelFinished()){
+                	breakout.getGameStates().levelFinishedEvents();
                 }
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
@@ -173,7 +173,7 @@ public class Ball extends AnimatedGameObject {
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
-	private boolean checkLevelEnd(){
+	private boolean checkLevelFinished(){
 		//TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
 		if (breakout.getSpriteManager().getCurrentObjects().size() == 2) {
 			wonLevel = true;
@@ -188,7 +188,12 @@ public class Ball extends AnimatedGameObject {
 	public Brick getDestroyedBrick(){
 		return destroyedBrick;
 	}
-	public boolean getLevelWon(){
+
+    public void setWonLevel(Boolean wonLevel) {
+         this.wonLevel  = wonLevel;
+    }
+
+    public boolean isLevelWon(){
 		return wonLevel;
 	}
 	public boolean getBallIsDead(){

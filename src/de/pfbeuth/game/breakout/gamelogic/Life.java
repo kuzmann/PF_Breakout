@@ -11,10 +11,10 @@ public class Life {
     /* ------ CONSTRUCTOR ------ */
     public Life (Breakout breakout){
         this.breakout = breakout;
-        life = 1;
+        life = 3;
     }
 
-    public  void loseLife(){
+    public boolean loseLife(){
         if(life > 0){
             life--;
             gameOver = false;
@@ -23,10 +23,14 @@ public class Life {
         {
             gameOver = true;
         }
+        return gameOver;
     }
 
     public boolean getIsGameOver(){
         return gameOver;
+    }
+    public void setGameOver(Boolean gameOver){
+        this.gameOver = gameOver;
     }
 
     public int getActualLife() {

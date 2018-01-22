@@ -53,6 +53,14 @@ public class ScoreCounter {
     public int getScoreNumber(){
         	return scoreNumber;
 	}
+	public void resetScoreNumber(){
+    	scoreNumber = 0;
+	}
+
+	public SimpleStringProperty resetScoreProperty(){
+		score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber));
+		return score;
+	}
 }
 
 

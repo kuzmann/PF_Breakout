@@ -27,6 +27,9 @@ public class Level {
     public int getLevelNumber() {
         return level;
     }
+    public void setLevelNumber(int level){
+        this.level = level;
+    }
 
     public SimpleStringProperty levelStringProperty() {
         return levelString;

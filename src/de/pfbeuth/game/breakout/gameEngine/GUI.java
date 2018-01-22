@@ -37,7 +37,7 @@ public class GUI {
 	private final String LIVES_INFO_TEXT = "LIVES: ";
 	private final String SCORE_INFO_TEXT = "SCORE: ";
 	private final String NAME_LABEL_TEXT = "PLAYER NAME:";
-	private final String NEXT_LEVEL_TEXT = "CONGRATULATIONS!\nSTART NEXT\nLEVEL";
+	private final String NEXT_LEVEL_TEXT = "CONGRATULATIONS!\nSTART NEXT LEVEL";
 	private String HIGHSCORELIST;
 
 	/* ------ NEUE HighscoreContrainer ------ */
@@ -299,6 +299,7 @@ public class GUI {
 			helpButtonVisibliy(true);
 			confirmButtonVisibliy(false);
 			gameOverInfo.setVisible(false);
+			breakout.getLife().setGameOver(false);
 		} else {
 			nameLabel.setText("PLEASE ENTER\nYOUR NAME!");
 		}

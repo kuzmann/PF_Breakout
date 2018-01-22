@@ -89,9 +89,9 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     protected void createInitBrickGrid() {
          brickGridList = new ArrayList<>();
          // Comment out for testing
-         //brickGrid.createLevelOneGrid();
+         brickGrid.createLevelOneGrid();
          //uncomment for Testting
-         brickGrid.createTestGrid();
+         //brickGrid.createTestGrid();
     }
 
     private void addGameObjectsNodes(){
