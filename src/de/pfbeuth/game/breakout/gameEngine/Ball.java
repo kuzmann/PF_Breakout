@@ -151,10 +151,6 @@ public class Ball extends AnimatedGameObject {
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
             breakout.getGameStates().ballDied();
-            //TODO: eine Verbindung zu der Klasse LIFE schaffen -> Wahrscheinlich brauchen wir es nicht mebr zu tun. Leben wird bei der Klasse GameOver abgezogen
-            //life.loseLife();
-            //ScoreCounter.stopcounting();
-
         }
     }
 	private void translateBall () {

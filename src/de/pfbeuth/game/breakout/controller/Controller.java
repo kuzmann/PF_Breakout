@@ -51,12 +51,15 @@ public class Controller {
                     break;
                 case ENTER:
                     {
-                        breakout.getGameStates().runGameEvents();
-                        breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
-                        if(breakout.getGuiNodes().getStartButton().getText().equals(breakout.getGuiNodes().getPlayAgainText())) {
-                            breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
+                        if(breakout.getGuiNodes().getStartButton().isVisible()) {
+                            breakout.getGameStates().runGameEvents();
+                            breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
+
+                            if (breakout.getGuiNodes().getStartButton().getText().equals(breakout.getGuiNodes().getPlayAgainText())) {
+                                breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
+                            }
                         }
-                        if(breakout.getGuiNodes().getConfirmButton().isVisible()){
+                        if(breakout.getGuiNodes().getConfirmButton().isVisible() && breakout.getLife().getIsGameOver()){
                             breakout.getGuiNodes().confirmButtonEvents();
                         }
                     }

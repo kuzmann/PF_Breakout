@@ -24,18 +24,15 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     private Scene scene;
     private GamePlayTimer gameTimer;
     private Controller controller;
-
     private ArrayList<Brick> brickGridList;
     private SpriteManager spriteManager;
     private Brick brick;
     private Paddle paddle;
     private Ball ball;
     private BrickGrid brickGrid;
-
     private Image paddleImage, brickImage, brickImageRed, brickImageOrange,
                   brickImageYellow, brickImageGreen, ballImage;
     private GUI guiNodes;
-
     private GameStates gameOver;
     private Level level;
     private Life life;
@@ -71,7 +68,6 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         createStartGamePlayTimer();
         guiNodes.createHighScoreScreen();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

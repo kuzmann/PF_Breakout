@@ -287,7 +287,6 @@ public class GUI {
 			menueOverlay.setImage(highscoreImage);
 
 			startButtonVisibliy(false);
-
 			startButtonContainer.setVisible(true);
 			startButtonContainer.setDisable(false);
 
@@ -298,6 +297,7 @@ public class GUI {
 			playButtonVisibliy(true);
 			highscoreButtonVisibliy(true);
 			helpButtonVisibliy(true);
+			confirmButtonVisibliy(false);
 			gameOverInfo.setVisible(false);
 		} else {
 			nameLabel.setText("PLEASE ENTER\nYOUR NAME!");

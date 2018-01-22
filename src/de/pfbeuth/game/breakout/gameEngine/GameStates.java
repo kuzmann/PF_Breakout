@@ -12,25 +12,12 @@ public class GameStates {
 
 	/** ------ View: Start new Game ------ */
 	public void runGameEvents() {
-		//TODO countdown before game starts
-        /*
-         for (int i = 3; i > 0; i--) {
-            startButton.setText("" + i);
-            System.out.println("" + startButton.getText());
-            try {
-                Thread.sleep(500);
-            }
-            catch(InterruptedException e1) {}
-        }*/
 		breakout.getGameTimer().start();
-
 		breakout.getGuiNodes().startButtonVisibliy(false);
 		breakout.getGuiNodes().getStartButton().setCancelButton(true);
-
 		breakout.getGuiNodes().playButtonVisibliy(false);
 		breakout.getGuiNodes().highscoreButtonVisibliy(false);
 		breakout.getGuiNodes().helpButtonVisibliy(false);
-
 		//TODO: Ausgabe des Levels aktuell halten. Wird erst wieder angezeigt, wenn
 		if(breakout.getBall().getLevelWon()) {
 			breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getNEXT_LEVEL_TEXT() + breakout.getLevel().getLevelNumber());
