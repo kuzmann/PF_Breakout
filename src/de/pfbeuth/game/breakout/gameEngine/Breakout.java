@@ -24,7 +24,7 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     private Scene scene;
     private GamePlayTimer gameTimer;
     private Controller controller;
-    private ArrayList<Brick> brickGridList;
+    //private ArrayList<Brick> brickGridList;
     private SpriteManager spriteManager;
     private Brick brick;
     private Paddle paddle;
@@ -60,6 +60,8 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         guiNodes = new GUI(this);
         controller = new Controller(this);
         controller.createSceneEventHandling();
+        spriteManager = new SpriteManager();
+
         loadImageAssets();
         createGameObjects();
         addGameObjectsNodes();
@@ -87,9 +89,9 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     }
      /** creates bricks which must be destroyed in the game */
     protected void createInitBrickGrid() {
-         brickGridList = new ArrayList<>();
-         // Comment out for testing
-         brickGrid.createLevelOneGrid();
+        // Comment out for testing
+        brickGrid.createLevelOneGrid();
+        //brickGridList = new ArrayList<>();
          //uncomment for Testting
          //brickGrid.createTestGrid();
     }
@@ -101,13 +103,12 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     }
 
     protected void createSpriteManager(){
-        spriteManager = new SpriteManager();
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
-        for (Brick aBrickGrid : brickGridList) {
+        /*for (Brick aBrickGrid : brickGridList) {
             brick = aBrickGrid;
             spriteManager.addCurrentObjects(brick);
-            }
+            }*/
     }
 
     /** First View of the GAME*/
@@ -131,11 +132,11 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         this.brickImage = brickImage;
     }
     /** GETTER */
-    public ArrayList<Brick> getBrickGridList() {
+  /*  public ArrayList<Brick> getBrickGridList() {
         return brickGridList;
-    }
+    }*/
 
-	 public BrickGrid getBrickGrid() {
+	 public BrickGrid getBrickGrid(){
 		 return brickGrid;
 	 }
 

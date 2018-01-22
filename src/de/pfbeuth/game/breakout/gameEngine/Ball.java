@@ -69,6 +69,7 @@ public class Ball extends AnimatedGameObject {
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().removeCurrentObjects(object);
                 breakout.getSpriteManager().addToRemovedObjects(object);
+              //  breakout.getRoot().getChildren().remove(object.getSpriteImage());
             }
             return true;
         }
@@ -91,7 +92,7 @@ public class Ball extends AnimatedGameObject {
         }
     }
 	private void setXYPosition(){
-      /*  if (up) {
+       /* if (up) {
             positionY -= velocityY;
         } else {
             positionY += velocityY;
