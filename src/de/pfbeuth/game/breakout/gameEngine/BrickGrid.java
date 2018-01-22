@@ -36,7 +36,7 @@ public class BrickGrid {
     public void createLevelOneGrid (){
         // standard Brick Grid
         for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 1; j++) {
                 if (j <= 1) breakout.setBrickImage(breakout.getBrickImageRed());
                 else if (j >= 2 && j < 4){
                     breakout.setBrickImage(breakout.getBrickImageOrange());}
@@ -139,13 +139,6 @@ public class BrickGrid {
             breakout.getSpriteManager().addCurrentObjects(brick);
         }
     }
-    private void removeBricksFromScene(){
-        for (Brick aBrickGrid : brickGridList) {
-            brick = aBrickGrid;
-            breakout.getRoot().getChildren().remove(brick.spriteImage);
-
-        }
-    }
     private void createBrick(){
         brick = new Brick(breakout, "M.5,3.91V28.66c0,3.75,1.37,4.62,4.62,4.62H84c2.25,0,3.44-.75,3.44-3.44s-.08-22.06,0-26.19C87.5.45,88.07.5,84.29.5H3.5C.25.5.5,3.91.5,3.91Z", 0, 0, breakout.getBrickImage());
     }
@@ -167,6 +160,14 @@ public class BrickGrid {
         for (int i = 0; i < brickGridList.size(); i++) {
             Brick brick = brickGridList.get(i);
             breakout.getRoot().getChildren().remove(brick.spriteImage);
+        }
+    }
+
+    public void updateAdd (){
+        //if(breakout.getLife().getIsGameOver()) {
+        for (int i = 0; i < brickGridList.size(); i++) {
+            Brick brick = brickGridList.get(i);
+            breakout.getRoot().getChildren().add(brick.spriteImage);
         }
     }
 }

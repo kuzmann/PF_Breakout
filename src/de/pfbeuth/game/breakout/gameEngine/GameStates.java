@@ -28,7 +28,6 @@ public class GameStates {
 		if(breakout.getLife().getIsGameOver()){
 			startNextLevelEvents();
 			breakout.getLife().setGameOver(false);
-
 		}
 		breakout.getGuiNodes().showGameInfos();
 		gameIsPaused = false;
@@ -51,13 +50,13 @@ public class GameStates {
 	/** View, if player loose whole lives*/
 	private void gameOver(){
 		breakout.getGameTimer().stop();
-		breakout.getBall().setWonLevel(false);
 		breakout.getGuiNodes().getStartButton().setPrefWidth(100);
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
 		breakout.getGuiNodes().startButtonVisibliy(false);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 		breakout.getGuiNodes().getStartButtonContainer().setDisable(true);
 		breakout.getGuiNodes().getStartButtonContainer().toBack();
+
 		breakout.getGuiNodes().getMenueOverlay().setImage(breakout.getGuiNodes().getGameOverImage());
 		breakout.getGuiNodes().getMenueOverlay().setVisible(true);
 		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
@@ -73,22 +72,9 @@ public class GameStates {
 		breakout.getScoreCounter().resetScoreNumber();
 		breakout.getScoreCounter().resetScoreProperty();
 
+		breakout.getBrickGrid().update();
 	}
 	public void resetGame(){
-		/*breakout.getPaddle().resetState();
-		breakout.getBall().resetState();
-
-		breakout.getSpriteManager().resetCurrentObjects();
-		breakout.getSpriteManager().resetCollideCheckList();
-		breakout.getSpriteManager().resetRemovedObjects();
-
-		breakout.getSpriteManager().addCurrentObjects(breakout.getPaddle());
-		breakout.getSpriteManager().addCurrentObjects(breakout.getBall());
-
-		//breakout.getBrickGrid().getBrickGridList().clear();
-
-		breakout.getBrickGrid().createLevelOneGrid();*/
-
 		breakout.getPaddle().resetState();
 		breakout.getBall().resetState();
 
@@ -102,6 +88,8 @@ public class GameStates {
 		breakout.getBrickGrid().getBrickGridList().clear();
 
 		breakout.getBrickGrid().createLevelOneGrid();
+
+		breakout.getBrickGrid().updateAdd();
 	}
 
 	/** View, if player win a level*/
@@ -115,7 +103,6 @@ public class GameStates {
 	public void startNextLevelEvents(){
 		breakout.getLevel().raiseLevelNumber();
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
-		breakout.getBall().setWonLevel(false);
 		createNextLevel();
 	}
 	private void createNextLevel(){

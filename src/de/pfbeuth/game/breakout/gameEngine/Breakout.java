@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.util.ArrayList;
@@ -96,6 +97,8 @@ import de.pfbeuth.game.breakout.dataHandling.*;
          //brickGrid.createTestGrid();
     }
 
+
+
     private void addGameObjectsNodes(){
         createInitBrickGrid();
 		root.getChildren().add(paddle.spriteImage);
@@ -140,7 +143,7 @@ import de.pfbeuth.game.breakout.dataHandling.*;
 		 return brickGrid;
 	 }
 
-	 public StackPane getRoot() {
+	public StackPane getRoot() {
         return root;
     }
     public Ball getBall() {
@@ -194,4 +197,9 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     public ScoreCounter getScoreCounter(){
     	return scoreCounter;
 	}
+
+
+
+
+
  }

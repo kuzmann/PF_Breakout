@@ -271,7 +271,6 @@ public class GUI {
 
 	/** Triggers confirm button events */
 	public void confirmButtonEvents() {
-
 		if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
 			nameLabel.setText(NAME_LABEL_TEXT);
 			playerName = nameInput.getText();

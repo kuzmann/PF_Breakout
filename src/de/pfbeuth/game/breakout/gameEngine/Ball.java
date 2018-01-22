@@ -92,7 +92,7 @@ public class Ball extends AnimatedGameObject {
         }
     }
 	private void setXYPosition(){
-       /* if (up) {
+  /*      if (up) {
             positionY -= velocityY;
         } else {
             positionY += velocityY;

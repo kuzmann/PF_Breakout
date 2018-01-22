@@ -60,7 +60,7 @@ public class Controller {
                                 breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
                             }
                         }
-                        if(breakout.getGuiNodes().getConfirmButton().isVisible() && breakout.getLife().getIsGameOver()){
+                        if(breakout.getGuiNodes().getConfirmButton().isVisible()){
                             breakout.getGuiNodes().confirmButtonEvents();
                         }
                     }

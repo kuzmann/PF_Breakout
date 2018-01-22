@@ -16,9 +16,10 @@ public class GamePlayTimer extends AnimationTimer {
         breakout.getPaddle().update();
         breakout.getBall().update();
         //if(breakout.getBall().isLevelWon()) breakout.getBrickGrid().update();
-        if(breakout.getLife().getIsGameOver()) {
+       /* if(breakout.getLife().getIsGameOver()) {
             breakout.getBrickGrid().update();
-        }
+            breakout.getLife().setGameOver(false);
+        }*/
     }
     @Override
     public void start() {
