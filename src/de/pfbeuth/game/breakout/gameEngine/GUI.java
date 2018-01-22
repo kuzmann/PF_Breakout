@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class GUI {
-
     private Breakout breakout;
     private HBox  infoContainer,  highscoreContainer, helpContainer, startButtonContainer;
     private VBox masterButtonContainer;
@@ -333,34 +332,25 @@ public class GUI {
 		confirmButton.setFocusTraversable(!visibility);
 	}
 
-
-
-
     /* ------ GETTER ------ */
     public Button getStartButton() {
         return startButton;
     }
-
 	public HBox getStartButtonContainer() {
 		return startButtonContainer;
 	}
-
 	public Button getConfirmButton() {
 		return confirmButton;
 	}
-
 	public Button getPlayButton() {
 		return playButton;
 	}
-
 	public Button getHighscoreButton() {
 		return highscoreButton;
 	}
-
 	public Button getHelpButton() {
 		return helpButton;
 	}
-
     public Text getLifeInfo() {
         return lifeInfo;
     }
@@ -415,11 +405,9 @@ public class GUI {
 	public String getGAME_OVER_TEXT(){
 		return GAME_OVER_TEXT;
 	}
-
 	public Text getGameOverInfo() {
 		return gameOverInfo;
 	}
-
 	public Image getGameOverImage() {
 		return gameOverImage;
 	}
