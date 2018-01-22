@@ -16,10 +16,11 @@ public class Level {
         level = 1;
     }
 
-    public void raiseLevel(){
+    public void raiseLevelNumber(){
         level++;
         breakout.getBall().setVelocityX(breakout.getBall().getVelocityX()+ LEVEL_SPEED_MULTIPLIER);
         breakout.getBall().setVelocityY(breakout.getBall().getVelocityY()+ LEVEL_SPEED_MULTIPLIER);
+        //TODO implement Switch Statement for Level choice - look at BrickGrid class
     }
 
     /* -------- GETTER -------- */

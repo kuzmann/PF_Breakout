@@ -30,11 +30,14 @@ public class GUI {
     private final String HELP_BUTTON_TEXT = "HELP";
     private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
 	private final String CONFIRM_BUTTON_TEXT = "OK";
+
+
+
 	private final String LEVEL_INFO_TEXT = "LEVEL: ";
 	private final String LIVES_INFO_TEXT = "LIVES: ";
 	private final String SCORE_INFO_TEXT = "SCORE: ";
 	private final String NAME_LABEL_TEXT = "PLAYER NAME:";
-	private final String NEXT_LEVEL_TEXT = "START NEXT\nLEVEL";
+	private final String NEXT_LEVEL_TEXT = "CONGRATULATIONS!\nSTART NEXT\nLEVEL";
 	private String HIGHSCORELIST;
 
 	/* ------ NEUE HighscoreContrainer ------ */
@@ -333,6 +336,9 @@ public class GUI {
 	}
 
     /* ------ GETTER ------ */
+	public String getLEVEL_INFO_TEXT() {
+		return LEVEL_INFO_TEXT;
+	}
     public Button getStartButton() {
         return startButton;
     }

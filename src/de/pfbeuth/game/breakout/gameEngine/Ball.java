@@ -70,7 +70,6 @@ public class Ball extends AnimatedGameObject {
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().removeCurrentObjects(object);
                 breakout.getSpriteManager().addToRemovedObjects(object);
-
             }
             return true;
         }
@@ -93,7 +92,7 @@ public class Ball extends AnimatedGameObject {
         }
     }
 	private void setXYPosition(){
-        if (up) {
+      /*  if (up) {
             positionY -= velocityY;
         } else {
             positionY += velocityY;
@@ -103,10 +102,10 @@ public class Ball extends AnimatedGameObject {
             positionX += velocityX;
         } else {
             positionX -= velocityX;
-        }
-        //Control Ball with arrow keys
-        //TODO delete following lines in final stage
-      /*  if(breakout.getController().isLeft()) {
+        }*/
+       /* ------  TODO delete following lines in final stage ------ */
+       /* ------  Control Ball with arrow keys ------ */
+       if(breakout.getController().isLeft()) {
             positionX -= velocityX;
         }
         if(breakout.getController().isRight()) {
@@ -130,7 +129,7 @@ public class Ball extends AnimatedGameObject {
         }
         if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
             positionY += velocityY;
-        }*/
+        }
     }
 	private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
