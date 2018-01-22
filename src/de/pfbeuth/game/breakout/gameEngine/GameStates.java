@@ -67,8 +67,8 @@ public class GameStates {
 
 		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
 		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
-		breakout.getGuiNodes().getConfirmButton().setVisible(true);
-		breakout.getGuiNodes().getConfirmButton().setDisable(false);
+
+		breakout.getGuiNodes().confirmButtonVisibliy(true);
 		breakout.getGuiNodes().getGameOverInfo().setText(breakout.getGuiNodes().getScoreInfo().getText());
 
 	}

@@ -1,5 +1,7 @@
 package de.pfbeuth.game.breakout.controller;
 
+import de.pfbeuth.game.breakout.dataHandling.CreatePlayer;
+import de.pfbeuth.game.breakout.dataHandling.UpdateXMLTable;
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 public class Controller {
@@ -53,6 +55,9 @@ public class Controller {
                         breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
                         if(breakout.getGuiNodes().getStartButton().getText().equals(breakout.getGuiNodes().getPlayAgainText())) {
                             breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
+                        }
+                        if(breakout.getGuiNodes().getConfirmButton().isVisible()){
+                            breakout.getGuiNodes().confirmButtonEvents();
                         }
                     }
                     break;
