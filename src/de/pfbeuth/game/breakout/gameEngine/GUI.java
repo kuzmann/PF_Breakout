@@ -251,19 +251,31 @@ public class GUI {
 		playerInputContainer.setDisable(true);
 	}
 	/** Updates score info text through property binding */
-	public void updateScoreInfo (){
+	public void updateScoreInfo(){
 		scoreInfo.textProperty().bind(breakout.getScoreCounter().scoreProperty());
 	}
-	public void createHighScoreScreen(){
+
+	public void createHighScoreScreen() {
 		loader = new LoadXMLTable();
 		loader.loadTable();
-		//TODO Was passiert wenn die Liste leer ist
+		loader.displayHighscore();
+
+
+
 		if (loader.getHighscoreList().size() != 0) {
+			StringBuffer buf = new StringBuffer("Highscoreliste: "+ "\n");
+
 			for (int i = 0; i < loader.getHighscoreList().size() && i < 10; i++) {
-				if( i < 9){
-					highscoreList.setText(loader.getHighscoreList().get(i).getPlayerName() + ".........." + loader.getHighscoreList().get(i).getPlayerScore() + "\n");
-				} else highscoreList.setText(loader.getHighscoreList().get(i).getPlayerName() + ".........." + loader.getHighscoreList().get(i).getPlayerScore());
+					loader.getHighscoreList().get(i);
+					buf.append((i + 1) + ". " + loader.getHighscoreList().get(i).getPlayerName() + ".........." + loader.getHighscoreList().get(i).getPlayerScore() + "\n");
 			}
+			highscoreList.setText(buf.toString());
+
+		}
+
+			//TODO Was passiert wenn die Liste leer ist
+		else{
+				highscoreList.setText("Sie sind der erste Spieler. Es gibt noch kein Highscore");
 		}
 	}
 
