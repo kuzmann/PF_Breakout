@@ -7,7 +7,7 @@ class Paddle extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
 
     private final double PADDLE_INIT_X_POS = 0;
-    private final double PADDLE_INIT_Y_POS = HEIGHT*0.42;
+    private final double PADDLE_INIT_Y_POS = HEIGHT*0.40;
 
     private static final double PADDLE_DIM_X = 200/2;
     private static final double PADDLE_DIM_Y = 12.5;

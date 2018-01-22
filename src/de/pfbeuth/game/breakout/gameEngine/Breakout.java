@@ -122,8 +122,8 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         root.getChildren().add(guiNodes.getHighscoreContainer());
         root.getChildren().add(guiNodes.getHelpContainer());
         root.getChildren().add(guiNodes.getMenueOverlay());
+        root.getChildren().add(guiNodes.getGameOverInfo());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
-        //root.getChildren().add(guiNodes.getPlayerInputContainer());
     }
 
     private void createStartGamePlayTimer(){

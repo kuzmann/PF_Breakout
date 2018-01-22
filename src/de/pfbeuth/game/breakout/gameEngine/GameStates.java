@@ -60,14 +60,19 @@ public class GameStates {
 	/** View, if player loose whole lives*/
 	private void gameOver(){
 		breakout.getGameTimer().stop();
-		//breakout.getGuiNodes().getStartButton().setText("" + breakout.getScoreCounter().getScoreNumber());
 		breakout.getGuiNodes().getStartButton().setVisible(false);
 		breakout.getGuiNodes().getStartButton().setDisable(true);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
-		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
-		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
+		breakout.getGuiNodes().getStartButtonContainer().setDisable(true);
+		breakout.getGuiNodes().getStartButtonContainer().toBack();
+
 		breakout.getGuiNodes().getMenueOverlay().setImage(breakout.getGuiNodes().getGameOverImage());
 		breakout.getGuiNodes().getMenueOverlay().setVisible(true);
+
+		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
+		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
+		breakout.getGuiNodes().getConfirmButton().setVisible(true);
+		breakout.getGuiNodes().getConfirmButton().setDisable(false);
 		breakout.getGuiNodes().getGameOverInfo().setText(breakout.getGuiNodes().getScoreInfo().getText());
 
 	}
