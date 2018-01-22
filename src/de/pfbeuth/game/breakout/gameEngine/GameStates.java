@@ -25,7 +25,8 @@ public class GameStates {
 			startNextLevelEvents();
 		}
 		if(breakout.getLife().getIsGameOver()){
-			resetGame();
+			//resetGame();
+			System.out.println("game over");
 		}
 		breakout.getGuiNodes().showGameInfos();
 		gameIsPaused = false;
@@ -62,26 +63,26 @@ public class GameStates {
 		breakout.getGuiNodes().confirmButtonVisibliy(true);
 		breakout.getGuiNodes().getGameOverInfo().setVisible(true);
 		breakout.getGuiNodes().getGameOverInfo().setText(breakout.getGuiNodes().getScoreInfo().getText());
-		breakout.getLife().setLife(3);
 
+		breakout.getLife().setLife(3);
 		breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
 		breakout.getLevel().setLevelNumber(1);
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
 		breakout.getScoreCounter().resetScoreNumber();
 		breakout.getScoreCounter().resetScoreProperty();
-//		breakout.getGuiNodes().getScoreInfo().setText(breakout.getGuiNodes().getSCORE_INFO_TEXT() + breakout.getScoreCounter().getScoreNumber());
-
+		resetGame();
 	}
 	private void resetGame(){
 		breakout.getPaddle().resetState();
 		breakout.getBall().resetState();
+
 		breakout.getSpriteManager().resetCurrentObjects();
 		breakout.getSpriteManager().resetCollideCheckList();
 		breakout.getSpriteManager().resetRemovedObjects();
+
 		breakout.getBrickGridList().clear();
 
 		breakout.getBrickGrid().createLevelOneGrid();
-
 
 		breakout.getSpriteManager().addCurrentObjects(breakout.getPaddle());
 		breakout.getSpriteManager().addCurrentObjects(breakout.getBall());
@@ -89,7 +90,6 @@ public class GameStates {
 			Brick brick = aBrickGrid;
 			breakout.getSpriteManager().addCurrentObjects(brick);
 		}
-
 	}
 	/** View, if player win a level*/
 	void levelFinishedEvents() {

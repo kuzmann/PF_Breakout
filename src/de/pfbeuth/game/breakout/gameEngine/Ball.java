@@ -43,11 +43,10 @@ public class Ball extends AnimatedGameObject {
                 ((Brick) collisionObject).destroyBrick();
                 brickCollision();
                 destroyedBrick = (Brick) collisionObject;
-                breakout.getRoot().getChildren().remove(collisionObject.getSpriteImage());
-                //breakout.getSpriteManager().resetRemovedObjects();
+                breakout.getSpriteManager().resetRemovedObjects();
                 checkBrickHitColor();
                 if(checkLevelFinished()){
-                	breakout.getGameStates().levelFinishedEvents();
+                    breakout.getGameStates().levelFinishedEvents();
                 }
             }
             if(collision(collisionObject) && collisionObject instanceof Paddle) {

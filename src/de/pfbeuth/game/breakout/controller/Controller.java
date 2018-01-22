@@ -1,7 +1,5 @@
 package de.pfbeuth.game.breakout.controller;
 
-import de.pfbeuth.game.breakout.dataHandling.CreatePlayer;
-import de.pfbeuth.game.breakout.dataHandling.UpdateXMLTable;
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 public class Controller {
