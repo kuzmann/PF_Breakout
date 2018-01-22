@@ -1,5 +1,6 @@
 package de.pfbeuth.game.breakout.dataHandling;
 
+import de.pfbeuth.game.breakout.gameEngine.Breakout;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -13,6 +14,13 @@ import java.io.IOException;
 
 
 public class UpdateXMLTable {
+
+    private Breakout breakout;
+
+    /* ------ CONSTRUCTOR ------ */
+    /*public UpdateXMLTable (Breakout breakout){
+        this.breakout = breakout;
+    }*/
 
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
 
@@ -33,7 +41,14 @@ public class UpdateXMLTable {
 
             Element username = new Element("username").setText(Player.getUsername());
             player.addContent(username);
+
             addChildElement(player, "score", Player.getScore());
+
+
+            //ORIGINAL: addChildElement(player, "score", Player.getScore();
+            //addChildElement(player, "score", breakout.getLevel().getLevelNumber());
+            //addChildElement(player, "score", 5);
+
 
             XMLOutputter outputter = new XMLOutputter();
             outputter.setFormat(Format.getPrettyFormat());

@@ -48,6 +48,8 @@ public class ScoreCounter {
 		return score;
 	}
 
+
+
 	/** ------ GETTER ------ */
 
     public int getScoreNumber(){
@@ -57,10 +59,16 @@ public class ScoreCounter {
     	scoreNumber = 0;
 	}
 
+	/** ------ SETTER ------ */
+
 	public SimpleStringProperty resetScoreProperty(){
 		score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber));
 		return score;
 	}
+
+
+
 }
+
 
 

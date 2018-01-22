@@ -11,7 +11,7 @@ public class Life {
     /* ------ CONSTRUCTOR ------ */
     public Life (Breakout breakout){
         this.breakout = breakout;
-        life = 3;
+        life = 1;
     }
 
     public boolean loseLife(){

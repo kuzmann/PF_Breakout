@@ -7,12 +7,13 @@ public class Player implements Comparable<Player>{
     String playerScore;
     String playerName;
 
-    //private Breakout breakout;
-    //public Player (Breakout breakout){this.breakout = breakout;}
+    private Breakout breakout;
+
 
     public Player(String playerName, String playerScore) {
         this.playerScore = playerScore;
         this.playerName = playerName;
+
     }
 
 

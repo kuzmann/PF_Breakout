@@ -62,6 +62,7 @@ public class GameStates {
 		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
 		breakout.getGuiNodes().confirmButtonVisibliy(true);
 		breakout.getGuiNodes().getGameOverInfo().setVisible(true);
+		//Ausagbe des Scores
 		breakout.getGuiNodes().getGameOverInfo().setText(breakout.getGuiNodes().getScoreInfo().getText());
 
 		breakout.getLife().setLife(3);
