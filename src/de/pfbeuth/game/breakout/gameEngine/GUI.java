@@ -199,6 +199,8 @@ public class GUI {
             helpText.setVisible(false);
 			highscoreList.setVisible(false);
 			hideGameInfos();
+
+
 		});
 
         highscoreButton = new Button();

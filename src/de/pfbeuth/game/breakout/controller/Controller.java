@@ -45,7 +45,10 @@ public class Controller {
                     break;
                 case D: right = false;
                     break;
-                case ESCAPE: breakout.getGameStates().pauseGameEvents();
+                case ESCAPE:
+                    if(breakout.getGameTimer().gameIsOn()){
+                        breakout.getGameStates().pauseGameEvents();
+                    }
                     break;
                 case ENTER:
                     {
