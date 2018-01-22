@@ -23,15 +23,14 @@ public class GameStates {
             catch(InterruptedException e1) {}
         }*/
 		breakout.getGameTimer().start();
-		breakout.getGuiNodes().getStartButton().setVisible(false);
-		breakout.getGuiNodes().getStartButton().setDisable(true);
+
+		breakout.getGuiNodes().startButtonVisibliy(false);
 		breakout.getGuiNodes().getStartButton().setCancelButton(true);
-		breakout.getGuiNodes().getPlayButton().setVisible(false);
-		breakout.getGuiNodes().getPlayButton().setDisable(true);
-		breakout.getGuiNodes().getHighscoreButton().setVisible(false);
-		breakout.getGuiNodes().getHighscoreButton().setDisable(true);
-		breakout.getGuiNodes().getHelpButton().setVisible(false);
-		breakout.getGuiNodes().getHelpButton().setDisable(true);
+
+		breakout.getGuiNodes().playButtonVisibliy(false);
+		breakout.getGuiNodes().highscoreButtonVisibliy(false);
+		breakout.getGuiNodes().helpButtonVisibliy(false);
+
 		//TODO: Ausgabe des Levels aktuell halten. Wird erst wieder angezeigt, wenn
 		if(breakout.getBall().getLevelWon()) {
 			breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getNEXT_LEVEL_TEXT() + breakout.getLevel().getLevelNumber());
@@ -42,17 +41,15 @@ public class GameStates {
 	/* ------ View: Pause new Game ------ */
 	public void pauseGameEvents(){
 		breakout.getGameTimer().stop();
-		breakout.getGuiNodes().getStartButton().setVisible(true);
-		breakout.getGuiNodes().getStartButton().setDisable(false);
+		breakout.getGuiNodes().startButtonVisibliy(true);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getPauseGameText());
 		breakout.getGuiNodes().getStartButton().setTextAlignment(TextAlignment.CENTER);
-		breakout.getGuiNodes().getPlayButton().setVisible(true);
-		breakout.getGuiNodes().getPlayButton().setDisable(false);
-		breakout.getGuiNodes().getHighscoreButton().setVisible(true);
-		breakout.getGuiNodes().getHighscoreButton().setDisable(false);
-		breakout.getGuiNodes().getHelpButton().setVisible(true);
-		breakout.getGuiNodes().getHelpButton().setDisable(false);
+
+		breakout.getGuiNodes().playButtonVisibliy(true);
+		breakout.getGuiNodes().highscoreButtonVisibliy(true);
+		breakout.getGuiNodes().helpButtonVisibliy(true);
+
 		breakout.getGuiNodes().hideGameInfos();
 		gameIsPaused = true;
 	}
@@ -60,8 +57,7 @@ public class GameStates {
 	/** View, if player loose whole lives*/
 	private void gameOver(){
 		breakout.getGameTimer().stop();
-		breakout.getGuiNodes().getStartButton().setVisible(false);
-		breakout.getGuiNodes().getStartButton().setDisable(true);
+		breakout.getGuiNodes().startButtonVisibliy(false);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 		breakout.getGuiNodes().getStartButtonContainer().setDisable(true);
 		breakout.getGuiNodes().getStartButtonContainer().toBack();
@@ -82,9 +78,9 @@ public class GameStates {
 		breakout.getPaddle().resetState();
 		breakout.getBall().resetState();
 		breakout.getLevel().raiseLevel();
+
+		breakout.getGuiNodes().startButtonVisibliy(true);
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getNEXT_LEVEL_TEXT());
-		breakout.getGuiNodes().getStartButton().setVisible(true);
-		breakout.getGuiNodes().getStartButton().setDisable(false);
 		breakout.getGuiNodes().getStartButton().setCancelButton(false);
 		//breakout.getGuiNodes().updateLivesInfo();
 		//breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLevel().getLevelNumber());
@@ -97,10 +93,9 @@ public class GameStates {
             breakout.getGuiNodes().getGameOverInfo().setVisible(true);
             breakout.getPaddle().resetState();
             breakout.getBall().resetState();
-            breakout.getGuiNodes().getStartButton().setVisible(true);
-            breakout.getGuiNodes().getStartButton().setDisable(false);
+
+            breakout.getGuiNodes().startButtonVisibliy(true);
             breakout.getGuiNodes().getStartButton().setCancelButton(false);
-            breakout.getGuiNodes().getStartButton().setVisible(true);
             breakout.getLife().loseLife();
             breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
             if(breakout.getLife().getIsGameOver()) {
