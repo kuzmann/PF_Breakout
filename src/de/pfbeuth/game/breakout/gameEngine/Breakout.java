@@ -38,6 +38,9 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     private Level level;
     private Life life;
     private ScoreCounter scoreCounter;
+    private Player player;
+
+     private CreatePlayer createPlayer;
 
     @Override
     public void start(Stage primaryStage) {
@@ -96,8 +99,6 @@ import de.pfbeuth.game.breakout.dataHandling.*;
          //uncomment for Testting
          //brickGrid.createTestGrid();
     }
-
-
 
     private void addGameObjectsNodes(){
         createInitBrickGrid();
@@ -197,9 +198,9 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     public ScoreCounter getScoreCounter(){
     	return scoreCounter;
 	}
-
-
-
-
+	public Player getPlayer(){return player;}
+     public CreatePlayer getCreatePlayer() {
+         return createPlayer;
+     }
 
  }

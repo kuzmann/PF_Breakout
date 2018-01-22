@@ -38,9 +38,6 @@ import java.util.*;
 
 public class LoadXMLTable {
 
-    //private Breakout breakout;
-    //public LoadXMLTable (Breakout breakout){this.breakout = breakout;}
-
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
     private static List XMLTable = new List() {
         @Override
@@ -215,13 +212,13 @@ public class LoadXMLTable {
                 }
             }
         }
-        createHighscoreList();
+        //createHighscoreList();
     }
 
     private void createHighscoreList() {
         for (int i=0; i < HighscoreList.size() && i < 10; i++){
             HighscoreList.get(i);
-            System.out.println((i+1)+". "+"\t"+ HighscoreList.get(i).getPlayerName() + "\t"+"......"+ HighscoreList.get(i).getPlayerScore());
+            System.out.println((i+1)+". "+ HighscoreList.get(i).getPlayerName() + "\t"+"......"+ HighscoreList.get(i).getPlayerScore());
         }
     }
 
