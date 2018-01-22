@@ -4,6 +4,7 @@ package de.pfbeuth.game.breakout.dataHandling;
 
 import java.util.Set;
 
+//TODO: Kann man diese ganze Klasse löschen?
 public class FinalScore {
 
     final static int numberBricks = 16;
@@ -15,28 +16,21 @@ public class FinalScore {
     private int numberObjects;
 
 
-    public FinalScore() {
+    //public FinalScore() {
         //objects = spriteScores.getRemovedObjects();
        // numberObjects = objects.size();
-        level = 1;
         // level = spriteScores.getLevel(); //TODO method getLevel in SpriteManager erstellen
         // score = numberObjects * level;
 
         //score = calculateScore(level);
-
-
-/*        switch (level){
+        /*switch (level){
             case 1:
                 score = calculateScore(1);
                 break;
             default:
                 break;
-        }*/
-
-    }
-
-
-
+        }
+    }*/
 
     private int calculateScore(int level){
         int levelscore = (level-1)*numberBricks*pointsPerBrick;
@@ -44,8 +38,6 @@ public class FinalScore {
         int calculatedScore = levelscore+(destroyedBricks*pointsPerBrick);
         return calculatedScore;
     }
-
-
 
     public int getScore(){
         return score;
