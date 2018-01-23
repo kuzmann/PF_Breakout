@@ -1,7 +1,8 @@
 package de.pfbeuth.game.breakout.gameEngine;
 import javafx.animation.AnimationTimer;
-//GamePlayTimer manages the pulse and animation system
-//runs at 60fps
+/**
+ * GamePlayTimer manages the pulse and animation system runs at 60fps
+ * */
 public class GamePlayTimer extends AnimationTimer {
     private Boolean gameIsOn;
     private Breakout breakout; //creates context to Breakout-Class
@@ -15,11 +16,6 @@ public class GamePlayTimer extends AnimationTimer {
     public void handle(long now) {
         breakout.getPaddle().update();
         breakout.getBall().update();
-        //if(breakout.getBall().isLevelWon()) breakout.getBrickGrid().update();
-       /* if(breakout.getLife().getIsGameOver()) {
-            breakout.getBrickGrid().update();
-            breakout.getLife().setGameOver(false);
-        }*/
     }
     @Override
     public void start() {
@@ -31,11 +27,10 @@ public class GamePlayTimer extends AnimationTimer {
         super.stop();
         gameIsOn = false;
     }
-
+    /** ------ GETTER ------ */
     public boolean gameIsOn(){
         return gameIsOn;
     }
-
 }
 
 

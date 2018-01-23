@@ -9,7 +9,6 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
-    
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
@@ -21,7 +20,7 @@ public class Ball extends AnimatedGameObject {
     private boolean right = true;
     private boolean ballIsDead;
     private Brick destroyedBrick;
-    private boolean wonLevel = false;
+    private boolean levelAccomplished = false;
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -75,7 +74,6 @@ public class Ball extends AnimatedGameObject {
         }
         return false;
     }
-
     private void checkBrickHitColor() {
 
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
@@ -176,27 +174,27 @@ public class Ball extends AnimatedGameObject {
 	private boolean checkLevelFinished(){
 		//TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
 		if (breakout.getSpriteManager().getCurrentObjects().size() == 2) {
-			wonLevel = true;
+			levelAccomplished = true;
 		}
-		else { wonLevel = false; }
-		return wonLevel;
+		else
+		    { levelAccomplished = false; }
+		return levelAccomplished;
 	}
-	/** ------ GETTER ------ */
+    /** ------ GETTER ------ */
     public boolean isRight() {
         return right;
     }
-	public Brick getDestroyedBrick(){
+    public Brick getDestroyedBrick(){
 		return destroyedBrick;
 	}
-
-    public void setWonLevel(Boolean wonLevel) {
-         this.wonLevel  = wonLevel;
-    }
-
     public boolean isLevelWon(){
-		return wonLevel;
-	}
-	public boolean getBallIsDead(){
+        return levelAccomplished;
+    }
+    public boolean getBallIsDead(){
         return ballIsDead;
+    }
+    /** ------ SETTER ------ */
+    public void setLevelAccomplished(Boolean levelAccomplished) {
+         this.levelAccomplished = levelAccomplished;
     }
 }

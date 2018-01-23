@@ -6,7 +6,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class InfoText extends Text {
-
+    /** ------ CONSTRUCTOR ------ */
     InfoText (){
         setVisible(false);
         setFont(new Font("arial", 18));

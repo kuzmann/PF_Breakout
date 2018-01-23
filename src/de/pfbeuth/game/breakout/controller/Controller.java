@@ -68,7 +68,6 @@ public class Controller {
             }
         });
     }
-
     /** GETTER */
     public boolean isLeft() {
         return left;
