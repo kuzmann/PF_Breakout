@@ -38,9 +38,9 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     private Level level;
     private Life life;
     private ScoreCounter scoreCounter;
-    private Player player;
+    private CreatePlayer newPlayer;
 
-     private CreatePlayer createPlayer;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -198,9 +198,4 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     public ScoreCounter getScoreCounter(){
     	return scoreCounter;
 	}
-	public Player getPlayer(){return player;}
-     public CreatePlayer getCreatePlayer() {
-         return createPlayer;
-     }
-
  }

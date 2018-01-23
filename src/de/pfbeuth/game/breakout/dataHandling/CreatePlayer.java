@@ -9,18 +9,17 @@ public class CreatePlayer {
     private FinalScore endscore = new FinalScore();
     private int score;
     private String username;
-
     private Breakout breakout;
 
-
-    public CreatePlayer(String username) {
-
+    public CreatePlayer (Breakout breakout, String username){
         this.username = username;
         //Score kommt aus der Klasse FinalScore. Der Score muss aber aus Gamelogic kommen
         this.score = endscore.getScore();
 
         // Es funkioniert nicht, weil es den letzten Wert nicht auslesen kann. Score = 0
         //this.score = breakout.getScoreCounter().getScoreNumber();
+        this.breakout = breakout;
+
     }
 
     //TODO: diese leere Methode löschen? -> Jasper fragen

@@ -286,7 +286,7 @@ public class GUI {
 		if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
 			nameLabel.setText(NAME_LABEL_TEXT);
 			playerName = nameInput.getText();
-			Player = new CreatePlayer(playerName);
+			Player = new CreatePlayer(breakout, playerName);
 
 			//TODO Ausgabe der Highscoreliste fertigstellen
 			UpdateXMLTable updater = new UpdateXMLTable();
