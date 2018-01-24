@@ -73,8 +73,8 @@ public class GameStates {
 		breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
 		breakout.getLevel().setLevelNumber(1);
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
-
-		breakout.getBrickGrid().update();
+		breakout.getBall().resetVelocity();
+		breakout.getBrickGrid().deleteAllBrickFromScene();
 	}
 	public void resetGame(){
 		breakout.getPaddle().resetState();

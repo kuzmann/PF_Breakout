@@ -155,10 +155,9 @@ public class BrickGrid {
         return brick;
     }
 
-    public void update (){
-    //if(breakout.getLife().getIsGameOver()) {
-        for (int i = 0; i < brickGridList.size(); i++) {
-            Brick brick = brickGridList.get(i);
+    public void deleteAllBrickFromScene(){
+        for (Brick aBrickGrid : brickGridList) {
+            brick = aBrickGrid;
             breakout.getRoot().getChildren().remove(brick.spriteImage);
         }
     }

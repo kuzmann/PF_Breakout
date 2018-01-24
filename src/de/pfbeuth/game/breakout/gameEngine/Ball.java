@@ -21,6 +21,7 @@ public class Ball extends AnimatedGameObject {
     private boolean ballIsDead;
     private Brick destroyedBrick;
     private boolean levelAccomplished = false;
+    private final double INIT_BALL_VELOCITY = 10;
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -165,8 +166,6 @@ public class Ball extends AnimatedGameObject {
 	protected void resetState(){
         up = true;
         right = true;
-        setVelocityX(6);
-        setVelocityY(6);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
@@ -198,4 +197,10 @@ public class Ball extends AnimatedGameObject {
     public void setLevelAccomplished(Boolean levelAccomplished) {
          this.levelAccomplished = levelAccomplished;
     }
+
+    public void resetVelocity(){
+        setVelocityX(INIT_BALL_VELOCITY);
+        setVelocityY(INIT_BALL_VELOCITY);
+    }
+
 }

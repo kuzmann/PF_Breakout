@@ -182,8 +182,8 @@ public class LoadXMLTable {
                 HighscoreList.add(o1);
                 temp.add(o1);
 
-                System.out.println("Username: " + node.getChildText("username"));
-                System.out.println("Score: " + node.getChildText("score"));
+               /* System.out.println("Username: " + node.getChildText("username"));
+                System.out.println("Score: " + node.getChildText("score"));*/
 
             }
 
