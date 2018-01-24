@@ -202,5 +202,11 @@ public class Ball extends AnimatedGameObject {
         setVelocityX(INIT_BALL_VELOCITY);
         setVelocityY(INIT_BALL_VELOCITY);
     }
+    public void setBallToFront(){
+        spriteImage.toFront();
+    }
+    public void setBallToBack(){
+        spriteImage.toBack();
+    }
 
 }

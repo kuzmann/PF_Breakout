@@ -175,11 +175,6 @@ public class GUI {
 		startButtonVisibliy(false);
 		startButton.setOnAction(e -> {
 			breakout.getGameStates().runGameEvents();
-			//TODO trigger resetGame when game over or level up
-			/*if (startButton.getText().equals(PLAY_AGAIN_TEXT)) {
-				lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
-				startButton.setText(START_BUTTON_TEXT);
-			}*/
 		});
 		/* ------ Menue Buttons ------ */
 		playButton = new Button();
@@ -193,6 +188,7 @@ public class GUI {
 			playerInputContainer.toBack();
 			backgroundLayer.setVisible(false);
 			menueOverlay.setVisible(false);
+			menueOverlay.toBack();
 			playBackground.setVisible(true);
 			playBackground.toBack();
 			highscoreList.setVisible(false);
@@ -236,7 +232,8 @@ public class GUI {
 		confirmButton.setText(CONFIRM_BUTTON_TEXT);
 		confirmButtonVisibliy(false);
 		confirmButton.setOnAction(e ->
-			confirmButtonEvents());
+			confirmButtonEvents()
+		);
     }
 	/** Displays game info texts */
 	public void showGameInfos(){
@@ -294,12 +291,12 @@ public class GUI {
 			createHighScoreScreen();
 
 			backgroundLayer.setVisible(true);
+			backgroundLayer.setImage(backgroundImage);
 			menueOverlay.setVisible(true);
 			menueOverlay.setImage(highscoreImage);
+			menueOverlay.toFront();
 
-			startButtonVisibliy(false);
-			startButtonContainer.setVisible(true);
-			startButtonContainer.setDisable(false);
+
 
 			highscoreList.setVisible(true);
 			helpText.setVisible(false);
@@ -311,7 +308,16 @@ public class GUI {
 			confirmButtonVisibliy(false);
 			gameOverInfo.setVisible(false);
 			breakout.getLife().setGameOver(false);
-		} else {
+
+			startButtonVisibliy(false);
+			startButtonContainer.setVisible(true);
+			startButtonContainer.setDisable(false);
+
+			breakout.getBall().setBallToBack();
+			breakout.getBrickGrid().setBricksToBack();
+
+		}
+		else {
 			nameLabel.setText("PLEASE ENTER\nYOUR NAME!");
 		}
 	}

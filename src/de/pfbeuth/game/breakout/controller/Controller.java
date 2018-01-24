@@ -52,13 +52,13 @@ public class Controller {
                     break;
                 case ENTER:
                     {
-                        if(breakout.getGuiNodes().getStartButton().isVisible()) {
+                        if(breakout.getGuiNodes().getStartButton().isVisible() && breakout.getGuiNodes().getStartButton().isDisable()) {
                             breakout.getGameStates().runGameEvents();
                             breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
 
-                            if (breakout.getGuiNodes().getStartButton().getText().equals(breakout.getGuiNodes().getPlayAgainText())) {
+                            /*if (breakout.getGuiNodes().getStartButton().getText().equals(breakout.getGuiNodes().getPlayAgainText())) {
                                 breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
-                            }
+                            }*/
                         }
                         if(breakout.getGuiNodes().getConfirmButton().isVisible()){
                             breakout.getGuiNodes().confirmButtonEvents();

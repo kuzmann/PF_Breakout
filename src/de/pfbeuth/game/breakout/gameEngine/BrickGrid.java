@@ -130,6 +130,7 @@ public class BrickGrid {
 
     private void addBricksToScene(){
         breakout.getRoot().getChildren().add(brick.spriteImage);
+        brick.spriteImage.toFront();
         brickGridList.add(brick);
 
     }
@@ -162,11 +163,14 @@ public class BrickGrid {
         }
     }
 
-    public void updateAdd (){
-        //if(breakout.getLife().getIsGameOver()) {
-        for (int i = 0; i < brickGridList.size(); i++) {
-            Brick brick = brickGridList.get(i);
-            breakout.getRoot().getChildren().add(brick.spriteImage);
+    public void setBricksToBack(){
+        for(Brick aBrick : brickGridList){
+            aBrick.spriteImage.toBack();
+        }
+    }
+    public void setBricksToFront(){
+        for(Brick aBrick : brickGridList){
+            aBrick.spriteImage.toFront();
         }
     }
 }

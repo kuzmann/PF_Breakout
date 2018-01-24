@@ -49,5 +49,12 @@ class Paddle extends AnimatedGameObject {
         spriteImage.setTranslateX(PADDLE_INIT_X_POS);
         spriteImage.setTranslateY(PADDLE_INIT_Y_POS);
     }
+
+    public void setPaddleToBack(){
+        spriteImage.toBack();
+    }
+    public void setPaddleToFrotn(){
+        spriteImage.toFront();
+    }
 }
 
