@@ -9,7 +9,7 @@ public class FinalScore {
 
     final static int numberBricks = 16;
     final static int pointsPerBrick = 10;
-    private int score = 0;
+    private int score = 12;
    // private SpriteManager spriteScores = new SpriteManager();
     private Set objects;
     private int level;

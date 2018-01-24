@@ -89,6 +89,7 @@ public class Ball extends AnimatedGameObject {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.YELLOW);
         }
     }
+
 	private void setXYPosition(){
   /*      if (up) {
             positionY -= velocityY;

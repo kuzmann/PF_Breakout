@@ -520,4 +520,24 @@
     <username>ad</username>
     <score>0</score>
   </Player>
+  <Player>
+    <username>Neuer Test</username>
+    <score>0</score>
+  </Player>
+  <Player>
+    <username>gz</username>
+    <score>0</score>
+  </Player>
+  <Player>
+    <username>Hans Müller</username>
+    <score>0</score>
+  </Player>
+  <Player>
+    <username>hsas</username>
+    <score>12</score>
+  </Player>
+  <Player>
+    <username>Frank</username>
+    <score>0</score>
+  </Player>
 </PlayerScores>

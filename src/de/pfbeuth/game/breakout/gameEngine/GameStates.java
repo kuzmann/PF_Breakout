@@ -163,8 +163,4 @@ public class GameStates {
 	public boolean isGameIsPaused() {
 		return gameIsPaused;
 	}
-
-
-
-
 }
