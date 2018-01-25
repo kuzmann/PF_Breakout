@@ -1,7 +1,11 @@
 package de.pfbeuth.game.breakout.gameEngine;
 import javafx.scene.image.Image;
 
-/** TODO Insert Class description */
+/*
+ * This class define new object "animatedGameObeject", which inherits from the class GameObject
+ * ball and paddle are this kind of object
+ *
+ */
 public abstract class AnimatedGameObject extends GameObject {
     protected double velocityX, velocityY;
     /** ------ CONSTRUCTOR ------ */
@@ -9,6 +13,8 @@ public abstract class AnimatedGameObject extends GameObject {
         super(SVGdata, xLocation, yLocation, sprites);
         velocityX = velocityY = 0;
     }
+
+    //TODO: Macht diese Methode etwas ? Prüfen, und wenn nicht löschen
     @Override
     void update(){
     }
@@ -16,6 +22,7 @@ public abstract class AnimatedGameObject extends GameObject {
     boolean collision(GameObject object){
         return false;
     }
+
     /** ------ GETTER ------ */
     public double getVelocityX() {
         return velocityX;
