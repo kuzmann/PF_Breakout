@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
-
+/*
+ * This class defines the brickgrid of the different levels
+ */
 public class BrickGrid {
     private Breakout breakout;
     private Brick brick;
+    /** an array list of displayed bricks*/
     private ArrayList<Brick> brickGridList;
 
     BrickGrid (Breakout breakout){
@@ -15,6 +18,7 @@ public class BrickGrid {
         brickGridList = new ArrayList<>();
     }
 
+    //TODO: Anna, später nicht vergessen den TestGrid zu löschen
     public void createTestGrid (){
         // standard Brick Grid
         for (int i = 0; i < 10; i++) {
@@ -32,13 +36,19 @@ public class BrickGrid {
         }
     }
 
+    /** level design for level 1 */
     public void createLevelOneGrid (){
         // standard Brick Grid
+        //set the columns
         for (int i = 0; i < 10; i++) {
+            //set the lines
             for (int j = 0; j < 8; j++) {
+                // set which color is displayed in first line
                 if (j <= 1) breakout.setBrickImage(breakout.getBrickImageRed());
+                    // set which color is displayed in 2-4 line
                 else if (j >= 2 && j < 4){
                     breakout.setBrickImage(breakout.getBrickImageOrange());}
+                // set which color is displayed in 4-6 line
                 else if (j >= 4 && j < 6) {
                     breakout.setBrickImage(breakout.getBrickImageYellow());
                 }
@@ -52,7 +62,7 @@ public class BrickGrid {
             }
         }
     }
-
+    /** level design for level 2 */
     public void createLevelTwoGrid() {
         //only every second brick is rendered
         for (int i = 0; i < 10; i++) {
@@ -71,6 +81,7 @@ public class BrickGrid {
         }
     }
 
+    /** level design for level 3 */
     public void createLevelThreeGrid(){
         // random Bricks
         for (int i = 0; i < 10; i++) {
@@ -92,6 +103,7 @@ public class BrickGrid {
         }
     }
 
+    /** level design for level 4 */
     public void createLevelFourGrid() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 8; j++) {
@@ -110,6 +122,7 @@ public class BrickGrid {
         }
     }
 
+    /** level design for level 5 */
     public void createLevelFiveGrid(){
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 8; j++) {
@@ -126,20 +139,27 @@ public class BrickGrid {
             }
         }
     }
+
+    /** display brickgrid-design to scene*/
     private void addBricksToScene(){
         breakout.getRoot().getChildren().add(brick.spriteImage);
         brick.spriteImage.toFront();
         brickGridList.add(brick);
     }
+    /** add amount of bricks to array list of current Objects*/
     private void addBricksToSpriteManager(){
         for (Brick aBrickGrid : brickGridList) {
             brick = aBrickGrid;
             breakout.getSpriteManager().addCurrentObjects(brick);
         }
     }
+
+    /** brick element is created*/
     private void createBrick(){
         brick = new Brick(breakout, "M.5,3.91V28.66c0,3.75,1.37,4.62,4.62,4.62H84c2.25,0,3.44-.75,3.44-3.44s-.08-22.06,0-26.19C87.5.45,88.07.5,84.29.5H3.5C.25.5.5,3.91.5,3.91Z", 0, 0, breakout.getBrickImage());
     }
+    //TODO: Tommy oder Isirafil, was passiert in dieser Methode genau?
+    /** */
     private void translateXY(int i, int j) {
         brick.spriteImage.setTranslateX(-WIDTH / 2 + i * (breakout.getBrickImage().getRequestedWidth() + 2) + (breakout.getBrickImage().getRequestedWidth() / 2) + 1);
         brick.spriteImage.setTranslateY(-HEIGHT / 2 + j * (breakout.getBrickImage().getRequestedHeight() + 2.5) + (breakout.getBrickImage().getRequestedHeight() / 2 + 50));
@@ -147,6 +167,8 @@ public class BrickGrid {
     public ArrayList<Brick> getBrickGridList() {
         return brickGridList;
     }
+
+    /** delete all bricks from scene*/
     public void deleteAllBrickFromScene(){
         for (Brick aBrickGrid : brickGridList) {
             brick = aBrickGrid;

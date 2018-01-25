@@ -4,6 +4,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+/*
+ * This class defines the style of Text Strings
+ * this class inherits from the class Text
+ */
 
 public class InfoText extends Text {
     /** ------ CONSTRUCTOR ------ */
