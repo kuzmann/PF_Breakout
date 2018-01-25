@@ -4,6 +4,9 @@ import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
+
+import java.util.Random;
+
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
@@ -21,6 +24,10 @@ public class Ball extends AnimatedGameObject {
     private boolean ballIsDead;
     private Brick destroyedBrick;
     private boolean levelAccomplished = false;
+
+    private Random rand = new Random();
+    int initVelocityX = 1 + rand.nextInt(5);
+    int initVelocityY = 2 + rand.nextInt(5);
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
@@ -75,7 +82,6 @@ public class Ball extends AnimatedGameObject {
         return false;
     }
     private void checkBrickHitColor() {
-
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.GREEN);
         }
@@ -90,7 +96,7 @@ public class Ball extends AnimatedGameObject {
         }
     }
 	private void setXYPosition(){
-  /*      if (up) {
+        if (up) {
             positionY -= velocityY;
         } else {
             positionY += velocityY;
@@ -100,9 +106,9 @@ public class Ball extends AnimatedGameObject {
             positionX += velocityX;
         } else {
             positionX -= velocityX;
-        }*/
+        }
        /* ------  TODO delete following lines in final stage ------ */
-       /* ------  Control Ball with arrow keys ------ */
+       /* ------  Control Ball with arrow keys ------
        if(breakout.getController().isLeft()) {
             positionX -= velocityX;
         }
@@ -127,7 +133,7 @@ public class Ball extends AnimatedGameObject {
         }
         if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
             positionY += velocityY;
-        }
+        }*/
     }
 	private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
@@ -160,12 +166,40 @@ public class Ball extends AnimatedGameObject {
 	}
 	private void ballPaddleCollision(){
         up = true;
+        if (breakout.getController().isLeft()) {
+            if (!right) {
+                velocityX *= 1.01;
+                velocityY *= 1.01;
+                System.out.println("ll Y+: " + velocityY);
+                System.out.println("ll X+: " + velocityX);
+            } else {
+                velocityX *= 0.99;
+                velocityY *= 0.99;
+                System.out.println("lr Y-: " + velocityY);
+                System.out.println("lr X-: " + velocityX);
+            }
+        }
+        if (breakout.getController().isRight()) {
+            if (right) {
+                velocityX *= 1.01;
+                velocityY *= 1.01;
+                System.out.println("rr Y+: " + velocityY);
+                System.out.println("rr X+: " + velocityX);
+            } else {
+                velocityX *= 0.99;
+                velocityY *= 0.99;
+                System.out.println("rl Y-: " + velocityY);
+                System.out.println("rl X-: " + velocityX);
+            }
+        }
     }
 	protected void resetState(){
         up = true;
         right = true;
-        setVelocityX(6);
-        setVelocityY(6);
+        setVelocityX(initVelocityX);
+        System.out.println("initVelocityX: " + initVelocityX);
+        setVelocityY(initVelocityY);
+        System.out.println("initVelocityY: " + initVelocityY);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
