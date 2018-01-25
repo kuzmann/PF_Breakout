@@ -1,5 +1,14 @@
  /**
- * authors Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
+  *
+  *
+  * This file implements the game of Breakout.
+  *
+  * This work is part of a module "Pattern and Framework" of the Beuth University in Berlin.
+  * This main class start the the game. It crate the stage and the scene with java fx.
+  *
+  * @version 1.0
+  * @author Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
+  *
  * */
 
 package de.pfbeuth.game.breakout.gameEngine;
@@ -18,9 +27,13 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
 import de.pfbeuth.game.breakout.dataHandling.*;
 
  public class Breakout extends Application  {
+
+     /** Width and height of scene in pixels */
     static final double WIDTH = 540, HEIGHT = 675;
     private StackPane root;
     private Scene scene;
+
+    /** Connection to other clases and objects*/
     private GamePlayTimer gameTimer;
     private Controller controller;
     //private ArrayList<Brick> brickGridList;
@@ -41,6 +54,7 @@ import de.pfbeuth.game.breakout.dataHandling.*;
 
 
     @Override
+    /** create a stage and scene*/
     public void start(Stage primaryStage) {
         /** Stage and Scene Setup */
         root = new StackPane();
@@ -63,7 +77,6 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         controller = new Controller(this);
         controller.createSceneEventHandling();
         spriteManager = new SpriteManager();
-
         loadImageAssets();
         createGameObjects();
         addObjectsToSpriteManager();
@@ -72,9 +85,13 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         createStartGamePlayTimer();
         guiNodes.createHighScoreScreen();
     }
+
+    /** main class */
     public static void main(String[] args) {
         launch(args);
     }
+
+    /** create background images and scene design*/
     private void loadImageAssets(){
         paddleImage = new Image("/assets/graphics/paddle.png", 100, 25, true, false, true);
         brickImageRed = new Image("/assets/graphics/brick_red.png", WIDTH/10-2, 22, true, false, true);
@@ -83,6 +100,8 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         brickImageGreen = new Image("/assets/graphics/brick_green.png", WIDTH/10-2, 22, true, false, true);
         ballImage = new Image("/assets/graphics/ball.png", 200/12, 200/12, true, false, true);
     }
+
+    /** create Game objects */
     private void createGameObjects(){
         paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, 0, paddleImage);
         paddle.resetState();
@@ -90,6 +109,8 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         ball.resetState();
         ball.resetVelocity();
     }
+
+    /** create used game objects: ball and paddle */
     protected void addObjectsToSpriteManager(){
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
