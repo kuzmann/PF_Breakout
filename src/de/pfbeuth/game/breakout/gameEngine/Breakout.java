@@ -10,10 +10,8 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import java.util.ArrayList;
 import de.pfbeuth.game.breakout.controller.Controller;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 
@@ -68,9 +66,9 @@ import de.pfbeuth.game.breakout.dataHandling.*;
 
         loadImageAssets();
         createGameObjects();
+        addObjectsToSpriteManager();
         addGameObjectsNodes();
         addNodesToStackPane();
-        createSpriteManager();
         createStartGamePlayTimer();
         guiNodes.createHighScoreScreen();
     }
@@ -92,31 +90,17 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         ball.resetState();
         ball.resetVelocity();
     }
-     /** creates bricks which must be destroyed in the game */
-    protected void createInitBrickGrid() {
-        // Comment out for testing
-        brickGrid.createLevelOneGrid();
-        //brickGridList = new ArrayList<>();
-         //uncomment for Testting
-         //brickGrid.createTestGrid();
-    }
-
-    private void addGameObjectsNodes(){
-        createInitBrickGrid();
-		root.getChildren().add(paddle.spriteImage);
-        root.getChildren().add(ball.spriteImage);
-    }
-
-    protected void createSpriteManager(){
+    protected void addObjectsToSpriteManager(){
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
-        /*for (Brick aBrickGrid : brickGridList) {
-            brick = aBrickGrid;
-            spriteManager.addCurrentObjects(brick);
-            }*/
     }
-
-    /** First View of the GAME*/
+     /** creates bricks which must be destroyed in the game */
+     private void addGameObjectsNodes(){
+         brickGrid.createLevelOneGrid();
+         root.getChildren().add(paddle.spriteImage);
+         root.getChildren().add(ball.spriteImage);
+     }
+     /** First View of the GAME*/
     private void addNodesToStackPane(){
         root.getChildren().add(guiNodes.getInfoContainer());
         root.getChildren().add(guiNodes.getPlayBackground());
@@ -127,7 +111,6 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         root.getChildren().add(guiNodes.getGameOverInfo());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
     }
-
     private void createStartGamePlayTimer(){
         gameTimer = new GamePlayTimer(this);
     }
@@ -137,15 +120,10 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         this.brickImage = brickImage;
     }
     /** GETTER */
-  /*  public ArrayList<Brick> getBrickGridList() {
-        return brickGridList;
-    }*/
-
-	 public BrickGrid getBrickGrid(){
+    public BrickGrid getBrickGrid(){
 		 return brickGrid;
 	 }
-
-	public StackPane getRoot() {
+    public StackPane getRoot() {
         return root;
     }
     public Ball getBall() {

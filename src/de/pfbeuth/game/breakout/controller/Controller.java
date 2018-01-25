@@ -46,13 +46,13 @@ public class Controller {
                 case D: right = false;
                     break;
                 case ESCAPE:
-                    if(breakout.getGameTimer().gameIsOn()){
+                    if(!breakout.getGameStates().isGamePaused()){
                         breakout.getGameStates().pauseGameEvents();
                     }
                     break;
                 case ENTER:
                     {
-                        if(breakout.getGuiNodes().getStartButton().isVisible() && breakout.getGuiNodes().getStartButton().isDisable()) {
+                        if(!breakout.getGuiNodes().getStartButton().isDisable()) {
                             breakout.getGameStates().runGameEvents();
                             breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
 

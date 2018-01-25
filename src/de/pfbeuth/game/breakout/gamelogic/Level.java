@@ -8,6 +8,7 @@ public class Level {
     private final double LEVEL_SPEED_MULTIPLIER = 0.4;
     private Breakout breakout;
     private SimpleStringProperty levelString;
+    private boolean levelAccomplished = false;
     /** ------ CONSTRUCTOR ------ */
     public Level (Breakout breakout) {
         this.breakout = breakout;
@@ -28,8 +29,14 @@ public class Level {
     public SimpleStringProperty levelStringProperty() {
         return levelString;
     }
+    public boolean isLevelAccomplished(){
+        return levelAccomplished;
+    }
     /** ------ SETTER ------ */
     public void setLevelNumber(int level){
         this.level = level;
+    }
+    public void setLevelAccomplished(boolean levelAccomplished){
+        this.levelAccomplished = levelAccomplished;
     }
 }

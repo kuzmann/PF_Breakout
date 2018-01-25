@@ -9,7 +9,7 @@ public class Life {
     /** ------ CONSTRUCTOR ------ */
     public Life (Breakout breakout){
         this.breakout = breakout;
-        life = 1;
+        life = 3;
     }
     /** decrements 'int life' when Ball hits bottom scene boundary */
     public void loseLife(){
@@ -26,13 +26,10 @@ public class Life {
     public int getActualLife() {
         return life;
     }
-    public boolean getIsGameOver(){
+    public boolean isGameOver(){
         return gameOver;
     }
     /** ------ SETTER ------ */
-    public void setGameOver(Boolean gameOver){
-        this.gameOver = gameOver;
-    }
     public void setLife(int life){
         this.life = life;
     }

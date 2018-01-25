@@ -31,8 +31,6 @@ public class GUI {
     private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
 	private final String CONFIRM_BUTTON_TEXT = "OK";
 
-
-
 	private final String LEVEL_INFO_TEXT = "LEVEL: ";
 	private final String LIVES_INFO_TEXT = "LIVES: ";
 	private final String SCORE_INFO_TEXT = "SCORE: ";
@@ -76,8 +74,6 @@ public class GUI {
         menueOverlay = new ImageView(highscoreImage);
         playBackground = new ImageView(playBackgroundImage);
         playBackground.setVisible(false);
-       /* gameOver = new ImageView(gameOverImage);
-        gameOver.setVisible(false);*/
     }
     private void createGUIContainer() {
         Insets buttonContainerPadding = new Insets(0, 0, 12, 0);
@@ -128,7 +124,6 @@ public class GUI {
 
         /* ------ Container for Enter the user name ------ */
         playerInputContainer = new GridPane();
-
         playerInputContainer.setTranslateY(-200);
 		playerInputContainer.setVisible(false);
 		playerInputContainer.setDisable(true);
@@ -172,7 +167,7 @@ public class GUI {
 		startButton.setPrefSize(100, 100);
 		startButton.setText(START_BUTTON_TEXT);
 		startButton.setTextAlignment(TextAlignment.CENTER);
-		startButtonVisibliy(false);
+		startButtonVisibliy(false, 100d);
 		startButton.setOnAction(e -> {
 			breakout.getGameStates().runGameEvents();
 		});
@@ -182,7 +177,7 @@ public class GUI {
 		playButton.setPrefWidth(100);
 		playButton.setText(PLAY_BUTTON_TEXT);
 		playButton.setOnAction(e -> {
-			startButtonVisibliy(true);
+			startButtonVisibliy(true, 100d);
 			startButtonContainer.setVisible(true);
 			startButtonContainer.setDisable(false);
 			playerInputContainer.toBack();
@@ -195,10 +190,7 @@ public class GUI {
             helpText.setVisible(false);
 			highscoreList.setVisible(false);
 			hideGameInfos();
-
-
 		});
-
         highscoreButton = new Button();
         highscoreButton.setFocusTraversable(false);
 		highscoreButton.setPrefWidth(100);
@@ -207,12 +199,11 @@ public class GUI {
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
             menueOverlay.setImage(highscoreImage);
-            startButtonVisibliy(false);
+            startButtonVisibliy(false, 100d);
 			highscoreList.setVisible(true);
             helpText.setVisible(false);
             hideGameInfos();
         });
-
         helpButton = new Button();
         helpButton.setFocusTraversable(false);
 		helpButton.setPrefWidth(100);
@@ -221,12 +212,11 @@ public class GUI {
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
             menueOverlay.setImage(helpImage);
-            startButtonVisibliy(false);
+            startButtonVisibliy(false, 100d);
 			highscoreList.setVisible(false);
 			helpText.setVisible(true);
 			hideGameInfos();
 		});
-
          /* ------ Confirm-button with actions ------ */
 		confirmButton = new Button();
 		confirmButton.setText(CONFIRM_BUTTON_TEXT);
@@ -282,7 +272,6 @@ public class GUI {
 			nameLabel.setText(NAME_LABEL_TEXT);
 			playerName = nameInput.getText();
 			Player = new CreatePlayer(breakout, playerName);
-
 			//TODO Ausgabe der Highscoreliste fertigstellen
 			UpdateXMLTable updater = new UpdateXMLTable();
 			updater.add(Player);
@@ -294,9 +283,6 @@ public class GUI {
 			backgroundLayer.setImage(backgroundImage);
 			menueOverlay.setVisible(true);
 			menueOverlay.setImage(highscoreImage);
-			menueOverlay.toFront();
-
-
 
 			highscoreList.setVisible(true);
 			helpText.setVisible(false);
@@ -307,15 +293,22 @@ public class GUI {
 			helpButtonVisibliy(true);
 			confirmButtonVisibliy(false);
 			gameOverInfo.setVisible(false);
-			breakout.getLife().setGameOver(false);
+			//breakout.getLife().setGameOver(false);
 
-			startButtonVisibliy(false);
+			startButtonVisibliy(false, 100d);
 			startButtonContainer.setVisible(true);
 			startButtonContainer.setDisable(false);
 
 			breakout.getBall().setBallToBack();
 			breakout.getBrickGrid().setBricksToBack();
 
+			breakout.getGameStates().startNextLevelEvents();
+
+			backgroundLayer.toFront();
+			menueOverlay.toFront();
+			highscoreContainer.toFront();
+			helpContainer.toFront();
+			masterButtonContainer.toFront();
 		}
 		else {
 			nameLabel.setText("PLEASE ENTER\nYOUR NAME!");
@@ -341,7 +334,9 @@ public class GUI {
 		helpButton.setFocusTraversable(!visibility);
 	}
 	/** sets Start Button visible and enabled without focus consume */
-	public void startButtonVisibliy(Boolean visibility){
+	public void startButtonVisibliy(Boolean visibility, Double prefWidth){
+		startButton.setCancelButton(false);
+		startButton.setPrefWidth(prefWidth);
 		startButton.setVisible(visibility);
 		startButton.setDisable(!visibility);
 		startButton.setFocusTraversable(!visibility);
@@ -353,7 +348,7 @@ public class GUI {
 		confirmButton.setFocusTraversable(!visibility);
 	}
 
-    /* ------ GETTER ------ */
+    /** ------ GETTER ------ */
 	public String getLEVEL_INFO_TEXT() {
 		return LEVEL_INFO_TEXT;
 	}

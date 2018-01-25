@@ -6,7 +6,6 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 public class BrickGrid {
-
     private Breakout breakout;
     private Brick brick;
     private ArrayList<Brick> brickGridList;
@@ -127,12 +126,10 @@ public class BrickGrid {
             }
         }
     }
-
     private void addBricksToScene(){
         breakout.getRoot().getChildren().add(brick.spriteImage);
         brick.spriteImage.toFront();
         brickGridList.add(brick);
-
     }
     private void addBricksToSpriteManager(){
         for (Brick aBrickGrid : brickGridList) {
@@ -147,30 +144,23 @@ public class BrickGrid {
         brick.spriteImage.setTranslateX(-WIDTH / 2 + i * (breakout.getBrickImage().getRequestedWidth() + 2) + (breakout.getBrickImage().getRequestedWidth() / 2) + 1);
         brick.spriteImage.setTranslateY(-HEIGHT / 2 + j * (breakout.getBrickImage().getRequestedHeight() + 2.5) + (breakout.getBrickImage().getRequestedHeight() / 2 + 50));
     }
-
     public ArrayList<Brick> getBrickGridList() {
         return brickGridList;
     }
-
-    public Brick getBrick() {
-        return brick;
-    }
-
     public void deleteAllBrickFromScene(){
         for (Brick aBrickGrid : brickGridList) {
             brick = aBrickGrid;
             breakout.getRoot().getChildren().remove(brick.spriteImage);
         }
     }
-
+    /** ------ GETTER ------ */
+    public Brick getBrick() {
+        return brick;
+    }
+    /** ------ SETTER ------ */
     public void setBricksToBack(){
         for(Brick aBrick : brickGridList){
             aBrick.spriteImage.toBack();
-        }
-    }
-    public void setBricksToFront(){
-        for(Brick aBrick : brickGridList){
-            aBrick.spriteImage.toFront();
         }
     }
 }

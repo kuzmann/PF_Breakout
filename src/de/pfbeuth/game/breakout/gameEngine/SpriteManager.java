@@ -8,12 +8,10 @@ import java.util.Set;
 class SpriteManager {
     private final List<GameObject> CURRENT_OBJECTS;
     private final Set<GameObject> REMOVED_OBJECTS;
-    private final List<GameObject> COLLIDE_CHECKLIST;
 
     public SpriteManager() {
         this.CURRENT_OBJECTS = new ArrayList<>();
         this.REMOVED_OBJECTS = new HashSet<>();
-        this.COLLIDE_CHECKLIST = new ArrayList<>();
     }
 
     public void addCurrentObjects (GameObject... objects){
@@ -35,18 +33,12 @@ class SpriteManager {
         CURRENT_OBJECTS.removeAll(REMOVED_OBJECTS);
         REMOVED_OBJECTS.clear();
     }
-    public void resetCollideCheckList() {
-        COLLIDE_CHECKLIST.removeAll(CURRENT_OBJECTS);
-        COLLIDE_CHECKLIST.clear();
-    }
+
     /** ------ GETTER ------ */
     public List<GameObject> getCurrentObjects(){
         return CURRENT_OBJECTS;
     }
     public Set getRemovedObjects() {
         return REMOVED_OBJECTS;
-    }
-    public List<GameObject> getCollideCheckList() {
-        return COLLIDE_CHECKLIST;
     }
 }
