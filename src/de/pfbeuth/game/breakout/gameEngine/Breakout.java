@@ -90,6 +90,7 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         paddle.resetState();
         ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, 0, ballImage);
         ball.resetState();
+        ball.resetVelocity();
     }
      /** creates bricks which must be destroyed in the game */
     protected void createInitBrickGrid() {

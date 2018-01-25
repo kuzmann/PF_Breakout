@@ -262,8 +262,6 @@ public class GUI {
 		loader.loadTable();
 		loader.displayHighscore();
 
-
-
 		if (loader.getHighscoreList().size() != 0) {
 			StringBuffer buf = new StringBuffer("Highscoreliste: "+ "\n");
 

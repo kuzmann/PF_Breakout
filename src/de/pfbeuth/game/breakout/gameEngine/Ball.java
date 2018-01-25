@@ -24,11 +24,12 @@ public class Ball extends AnimatedGameObject {
     private boolean ballIsDead;
     private Brick destroyedBrick;
     private boolean levelAccomplished = false;
-
+    private final double INIT_BALL_VELOCITY = 10;
+/** ------ TODO anpassen (ibo)
     private Random rand = new Random();
     int initVelocityX = 1 + rand.nextInt(5);
     int initVelocityY = 2 + rand.nextInt(5);
-
+*/
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iBall;
@@ -95,6 +96,7 @@ public class Ball extends AnimatedGameObject {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.YELLOW);
         }
     }
+
 	private void setXYPosition(){
         if (up) {
             positionY -= velocityY;
@@ -196,10 +198,6 @@ public class Ball extends AnimatedGameObject {
 	protected void resetState(){
         up = true;
         right = true;
-        setVelocityX(initVelocityX);
-        System.out.println("initVelocityX: " + initVelocityX);
-        setVelocityY(initVelocityY);
-        System.out.println("initVelocityY: " + initVelocityY);
         this.positionX = BALL_INIT_X_POS;
         this.positionY = BALL_INIT_Y_POS;
         spriteImage.setTranslateX(BALL_INIT_X_POS);
@@ -231,4 +229,10 @@ public class Ball extends AnimatedGameObject {
     public void setLevelAccomplished(Boolean levelAccomplished) {
          this.levelAccomplished = levelAccomplished;
     }
+
+    public void resetVelocity(){
+        setVelocityX(INIT_BALL_VELOCITY);
+        setVelocityY(INIT_BALL_VELOCITY);
+    }
+
 }

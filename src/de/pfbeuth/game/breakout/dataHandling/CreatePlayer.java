@@ -14,10 +14,10 @@ public class CreatePlayer {
     public CreatePlayer (Breakout breakout, String username){
         this.username = username;
         //Score kommt aus der Klasse FinalScore. Der Score muss aber aus Gamelogic kommen
-        this.score = endscore.getScore();
+        //this.score = endscore.getScore();
 
         // Es funkioniert nicht, weil es den letzten Wert nicht auslesen kann. Score = 0
-        //this.score = breakout.getScoreCounter().getScoreNumber();
+        this.score = breakout.getScoreCounter().getScoreNumber();
         this.breakout = breakout;
 
     }
