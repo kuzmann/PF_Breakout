@@ -3,6 +3,9 @@ package de.pfbeuth.game.breakout.gamelogic;
 import de.pfbeuth.game.breakout.gameEngine.*;
 import javafx.beans.property.*;
 
+/**
+ * this class defines the Score counter
+ */
 public class ScoreCounter {
     private Breakout breakout;
     private SimpleStringProperty score;

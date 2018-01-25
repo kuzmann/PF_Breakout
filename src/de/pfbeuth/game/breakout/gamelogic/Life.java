@@ -2,6 +2,9 @@ package de.pfbeuth.game.breakout.gamelogic;
 
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
+/**
+ * this class defines the life logic.
+ */
 public class Life {
     private int life;
     private boolean gameOver;
@@ -9,6 +12,7 @@ public class Life {
     /** ------ CONSTRUCTOR ------ */
     public Life (Breakout breakout){
         this.breakout = breakout;
+        //The game start with 3 lifes
         life = 3;
     }
     /** decrements 'int life' when Ball hits bottom scene boundary */
@@ -22,12 +26,18 @@ public class Life {
             gameOver = true;
         }
     }
+
+    /**
+     * this method is called from the class GameStates
+     * @return gameOver if all paddle does not hit the ball and the ball hits bottom scene boundary
+     * */
+    public boolean isGameOver(){
+        return gameOver;
+    }
+
     /** ------ GETTER ------ */
     public int getActualLife() {
         return life;
-    }
-    public boolean isGameOver(){
-        return gameOver;
     }
     /** ------ SETTER ------ */
     public void setLife(int life){
