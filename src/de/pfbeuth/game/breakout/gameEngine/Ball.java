@@ -24,12 +24,10 @@ public class Ball extends AnimatedGameObject {
     private boolean ballIsDead;
     private Brick destroyedBrick;
     private boolean levelAccomplished = false;
-    private final double INIT_BALL_VELOCITY = 10;
-/** ------ TODO anpassen (ibo)
     private Random rand = new Random();
-    int initVelocityX = 1 + rand.nextInt(5);
-    int initVelocityY = 2 + rand.nextInt(5);
-*/
+    private final double INIT_BALL_X_VELOCITY = 1 + rand.nextInt(6);
+    private final double INIT_BALL_Y_VELOCITY = 1 + rand.nextInt(6);
+
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iBall;
@@ -172,26 +170,18 @@ public class Ball extends AnimatedGameObject {
             if (!right) {
                 velocityX *= 1.01;
                 velocityY *= 1.01;
-                System.out.println("ll Y+: " + velocityY);
-                System.out.println("ll X+: " + velocityX);
             } else {
                 velocityX *= 0.99;
                 velocityY *= 0.99;
-                System.out.println("lr Y-: " + velocityY);
-                System.out.println("lr X-: " + velocityX);
             }
         }
         if (breakout.getController().isRight()) {
             if (right) {
                 velocityX *= 1.01;
                 velocityY *= 1.01;
-                System.out.println("rr Y+: " + velocityY);
-                System.out.println("rr X+: " + velocityX);
             } else {
                 velocityX *= 0.99;
                 velocityY *= 0.99;
-                System.out.println("rl Y-: " + velocityY);
-                System.out.println("rl X-: " + velocityX);
             }
         }
     }
@@ -231,8 +221,8 @@ public class Ball extends AnimatedGameObject {
     }
 
     public void resetVelocity(){
-        setVelocityX(INIT_BALL_VELOCITY);
-        setVelocityY(INIT_BALL_VELOCITY);
+        setVelocityX(INIT_BALL_X_VELOCITY);
+        setVelocityY(INIT_BALL_Y_VELOCITY);
     }
 
 }
