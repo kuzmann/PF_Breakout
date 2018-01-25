@@ -94,11 +94,12 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     }
      /** creates bricks which must be destroyed in the game */
     protected void createInitBrickGrid() {
+
         // Comment out for testing
         brickGrid.createLevelOneGrid();
         //brickGridList = new ArrayList<>();
          //uncomment for Testting
-         //brickGrid.createTestGrid();
+        //  brickGrid.createTestGrid();
     }
 
     private void addGameObjectsNodes(){
@@ -141,7 +142,7 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         return brickGridList;
     }*/
 
-	 public BrickGrid getBrickGrid(){
+	public BrickGrid getBrickGrid(){
 		 return brickGrid;
 	 }
 

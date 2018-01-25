@@ -54,11 +54,11 @@ public class UpdateXMLTable {
             outputter.setFormat(Format.getPrettyFormat());
 
             String outputString = outputter.outputString(doc);
-            System.out.println(outputString);
+//            System.out.println(outputString);
 
             outputter.output(doc,new FileWriter(outputPath));
 
-            System.out.println("File updated!");
+  //          System.out.println("File updated!");
 
         } catch (IOException io) {
             io.printStackTrace();
