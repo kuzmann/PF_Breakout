@@ -1,5 +1,17 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
+
+/*
+ * In this class, the controller defines and checks the collision query, the various states of the object ball
+ *
+ * @param up                check, if ball hits paddle returns true
+ * @param right             check, if
+ * @param ballIsDead        check, if ball miss the paddle and user loose a life
+ * @param destroyedBrick
+ * @param levelAccomplished check, if user destroyed all bricks, returns true
+ *
+ */
+
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
@@ -9,9 +21,12 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
+
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
+    /** Radius of the ball */
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
+    /** screen boundary*/
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/4;
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/4);
     private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS/4);
@@ -21,6 +36,7 @@ public class Ball extends AnimatedGameObject {
     private boolean ballIsDead;
     private Brick destroyedBrick;
     private boolean levelAccomplished = false;
+    /** Initial velocities of the ball */
     private final double INIT_BALL_VELOCITY = 10;
 
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
@@ -39,6 +55,7 @@ public class Ball extends AnimatedGameObject {
         for (int i = 0; i < breakout.getSpriteManager().getCurrentObjects().size(); i++) {
             GameObject collisionObject = breakout.getSpriteManager().getCurrentObjects().get(i);
             collision(collisionObject);
+            // Check if ball hit a brick
             if (collision(collisionObject) && collisionObject instanceof Brick){
                 ((Brick) collisionObject).destroyBrick();
                 brickCollision();
@@ -49,23 +66,32 @@ public class Ball extends AnimatedGameObject {
                     breakout.getGameStates().levelFinishedEvents();
                 }
             }
+            // Check if ball hit the paddle
             if(collision(collisionObject) && collisionObject instanceof Paddle) {
                 ballPaddleCollision();
             }
         }
     }
 
+    /**
+     * two step collision detection (ball hits brick)
+     * A collision with brick also removes the brick
+     * @return returns true if ball hit an game object,
+     * returns false otherwise
+     * */
     @Override
     boolean collision(GameObject object){
         boolean collisionDetect = false;
-        /* ------ two step collision detection ------ */
+        /* ------ first step: is an object in the vicinity ------ */
         if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent())) {
             Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
             if(intersection.getBoundsInLocal().getWidth() != -1){
                 collisionDetect = true;
             }
         }
+        /* ------ second step: something was hit ------ */
         if (collisionDetect){
+            // make sure the ball didn't hit paddle or ball object
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().removeCurrentObjects(object);
                 breakout.getSpriteManager().addToRemovedObjects(object);
@@ -75,8 +101,9 @@ public class Ball extends AnimatedGameObject {
         }
         return false;
     }
-    private void checkBrickHitColor() {
 
+    /** check, which brickcolor was hit and start counter method*/
+    private void checkBrickHitColor() {
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.GREEN);
         }
@@ -91,13 +118,16 @@ public class Ball extends AnimatedGameObject {
         }
     }
 
+    //TODO: Tommy, kannst du diese Methode beschreiben?
+    /**  */
 	private void setXYPosition(){
+	    /** check, if ball hit paddle*/
         if (up) {
             positionY -= velocityY;
         } else {
             positionY += velocityY;
         }
-
+        /** */
         if(right){
             positionX += velocityX;
         } else {
@@ -130,6 +160,13 @@ public class Ball extends AnimatedGameObject {
             positionY += velocityY;
         }*/
     }
+
+    /**
+     * two step collision detection (ball hits brick)
+     * @return returns true if ball hit an game object,
+     * returns false otherwise
+     * */
+
 	private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
            positionX = RIGHT_SCREEN_BOUNDARY - BALL_RADIUS;
@@ -146,22 +183,35 @@ public class Ball extends AnimatedGameObject {
             up = false;
             ballIsDead = false;
         }
+
         if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
             breakout.getGameStates().ballDied();
         }
     }
+
+    //TODO: Tommy, was passiert hier genau?
+    /** ----*/
 	private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
     }
+    //TODO: Tommy, was passiert hier genau?
+    /**  */
 	private void brickCollision(){
 		up = !up;
 		right = !right;
 	}
+
+    /**
+     * If ball hits paddle, this method is called
+     * @return returns true if ball hit the paddle,
+     * */
 	private void ballPaddleCollision(){
         up = true;
     }
+
+    /** if a new game or level starts, ball will set to the initial position */
 	protected void resetState(){
         up = true;
         right = true;
@@ -170,17 +220,23 @@ public class Ball extends AnimatedGameObject {
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
+
+    /**
+     * this method check, if all brick are destroyed and a level was successfully completed
+     * @return returns true if user destroyed all bricks
+     * returns false otherwise
+     * */
 	private boolean  checkLevelFinished(){
-		//TODO um die Methode is.Empty() nutzen zu können, müsste man aus der Arrayliste zwei Elemente (Paddle, Ball) erntfernen. Deshlab ist vergleichswert bei int = 2
+		//you have to compare the size of the array with 2, because there are also paddle and ball object in the array besides the brick.
 		if (breakout.getSpriteManager().getCurrentObjects().size() == 2) {
 			breakout.getLevel().setLevelAccomplished(true);
-
 		}
 		else {
 		    breakout.getLevel().setLevelAccomplished(false);
 		}
         return breakout.getLevel().isLevelAccomplished();
 	}
+
     /** ------ GETTER ------ */
     public boolean isRight() {
         return right;
