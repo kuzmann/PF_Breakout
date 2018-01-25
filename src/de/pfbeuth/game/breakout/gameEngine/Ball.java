@@ -8,16 +8,9 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 
-/*
+/**
  * This class defines the object ball and checks the ball-brick-collision and the various states of the object ball
  * this class inherits from the class AnimatedGameObject
- *
- * @param up                check, if ball hits paddle returns true
- * @param right             check, if
- * @param ballIsDead        check, if ball miss the paddle and user loose a life
- * @param destroyedBrick
- * @param levelAccomplished check, if user destroyed all bricks, returns true
- *
  */
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class

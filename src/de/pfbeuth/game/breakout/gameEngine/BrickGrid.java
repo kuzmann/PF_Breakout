@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
-/*
+
+/**
  * This class defines the brickgrid of the different levels
  */
 public class BrickGrid {
@@ -38,7 +39,6 @@ public class BrickGrid {
 
     /** level design for level 1 */
     public void createLevelOneGrid (){
-        // standard Brick Grid
         //set the columns
         for (int i = 0; i < 10; i++) {
             //set the lines

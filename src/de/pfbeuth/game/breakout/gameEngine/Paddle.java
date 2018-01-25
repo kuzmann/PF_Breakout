@@ -4,7 +4,7 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 
 
-/*
+/**
  * This class defines and control the object paddle
  * this class inherits from the class AnimatedGameObject
  */

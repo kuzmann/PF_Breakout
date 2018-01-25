@@ -1,7 +1,7 @@
 package de.pfbeuth.game.breakout.gameEngine;
 import javafx.scene.image.Image;
 
-/*
+/**
  * This class define new object "animatedGameObeject", which inherits from the class GameObject
  * ball and paddle are this kind of object
  *

@@ -3,7 +3,13 @@ import javafx.animation.ScaleTransition;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
+
+/**
+ * This class defines and control the object brick
+ * this class inherits from the class AnimatedGameObject
+ */
 class Brick extends GameObject {
+    //TODO: Anna, testen und wenn es nicht mehr genutzt wird, löschen
     private Breakout breakout;  //creates context to Breakout-Class
     private double leftBorder, rightBorder, topBorder, bottomBorder;
     /** ------ CONSTRUCTOR ------ */
@@ -13,10 +19,16 @@ class Brick extends GameObject {
         spriteImage.setTranslateY(yLocation);
         this.breakout = breakout;
     }
+
+    //TODO: Macht diese Methode etwas ? Prüfen, und wenn nicht löschen
     @Override
     public void update(){
     }
-    /** TODO write description */
+
+    /**
+     * it defines what happens if ball hits brick
+     * brick scale to zero size
+     * */
     public void destroyBrick() {
         ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(400), this.getSpriteImage());
         scaleToZero.setToX(0.0d);
