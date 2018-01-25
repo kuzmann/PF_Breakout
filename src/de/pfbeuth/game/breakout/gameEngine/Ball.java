@@ -1,8 +1,16 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
+import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
+import javafx.scene.image.Image;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.Shape;
+import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
+import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
+
 
 /*
- * In this class, the controller defines and checks the collision query, the various states of the object ball
+ * This class defines the object ball and checks the ball-brick-collision and the various states of the object ball
+ * this class inherits from the class AnimatedGameObject
  *
  * @param up                check, if ball hits paddle returns true
  * @param right             check, if
@@ -11,14 +19,6 @@ package de.pfbeuth.game.breakout.gameEngine;
  * @param levelAccomplished check, if user destroyed all bricks, returns true
  *
  */
-
-import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
-import javafx.scene.image.Image;
-import javafx.scene.shape.SVGPath;
-import javafx.scene.shape.Shape;
-import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
-import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
-
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
 
@@ -211,6 +211,7 @@ public class Ball extends AnimatedGameObject {
         up = true;
     }
 
+    //TODO: Tommy, bitte den Kommentar überprüfen
     /** if a new game or level starts, ball will set to the initial position */
 	protected void resetState(){
         up = true;

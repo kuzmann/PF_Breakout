@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 class SpriteManager {
+
     private final List<GameObject> CURRENT_OBJECTS;
     private final Set<GameObject> REMOVED_OBJECTS;
 
