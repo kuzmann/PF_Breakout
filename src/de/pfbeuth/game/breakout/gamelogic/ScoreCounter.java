@@ -1,15 +1,17 @@
 package de.pfbeuth.game.breakout.gamelogic;
-
 import de.pfbeuth.game.breakout.gameEngine.*;
 import javafx.beans.property.*;
 
 /**
- * this class defines the Score counter
+ * Defines the Score counter and raise the score accordingly
+ * to the bricks color
  */
 public class ScoreCounter {
     private Breakout breakout;
     private SimpleStringProperty score;
     private int scoreNumber;
+    private final int SCORE_INITIAL = 0;
+
     /** ------ CONSTRUCTOR ------*/
     public ScoreCounter (Breakout breakout){
     	this.breakout = breakout;
@@ -21,7 +23,10 @@ public class ScoreCounter {
 	public enum BrickColor {
 		GREEN, YELLOW, ORANGE, RED
 	}
-	/** Increases the score by an amount according to the colour of the brick which has been hit. */
+	/**
+	 * Increases the score by an amount according to the
+	 * colour of the brick which has been hit.
+	 */
 	public void counter(BrickColor brickcolor) {
     	switch (brickcolor) {
 			case GREEN:
@@ -44,20 +49,21 @@ public class ScoreCounter {
 	}
 
 	/** ------ GETTER ------ */
+	/** @return actual score value */
 	public int getScoreNumber(){
 		return scoreNumber;
 	}
+	/** @return actual score as StringProperty */
 	public SimpleStringProperty scoreProperty() {
 		return score;
 	}
-	public void resetScoreNumber(){
-    	scoreNumber = 0;
-	}
 	/** ------ SETTER ------ */
-	public void resetScoreProperty(){
+	/** set the ScoreProperty String to the actual score value */
+	public void setScoreProperty(){
 		score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber));
 	}
+	/** reset score to the initial value */
+	public void resetScoreNumber(){
+		scoreNumber = SCORE_INITIAL;
+	}
 }
-
-
-

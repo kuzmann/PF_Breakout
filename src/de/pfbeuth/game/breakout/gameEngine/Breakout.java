@@ -54,7 +54,7 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         /* Create class instances */
         brickGrid = new BrickGrid(this);
         level = new Level(this);
-        life = new Life(this);
+        life = new Life();
         gameOver = new GameStates(this);
         scoreCounter = new ScoreCounter(this);
         guiNodes = new GUI(this);

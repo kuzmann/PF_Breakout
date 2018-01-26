@@ -1,6 +1,6 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
-
+/** */
 public class GameStates {
     private Breakout breakout;
 	private boolean gamePaused = true;
@@ -68,7 +68,7 @@ public class GameStates {
 			gameOver();
 		}
 	}
-	public void startNextLevelEvents(){
+	void startNextLevelEvents(){
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
 		if (breakout.getLife().isGameOver()){
 			resetGameInfos();
@@ -95,7 +95,7 @@ public class GameStates {
 		breakout.getBrickGrid().getBrickGridList().clear();
 		breakout.getSpriteManager().addCurrentObjects(breakout.getPaddle());
 		breakout.getSpriteManager().addCurrentObjects(breakout.getBall());
-
+		/* ------ choose next level design ------ */
 		switch(breakout.getLevel().getLevelNumber()){
 			case (1):
 				breakout.getBrickGrid().createLevelOneGrid();
@@ -133,11 +133,11 @@ public class GameStates {
 
 		breakout.getBall().getSpriteImage().toFront();
 	}
-	public void resetGameInfos() {
+	private void resetGameInfos() {
 		breakout.getScoreCounter().resetScoreNumber();
-		breakout.getScoreCounter().resetScoreProperty();
-		breakout.getLife().setLife(3);
-		breakout.getLevel().setLevelNumber(1);
+		breakout.getScoreCounter().setScoreProperty();
+		breakout.getLife().setLife(breakout.getLife().getLIFE_INIT());
+		breakout.getLevel().setLevelNumber(breakout.getLevel().getLevelInit());
 		breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
 	}
