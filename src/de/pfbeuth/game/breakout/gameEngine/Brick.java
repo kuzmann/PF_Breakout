@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 /**
- * This class defines and control the object brick
+ * This class defines and controls the object brick
  * this class inherits from the class AnimatedGameObject
  */
 class Brick extends GameObject {
