@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -23,7 +24,7 @@ public class GUI {
     private Button playButton, helpButton, highscoreButton, startButton, confirmButton;
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage, gameOverImage;
-    private Text levelInfo, lifeInfo, scoreInfo, highscoreList, helpText, gameOverInfo;
+    private Text levelInfo, lifeInfo, scoreInfo, highscoreList, highscoreListScore, helpText, gameOverInfo;
     private final String START_BUTTON_TEXT = "START\n(hit enter)";
     private final String PLAY_BUTTON_TEXT = "PLAY";
     private final String PLAY_AGAIN_TEXT = "PLAY AGAIN\n(hit enter)";
@@ -133,7 +134,7 @@ public class GUI {
         /* ------ Add GUI Nodes to scene ------ */
         infoContainer.getChildren().addAll(levelInfo, lifeInfo, scoreInfo);
         helpContainer.getChildren().add(helpText);
-        highscoreContainer.getChildren().add(highscoreList);
+        highscoreContainer.getChildren().addAll(highscoreList,highscoreListScore );
         buttonContainer.getChildren().addAll(playButton, highscoreButton, helpButton);
 		playerInputContainer.getChildren().addAll(nameLabel, nameInput, confirmButton);
 		startButtonContainer.getChildren().addAll(startButton);
@@ -148,6 +149,17 @@ public class GUI {
 		scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScoreNumber());
         highscoreList = new InfoText();
         highscoreList.setVisible(true);
+		highscoreList.setFont(new Font("arial", 18));
+		highscoreList.setWrappingWidth(180);
+		highscoreList.setFill(Color.WHITE);
+		highscoreList.setTextAlignment(TextAlignment.LEFT);
+		highscoreListScore = new Text();
+		highscoreListScore.setVisible(true);
+		highscoreListScore.setFont(new Font("arial", 18));
+		highscoreListScore.setWrappingWidth(70);
+		highscoreListScore.setFill(Color.WHITE);
+		highscoreListScore.setTextAlignment(TextAlignment.RIGHT);
+
         helpText = new InfoText();
         helpText.setText(INSTRUCTIONS_INFO_TEXT);
 		gameOverInfo = new InfoText();
@@ -164,7 +176,7 @@ public class GUI {
 		/* ------ Menue Buttons ------ */
 		playButton = new Button();
 		playButton.setFocusTraversable(false);
-		playButton.setPrefWidth(100);
+		playButton.setPrefWidth(120);
 		playButton.setText(PLAY_BUTTON_TEXT);
 		playButton.setOnAction(e -> {
 			startButtonVisibliy(true, 100d);
@@ -177,13 +189,15 @@ public class GUI {
 			playBackground.setVisible(true);
 			playBackground.toBack();
 			highscoreList.setVisible(false);
+			highscoreListScore.setVisible(false);
             helpText.setVisible(false);
 			highscoreList.setVisible(false);
+			highscoreListScore.setVisible(false);
 			hideGameInfos();
 		});
         highscoreButton = new Button();
         highscoreButton.setFocusTraversable(false);
-		highscoreButton.setPrefWidth(100);
+		highscoreButton.setPrefWidth(120);
         highscoreButton.setText(HIGHSCORE_BUTTON_TEXT);
         highscoreButton.setOnAction(e -> {
             backgroundLayer.setVisible(true);
@@ -191,12 +205,13 @@ public class GUI {
             menueOverlay.setImage(highscoreImage);
             startButtonVisibliy(false, 100d);
 			highscoreList.setVisible(true);
+			highscoreListScore.setVisible(true);
             helpText.setVisible(false);
             hideGameInfos();
         });
         helpButton = new Button();
         helpButton.setFocusTraversable(false);
-		helpButton.setPrefWidth(100);
+		helpButton.setPrefWidth(120);
         helpButton.setText(HELP_BUTTON_TEXT);
         helpButton.setOnAction(e -> {
             backgroundLayer.setVisible(true);
@@ -204,6 +219,7 @@ public class GUI {
             menueOverlay.setImage(helpImage);
             startButtonVisibliy(false, 100d);
 			highscoreList.setVisible(false);
+			highscoreListScore.setVisible(false);
 			helpText.setVisible(true);
 			hideGameInfos();
 		});
@@ -240,14 +256,17 @@ public class GUI {
 		loader.displayHighscore();
 
 		if (loader.getHighscoreList().size() != 0) {
-			StringBuffer buf = new StringBuffer("Highscoreliste: "+ "\n");
+			StringBuffer playerbuff = new StringBuffer("PLAYER "+ "\n");
+			StringBuffer scorebuff = new StringBuffer("SCORE"+ "\n");
 
 			for (int i = 0; i < loader.getHighscoreList().size() && i < 10; i++) {
 					loader.getHighscoreList().get(i);
-					buf.append((i + 1) + ". " + loader.getHighscoreList().get(i).getPlayerName() + ".........." + loader.getHighscoreList().get(i).getPlayerScore() + "\n");
-			}
-			highscoreList.setText(buf.toString());
+				playerbuff.append((i + 1) + ". " + "\t"+ loader.getHighscoreList().get(i).getPlayerName()+ "\n");
+				scorebuff.append(loader.getHighscoreList().get(i).getPlayerScore() + "\n");
 
+			}
+			highscoreList.setText(playerbuff.toString());
+			highscoreListScore.setText(scorebuff.toString());
 		}
 
 			//TODO Was passiert wenn die Liste leer ist
@@ -274,6 +293,7 @@ public class GUI {
 			menueOverlay.setImage(highscoreImage);
 
 			highscoreList.setVisible(true);
+			highscoreListScore.setVisible(true);
 			helpText.setVisible(false);
 			hideGameInfos();
 
