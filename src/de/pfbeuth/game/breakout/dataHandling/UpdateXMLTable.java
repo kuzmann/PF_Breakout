@@ -15,8 +15,7 @@ import java.io.IOException;
  */
 
 public class UpdateXMLTable {
-
-    /** set path to XML-data*/
+    /* set path to XML-data*/
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
 
     /** add a new player element to xml */

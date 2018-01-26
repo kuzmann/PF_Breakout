@@ -2,11 +2,11 @@ package de.pfbeuth.game.breakout.dataHandling;
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
 /**
- * After ending a game, this class creates a new player element, including player name and player score
+ * After ending a game, this class creates a new player element,
+ * including player name and player score
  */
 
 public class CreatePlayer {
-
     private int score;
     private String username;
     private Breakout breakout;
