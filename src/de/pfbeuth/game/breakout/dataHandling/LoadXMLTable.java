@@ -1,6 +1,5 @@
 package de.pfbeuth.game.breakout.dataHandling;
 
-import de.pfbeuth.game.breakout.gameEngine.Breakout;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -10,40 +9,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-/*class Player implements Comparable<Player>{
-    String playerScore;
-    String playerName;
 
-    public Player(String playerName, String playerScore) {
-        this.playerScore = playerScore;
-        this.playerName = playerName;
-    }
-
-
-    @Override
-    public int compareTo(Player o) {
-        return playerName.compareTo(o.playerName);
-
-
-    }
-
-    public String getPlayerScore() {
-        return playerScore;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-}*/
-
+/**
+ *  This class sorts he players according to their score (Ascending)
+ */
 public class LoadXMLTable {
 
+    /** get the path the XML-data*/
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
     private static List XMLTable = new List() {
         @Override
-        public int size() {
-            return 0;
-        }
+        public int size() { return 0; }
 
         @Override
         public boolean isEmpty() {
@@ -159,21 +135,17 @@ public class LoadXMLTable {
     private List<Player> HighscoreList = new ArrayList<Player>();
     private List<Player> temp = new ArrayList<Player>();
 
-
-
-
+    /**create a table to organise the data in xml
+     * return a list of player*/
     public List loadTable() {
 
         SAXBuilder builder = new SAXBuilder();
         File xmlFile = new File(outputPath);
 
         try {
-
             Document document = (Document) builder.build(xmlFile);
             Element rootNode = document.getRootElement();
             XMLTable = rootNode.getChildren("Player");
-
-
             for (int i = 0; i < XMLTable.size(); i++) {
 
                 Element node = (Element) XMLTable.get(i);
@@ -181,29 +153,19 @@ public class LoadXMLTable {
                 Player o1 = new Player(node.getChildText("username"),node.getChildText("score"));
                 HighscoreList.add(o1);
                 temp.add(o1);
-
-               /* System.out.println("Username: " + node.getChildText("username"));
-                System.out.println("Score: " + node.getChildText("score"));*/
-
             }
-
         } catch (IOException io) {
-
         } catch (JDOMException jdomex) {
-
         }
-
         return HighscoreList;
     }
 
+    /** it sorts the player according to their score (Ascending)*/
     public void displayHighscore(){
-
         boolean loop=true;
-
         while(loop){
             loop=false;
             for(int k=1; k < HighscoreList.size(); k++){
-
                 if(Integer.valueOf(HighscoreList.get(k-1).getPlayerScore()) < Integer.valueOf(HighscoreList.get(k).getPlayerScore())){
                     temp.set(0,HighscoreList.get(k-1));
                     HighscoreList.set(k-1,HighscoreList.get(k));
@@ -212,24 +174,11 @@ public class LoadXMLTable {
                 }
             }
         }
-        //createHighscoreList();
     }
 
-    private void createHighscoreList() {
-        for (int i=0; i < HighscoreList.size() && i < 10; i++){
-            HighscoreList.get(i);
-            System.out.println((i+1)+". "+ HighscoreList.get(i).getPlayerName() + "\t"+"......"+ HighscoreList.get(i).getPlayerScore());
-        }
-    }
-
-
-    public static List getXMLTable() {
-        return XMLTable;
-    }
-
+    /* ------ GETTER -----*/
+    /** return an array ascending sorted lists*/
     public List<Player> getHighscoreList() {
         return HighscoreList;
     }
-
-
 }

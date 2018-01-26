@@ -1,31 +1,30 @@
 package de.pfbeuth.game.breakout.dataHandling;
 
-
-import de.pfbeuth.game.breakout.gameEngine.Breakout;
-
+/**
+ * This class assigns playername und score to current player
+ */
 public class Player implements Comparable<Player>{
     String playerScore;
     String playerName;
 
-    private Breakout breakout;
 
-
+    /** create a player Object to be able to make a comparison with the current player */
     public Player(String playerName, String playerScore) {
         this.playerScore = playerScore;
         this.playerName = playerName;
 
     }
 
-
+    /* ------ GETTER ------ */
     @Override
     public int compareTo(Player o) {
         return playerName.compareTo(o.playerName);
     }
-
+    /** @return player score */
     public String getPlayerScore() {
         return playerScore;
     }
-
+    /** @return player name */
     public String getPlayerName() {
         return playerName;
     }

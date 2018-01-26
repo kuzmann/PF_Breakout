@@ -21,7 +21,6 @@ public class CreatePlayer {
         //get finale score from gamelogic to save it
         this.score = breakout.getScoreCounter().getScoreNumber();
         this.breakout = breakout;
-
     }
 
     /* ------ GETTER ------ */
@@ -29,8 +28,4 @@ public class CreatePlayer {
     public String getUsername() { return username; }
     /** @return endscore value   */
     public int getScore() { return score; }
-
-
-
 }
-
