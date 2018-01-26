@@ -14,6 +14,7 @@ class Brick extends GameObject {
         spriteImage.setTranslateX(xLocation);
         spriteImage.setTranslateY(yLocation);
     }
+    /** animated scale transition, triggered when ball collides with a brick */
     void destroyBrick() {
         ScaleTransition scaleToZero = new ScaleTransition(Duration.millis(400), this.getSpriteImage());
         scaleToZero.setToX(0.0d);
