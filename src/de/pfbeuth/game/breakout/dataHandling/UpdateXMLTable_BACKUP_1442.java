@@ -42,16 +42,22 @@ public class UpdateXMLTable {
             XMLOutputter outputter = new XMLOutputter();
             outputter.setFormat(Format.getPrettyFormat());
 
-            String outputString = outputter.outputString(doc);
-//            System.out.println(outputString);
+<<<<<<< HEAD
             //show the playerlist in console
             //String outputString = outputter.outputString(doc);
             //System.out.println(outputString);
 
             outputter.output(doc,new FileWriter(outputPath));
 
+=======
+            String outputString = outputter.outputString(doc);
+//            System.out.println(outputString);
+
+            outputter.output(doc,new FileWriter(outputPath));
+
   //          System.out.println("File updated!");
 
+>>>>>>> 8e1cf89980e81be84d52e289992261b28c296bad
         } catch (IOException io) {
             io.printStackTrace();
         } catch (JDOMException e) {

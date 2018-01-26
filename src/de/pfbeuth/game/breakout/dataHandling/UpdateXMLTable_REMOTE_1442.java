@@ -1,5 +1,6 @@
 package de.pfbeuth.game.breakout.dataHandling;
 
+import de.pfbeuth.game.breakout.gameEngine.Breakout;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -11,18 +12,22 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- *  This class add a new player element to xml
- */
+
 public class UpdateXMLTable {
 
-    /** get the path the XML-data*/
+    private Breakout breakout;
+
+    /* ------ CONSTRUCTOR ------ */
+    /*public UpdateXMLTable (Breakout breakout){
+        this.breakout = breakout;
+    }*/
+
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
 
-    /** add a new player element to xml*/
     public void add(CreatePlayer Player) {
 
         try {
+
             SAXBuilder builder = new SAXBuilder();
             File xmlFile;
             xmlFile = new File(outputPath);
@@ -33,20 +38,23 @@ public class UpdateXMLTable {
             // add new Element to root
             Element player = new Element("Player");
             rootNode.addContent(player);
-            // get the username from class Player
+
             Element username = new Element("username").setText(Player.getUsername());
             player.addContent(username);
-            // get the score from class Player and add it as a child element to xml
+
             addChildElement(player, "score", Player.getScore());
+
+
+            //ORIGINAL: addChildElement(player, "score", Player.getScore();
+            //addChildElement(player, "score", breakout.getLevel().getLevelNumber());
+            //addChildElement(player, "score", 5);
+
 
             XMLOutputter outputter = new XMLOutputter();
             outputter.setFormat(Format.getPrettyFormat());
 
             String outputString = outputter.outputString(doc);
 //            System.out.println(outputString);
-            //show the playerlist in console
-            //String outputString = outputter.outputString(doc);
-            //System.out.println(outputString);
 
             outputter.output(doc,new FileWriter(outputPath));
 
@@ -59,7 +67,6 @@ public class UpdateXMLTable {
         }
     }
 
-    /** method to add a child element*/
     public static Element addChildElement(Element parent, String elementName, int score){
         Element child = new Element(elementName);
         String s = Integer.toString(score);
