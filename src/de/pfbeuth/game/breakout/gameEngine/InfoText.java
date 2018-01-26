@@ -5,8 +5,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 /**
- * This class defines the style of Text Strings
- * this class inherits from the class Text
+ * This class defines the style of Text Strings,
+ * it inherits from the JavaFX class Text.
  */
 
 class InfoText extends Text {

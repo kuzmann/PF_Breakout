@@ -1,5 +1,4 @@
 package de.pfbeuth.game.breakout.gameEngine;
-
 import de.pfbeuth.game.breakout.dataHandling.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * This class provides the graphical user interface and interaction methods.
+ */
+
 public class GUI {
     private Breakout breakout;
     private HBox  infoContainer,  highscoreContainer, helpContainer, startButtonContainer;
@@ -20,7 +23,6 @@ public class GUI {
     private Button playButton, helpButton, highscoreButton, startButton, confirmButton;
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage, gameOverImage;
-
     private Text levelInfo, lifeInfo, scoreInfo, highscoreList, helpText, gameOverInfo;
     private final String START_BUTTON_TEXT = "START\n(hit enter)";
     private final String PLAY_BUTTON_TEXT = "PLAY";
@@ -30,25 +32,20 @@ public class GUI {
     private final String HELP_BUTTON_TEXT = "HELP";
     private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
 	private final String CONFIRM_BUTTON_TEXT = "OK";
-
+	private final String INSTRUCTIONS_INFO_TEXT = "INSTRUCTiONS: ";
 	private final String LEVEL_INFO_TEXT = "LEVEL: ";
 	private final String LIVES_INFO_TEXT = "LIVES: ";
 	private final String SCORE_INFO_TEXT = "SCORE: ";
 	private final String NAME_LABEL_TEXT = "PLAYER NAME:";
 	private final String NEXT_LEVEL_TEXT = "CONGRATULATIONS!\nSTART NEXT LEVEL";
-	private String HIGHSCORELIST;
-
-	/* ------ NEUE HighscoreContrainer ------ */
     private GridPane playerInputContainer;
-    private Insets highscoreContainerPadding;
-    /* ------ dataHandling ------ */
     private CreatePlayer Player;
     private String playerName;
     private TextField nameInput;
 	private Label nameLabel;
 	private LoadXMLTable loader;
 
-    /* ------ CONSTRUCTOR ------ */
+    /** ------ CONSTRUCTOR ------ */
     GUI(Breakout breakout){
         this.breakout = breakout ;
         loadImageAssets();
@@ -114,15 +111,13 @@ public class GUI {
 		helpContainer.setAlignment(Pos.TOP_CENTER);
 		helpContainer.setPadding(topContainerPadding);
 
-        /* ------ Label, input and button for enter the user name ------ */
+        /* ------ Label, input and button for the user name ------ */
         nameLabel = new Label(NAME_LABEL_TEXT);
         nameLabel.setTextFill(Color.WHITE);
-
-        //TextField nameInput = new TextField("Player");
         nameInput = new TextField();
         nameInput.setPromptText("Choose player name");
 
-        /* ------ Container for Enter the user name ------ */
+        /* ------ Container for the user name ------ */
         playerInputContainer = new GridPane();
         playerInputContainer.setTranslateY(-200);
 		playerInputContainer.setVisible(false);
@@ -147,19 +142,14 @@ public class GUI {
     private void createInfoText(){
         levelInfo = new InfoText();
         levelInfo.setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
-
         lifeInfo = new InfoText();
         lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
-
         scoreInfo = new InfoText();
 		scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScoreNumber());
-
         highscoreList = new InfoText();
         highscoreList.setVisible(true);
-
         helpText = new InfoText();
-        helpText.setText("INSTRUCTIONS: ");	//TODO convert String to Constant
-
+        helpText.setText(INSTRUCTIONS_INFO_TEXT);
 		gameOverInfo = new InfoText();
     }
     private void createButtons(){
@@ -168,9 +158,9 @@ public class GUI {
 		startButton.setText(START_BUTTON_TEXT);
 		startButton.setTextAlignment(TextAlignment.CENTER);
 		startButtonVisibliy(false, 100d);
-		startButton.setOnAction(e -> {
-			breakout.getGameStates().runGameEvents();
-		});
+		startButton.setOnAction(e ->
+			breakout.getGameStates().runGameEvents()
+		);
 		/* ------ Menue Buttons ------ */
 		playButton = new Button();
 		playButton.setFocusTraversable(false);
@@ -226,13 +216,13 @@ public class GUI {
 		);
     }
 	/** Displays game info texts */
-	public void showGameInfos(){
+	void showGameInfos(){
 		levelInfo.setVisible(true);
 		lifeInfo.setVisible(true);
 		scoreInfo.setVisible(true);
 	}
 	/** Hides game info texts */
-	public void hideGameInfos(){
+	void hideGameInfos(){
 		levelInfo.setVisible(false);
 		lifeInfo.setVisible(false);
 		scoreInfo.setVisible(false);
@@ -243,8 +233,8 @@ public class GUI {
 	public void updateScoreInfo(){
 		scoreInfo.textProperty().bind(breakout.getScoreCounter().scoreProperty());
 	}
-
-	public void createHighScoreScreen() {
+	/** creates Highscore output */
+	void createHighScoreScreen() {
 		loader = new LoadXMLTable();
 		loader.loadTable();
 		loader.displayHighscore();
@@ -265,7 +255,6 @@ public class GUI {
 				highscoreList.setText("Sie sind der erste Spieler. Es gibt noch kein Highscore");
 		}
 	}
-
 	/** Triggers confirm button events */
 	public void confirmButtonEvents() {
 		if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
@@ -314,27 +303,26 @@ public class GUI {
 			nameLabel.setText("PLEASE ENTER\nYOUR NAME!");
 		}
 	}
-
 	/** sets Play Button visible and enabled without focus consume */
-	public void playButtonVisibliy(Boolean visibility){
+	void playButtonVisibliy(Boolean visibility){
 		playButton.setVisible(visibility);
 		playButton.setDisable(!visibility);
 		playButton.setFocusTraversable(!visibility);
 	}
 	/** sets Highscore Button visible and enabled without focus consume */
-	public void highscoreButtonVisibliy(Boolean visibility){
+	void highscoreButtonVisibliy(Boolean visibility){
 		highscoreButton.setVisible(visibility);
 		highscoreButton.setDisable(!visibility);
 		highscoreButton.setFocusTraversable(!visibility);
 	}
 	/** sets Help Button visible and enabled without focus consume */
-	public void helpButtonVisibliy(Boolean visibility){
+	void helpButtonVisibliy(Boolean visibility){
 		helpButton.setVisible(visibility);
 		helpButton.setDisable(!visibility);
 		helpButton.setFocusTraversable(!visibility);
 	}
 	/** sets Start Button visible and enabled without focus consume */
-	public void startButtonVisibliy(Boolean visibility, Double prefWidth){
+	void startButtonVisibliy(Boolean visibility, Double prefWidth){
 		startButton.setCancelButton(false);
 		startButton.setPrefWidth(prefWidth);
 		startButton.setVisible(visibility);
@@ -342,92 +330,99 @@ public class GUI {
 		startButton.setFocusTraversable(!visibility);
 	}
 	/** sets Confirm Button visible and enabled without focus consume */
-	public void confirmButtonVisibliy(Boolean visibility){
+	void confirmButtonVisibliy(Boolean visibility){
 		confirmButton.setVisible(visibility);
 		confirmButton.setDisable(!visibility);
 		confirmButton.setFocusTraversable(!visibility);
 	}
 
-    /** ------ GETTER ------ */
-	public String getLEVEL_INFO_TEXT() {
-		return LEVEL_INFO_TEXT;
-	}
+    /* ------ GETTER ------ */
+	/** @return startButton object */
     public Button getStartButton() {
         return startButton;
     }
-	public HBox getStartButtonContainer() {
-		return startButtonContainer;
-	}
+	/** @return confirmButton object */
 	public Button getConfirmButton() {
 		return confirmButton;
 	}
-	public Button getPlayButton() {
-		return playButton;
-	}
-	public Button getHighscoreButton() {
-		return highscoreButton;
-	}
-	public Button getHelpButton() {
-		return helpButton;
-	}
-    public Text getLifeInfo() {
+	/** @return lifeInfo object */
+	public Text getLifeInfo() {
         return lifeInfo;
     }
-    public Text getLevelInfo(){
+	/** @return levelInfo object */
+	Text getLevelInfo(){
         return levelInfo;
     }
-    public Text getScoreInfo(){
+	/** @return scoreInfo object */
+	Text getScoreInfo(){
     	return scoreInfo;
 	}
-    public ImageView getBackgroundLayer() {
+	/** @return gameOverInfo object */
+	Text getGameOverInfo() {
+		return gameOverInfo;
+	}
+	/** @return backgroundLayer object */
+	ImageView getBackgroundLayer() {
         return backgroundLayer;
     }
-    public ImageView getPlayBackground() {
+	/** @return playBackground object */
+	ImageView getPlayBackground() {
         return playBackground;
     }
-    public HBox getInfoContainer() {
+	/** @return menueOverlay object */
+	ImageView getMenueOverlay() {
+		return menueOverlay;
+	}
+	/** @return gameOverImage object */
+	Image getGameOverImage() {
+		return gameOverImage;
+	}
+	/** @return startButtonContainer object */
+	HBox getStartButtonContainer() {
+		return startButtonContainer;
+	}
+	/** @return InfoContainer object */
+	HBox getInfoContainer() {
         return infoContainer;
     }
-    public HBox getHighscoreContainer() {
+	/** @return highscoreContainer object */
+	HBox getHighscoreContainer() {
         return highscoreContainer;
     }
-    public HBox getHelpContainer() {
+	/** @return helpContainer object */
+	HBox getHelpContainer() {
         return helpContainer;
     }
-    public GridPane getPlayerInputContainer() {
+	/** @return playerInputContainer object */
+	GridPane getPlayerInputContainer() {
         return playerInputContainer;
     }
-    public VBox getMasterButtonContainer() {
+	/** @return masterButtonContainer object */
+	VBox getMasterButtonContainer() {
         return masterButtonContainer;
     }
-    public ImageView getMenueOverlay() {
-        return menueOverlay;
-    }
-    public String getStartText() {
+	/** @return START_BUTTON_TEXT constant */
+	String getStartText() {
         return START_BUTTON_TEXT;
     }
-    public String getPlayAgainText() {
-        return PLAY_AGAIN_TEXT;
-    }
-    public String getPauseGameText() {
+	/** @return PAUSE_GAME_TEXT constant */
+	String getPauseGameText() {
         return PAUSE_GAME_TEXT;
     }
-    public String getLIVES_INFO_TEXT(){
+	/** @return LEVEL_INFO_TEXT constant */
+	String getLEVEL_INFO_TEXT() {
+		return LEVEL_INFO_TEXT;
+	}
+	/** @return LIVES_INFO_TEXT constant */
+	public String getLIVES_INFO_TEXT(){
     	return LIVES_INFO_TEXT;
 	}
+	/** @return SCORE_INFO_TEXT constant */
 	public String getSCORE_INFO_TEXT(){
     	return SCORE_INFO_TEXT;
 	}
-	public String getNEXT_LEVEL_TEXT(){
+	/** @return NEXT_LEVEL_TEXT constant */
+	String getNEXT_LEVEL_TEXT(){
 		return NEXT_LEVEL_TEXT;
-	}
-	public String getGAME_OVER_TEXT(){
-		return GAME_OVER_TEXT;
-	}
-	public Text getGameOverInfo() {
-		return gameOverInfo;
-	}
-	public Image getGameOverImage() {
-		return gameOverImage;
 	}
 }

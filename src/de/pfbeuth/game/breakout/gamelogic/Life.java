@@ -1,8 +1,9 @@
 package de.pfbeuth.game.breakout.gamelogic;
 
 /**
- * defines the logic when lives are lost and reports when the game is over
+ * This class defines the logic when lives are lost and reports when the game is over.
  */
+
 public class Life {
     private int life;
     private boolean gameOver;
@@ -34,7 +35,7 @@ public class Life {
     public boolean isGameOver(){
         return gameOver;
     }
-    /** ------ GETTER ------ */
+    /* ------ GETTER ------ */
     /** @return remaining lives */
     public int getActualLife() {
         return life;
@@ -43,7 +44,7 @@ public class Life {
     public int getLIFE_INIT() {
         return LIFE_INIT;
     }
-    /** ------ SETTER ------ */
+    /* ------ SETTER ------ */
     /** @param life: set actual lives */
     public void setLife(int life){
         this.life = life;

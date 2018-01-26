@@ -3,9 +3,9 @@ import de.pfbeuth.game.breakout.gameEngine.*;
 import javafx.beans.property.*;
 
 /**
- * Defines the Score counter and raise the score accordingly
- * to the bricks color
+ * Defines the Score counter and raise the score accordingly to the bricks color.
  */
+
 public class ScoreCounter {
     private Breakout breakout;
     private SimpleStringProperty score;
@@ -48,7 +48,7 @@ public class ScoreCounter {
 		}
 	}
 
-	/** ------ GETTER ------ */
+	/* ------ GETTER ------ */
 	/** @return actual score value */
 	public int getScoreNumber(){
 		return scoreNumber;
@@ -57,7 +57,7 @@ public class ScoreCounter {
 	public SimpleStringProperty scoreProperty() {
 		return score;
 	}
-	/** ------ SETTER ------ */
+	/* ------ SETTER ------ */
 	/** set the ScoreProperty String to the actual score value */
 	public void setScoreProperty(){
 		score.set(breakout.getGuiNodes().getSCORE_INFO_TEXT() + (scoreNumber));

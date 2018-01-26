@@ -3,8 +3,9 @@ import de.pfbeuth.game.breakout.gameEngine.Breakout;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * defines the level logic and provides logic when a level is accomplished
+ * This class defines the level logic and provides logic when a level is accomplished.
  */
+
 public class Level {
     private static final double LEVEL_SPEED_MULTIPLIER = 0.8;
     private final int LEVEL_INIT = 1;
@@ -24,7 +25,7 @@ public class Level {
         breakout.getBall().setVelocityX(breakout.getBall().getVelocityX() + LEVEL_SPEED_MULTIPLIER);
         breakout.getBall().setVelocityY(breakout.getBall().getVelocityY() + LEVEL_SPEED_MULTIPLIER);
     }
-    /** -------- GETTER -------- */
+    /* -------- GETTER -------- */
     /**
      * this method is called from the class Ball
      * @return true if all brick are destroyed and a level was successfully
@@ -41,7 +42,7 @@ public class Level {
     public int getLevelInit() {
         return LEVEL_INIT;
     }
-    /** ------ SETTER ------ */
+    /* ------ SETTER ------ */
     /** @param level: sets the actual level to this number */
     public void setLevelNumber(int level){
         this.level = level;

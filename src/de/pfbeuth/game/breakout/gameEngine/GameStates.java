@@ -1,6 +1,9 @@
 package de.pfbeuth.game.breakout.gameEngine;
 
-/** */
+/**
+ * This class defines the different views for the states which occur during
+ * the gameplay.
+ */
 public class GameStates {
     private Breakout breakout;
 	private boolean gamePaused = true;
@@ -9,7 +12,7 @@ public class GameStates {
         this.breakout = breakout;
     }
 
-	/** View: Start new Game */
+	/** Triggers events to create View: Start new Game */
 	public void runGameEvents() {
 		breakout.getGameTimer().start();
 		breakout.getGuiNodes().startButtonVisibliy(false, 100d);
@@ -20,7 +23,7 @@ public class GameStates {
 		breakout.getGuiNodes().showGameInfos();
 		gamePaused = false;
 	}
-	/** View: Pause new Game */
+	/** Triggers events to create View: Pause new Game */
 	public void pauseGameEvents(){
 		breakout.getGameTimer().stop();
 		breakout.getGuiNodes().startButtonVisibliy(true, 100d);
@@ -31,7 +34,7 @@ public class GameStates {
 		breakout.getGuiNodes().hideGameInfos();
 		gamePaused = true;
 	}
-	/** View, if player lost all lives*/
+	/** Triggers events to create View: if player lost all lives*/
 	private void gameOver(){
 		breakout.getGameTimer().stop();
 		gamePaused = true;
@@ -51,7 +54,7 @@ public class GameStates {
 		breakout.getPaddle().setPaddleToBack();
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
 	}
-	/** View, if player loose a life */
+	/** Triggers events to create View: if player loose a life */
 	void ballDied(){
 		if(breakout.getBall().getBallIsDead() && !(breakout.getLife().isGameOver())){
 			breakout.getGameTimer().stop();
@@ -75,7 +78,7 @@ public class GameStates {
 		}
 		createNextLevel();
 	}
-	/** View, if player accomplished a level*/
+	/** Triggers events to create View: if player accomplished a level */
 	void levelFinishedEvents() {
 		breakout.getGameTimer().stop();
 		breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getNEXT_LEVEL_TEXT());
@@ -141,7 +144,8 @@ public class GameStates {
 		breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
 	}
-	/** ------ GETTER ------ */
+	/* ------ GETTER ------ */
+	/** @return true if game is in pause mode */
 	public boolean isGamePaused() {
 		return gamePaused;
 	}

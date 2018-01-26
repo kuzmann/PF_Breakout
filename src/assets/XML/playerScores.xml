@@ -1152,4 +1152,12 @@
     <username>fad</username>
     <score>310</score>
   </Player>
+  <Player>
+    <username>adf</username>
+    <score>45</score>
+  </Player>
+  <Player>
+    <username>adf</username>
+    <score>65</score>
+  </Player>
 </PlayerScores>

@@ -10,6 +10,7 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
  * This class defines the object ball and checks the ball-brick-collision and the various states of the object ball
  * this class inherits from the class AnimatedGameObject
  */
+
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
     private final double BALL_INIT_X_POS = 0;
@@ -105,69 +106,43 @@ public class Ball extends AnimatedGameObject {
     /* check, if ball moves in positive or negative X- or Y-direction */
     private void setXYPosition(){
 	    if (up) {
-            positionY -= velocityY;
+            setPositionY(getPositionY() - velocityY);
         } else {
-            positionY += velocityY;
+            setPositionY(getPositionY() + velocityY);
         }
         if(right){
-            positionX += velocityX;
+            setPositionX(getPositionX() + velocityX);
         } else {
-            positionX -= velocityX;
+            setPositionX(getPositionX() - velocityX);
         }
-       /* ------ !***FOR TESTING***! Do not delete! Control Ball with arrow keys ------ */
-       /*if(breakout.getController().isLeft()) {
-            positionX -= velocityX;
-        }
-        if(breakout.getController().isRight()) {
-            positionX += velocityX;
-        }
-        if(breakout.getController().isUp()) {
-            positionY -= velocityY;
-        }
-        if(breakout.getController().isDown()) {
-            positionY += velocityY;
-        }
-
-        if(positionX >= RIGHT_SCREEN_BOUNDARY) {
-            positionX -= velocityX;
-        }
-        if(positionX <= LEFT_SCREEN_BOUNDARY) {
-            positionX += velocityX;
-        }
-        if(positionY >= TOP_SCREEN_BOUNDARY) {
-            positionY -= velocityY;
-        }
-        if(positionY <= BOTTOM_SCREEN_BOUNDARY) {
-            positionY += velocityY;
-        }*/
     }
     /* defines screen boundaries */
 	private void setScreenBoundaries(){
-        if(positionX >= RIGHT_SCREEN_BOUNDARY) {
-           positionX = RIGHT_SCREEN_BOUNDARY - BALL_RADIUS;
+        if(getPositionX() >= RIGHT_SCREEN_BOUNDARY) {
+           setPositionX(RIGHT_SCREEN_BOUNDARY - BALL_RADIUS);
            right = false;
            ballIsDead = false;
         }
-        if(positionX <= LEFT_SCREEN_BOUNDARY) {
-            positionX = LEFT_SCREEN_BOUNDARY + BALL_RADIUS;
+        if(getPositionX() <= LEFT_SCREEN_BOUNDARY) {
+            setPositionX(LEFT_SCREEN_BOUNDARY + BALL_RADIUS);
             right = true;
             ballIsDead = false;
         }
-        if(this.positionY <= TOP_SCREEN_BOUNDARY) {
-            positionY = TOP_SCREEN_BOUNDARY + BALL_RADIUS ;
+        if(getPositionY() <= TOP_SCREEN_BOUNDARY) {
+            setPositionY(TOP_SCREEN_BOUNDARY + BALL_RADIUS);
             up = false;
             ballIsDead = false;
         }
 
-        if(this.positionY >= BOTTOM_SCREEN_BOUNDARY) {
+        if(getPositionY() >= BOTTOM_SCREEN_BOUNDARY) {
             ballIsDead =  true;
             breakout.getGameStates().ballDied();
         }
     }
     /* translate X- and Y-Position */
 	private void translateBall () {
-        spriteImage.setTranslateX(positionX);
-        spriteImage.setTranslateY(positionY);
+        spriteImage.setTranslateX(getPositionX());
+        spriteImage.setTranslateY(getPositionY());
     }
     /* if brick gets hit, ball movement is inverted  */
 	private void brickCollision(){
@@ -175,19 +150,21 @@ public class Ball extends AnimatedGameObject {
 		right = !right;
 	}
 
-    /* If ball hits paddle, this method is called */
+    /* called when ball hits paddle */
 	private void ballPaddleCollision(){
         up = true;
     }
-    /** if a new game or level starts, ball will set to the initial position */
+
+    /**if a new game or level starts, ball will set to the initial position */
 	void resetState(){
         up = true;
         right = true;
-        this.positionX = BALL_INIT_X_POS;
-        this.positionY = BALL_INIT_Y_POS;
+        setPositionX(BALL_INIT_X_POS);
+        setPositionY(BALL_INIT_Y_POS);
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
+
     /* check if all bricks are destroyed and a level was successfully completed
      * @return returns true if user destroyed all bricks
      * returns false otherwise */
@@ -203,19 +180,23 @@ public class Ball extends AnimatedGameObject {
 		}
         return breakout.getLevel().isLevelAccomplished();
 	}
+
     private Brick getDestroyedBrick(){
 		return destroyedBrick;
 	}
+
     /** resets X- and Y-Velocity to initial value*/
     void resetVelocity(){
         setVelocityX(INIT_BALL_VELOCITY);
         setVelocityY(INIT_BALL_VELOCITY);
     }
+
     /** set Ball back in Z-Depth */
     void setBallToBack(){
         spriteImage.toBack();
     }
-    /** ------ GETTER ------ */
+
+    /* ------ GETTER ------ */
     /** @return true if ball hits bottom boundary */
     boolean getBallIsDead(){
         return ballIsDead;

@@ -8,6 +8,7 @@ import java.util.Set;
  *  This class manages the scene objects and keep watch on
  *  the current and removed objects
  **/
+
 class SpriteManager {
     private final List<GameObject> CURRENT_OBJECTS;
     private final Set<GameObject> REMOVED_OBJECTS;

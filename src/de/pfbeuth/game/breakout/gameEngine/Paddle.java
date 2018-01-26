@@ -4,9 +4,10 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 
 /**
- * This class defines and control the object paddle
- * this class inherits from the class AnimatedGameObject
+ * This class defines and control the object paddle and provides the update
+ * method for the GamePlayTimer.
  */
+
 class Paddle extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
     private final double PADDLE_INIT_X_POS = 0;
@@ -33,31 +34,31 @@ class Paddle extends AnimatedGameObject {
     private void setXYPosition(){
         //check, if user pressed left arrow key
         if(breakout.getController().isLeft()) {
-            positionX -= velocityX;
+			setPositionX(getPositionX() - velocityX);
         }
         //check, if user pressed right arrow key
         if(breakout.getController().isRight()) {
-            positionX += velocityX;
-        }
+			setPositionX(getPositionX() + velocityX);
+		}
     }
     /* defines screen boundaries */
     private void setScreenBoundaries(){
-        if(positionX >= RIGHT_SCREEN_BOUNDARY){
-            positionX = RIGHT_SCREEN_BOUNDARY;
+        if(getPositionX() >= RIGHT_SCREEN_BOUNDARY){
+            setPositionX(RIGHT_SCREEN_BOUNDARY);
         }
-        if(positionX <= LEFT_SCREEN_BOUNDARY){
-            positionX = LEFT_SCREEN_BOUNDARY;
+        if(getPositionX() <= LEFT_SCREEN_BOUNDARY){
+            setPositionX(LEFT_SCREEN_BOUNDARY);
         }
     }
     /* translate X- and Y-Position */
     private void translatePaddle() {
-        spriteImage.setTranslateX(positionX);
+        spriteImage.setTranslateX(getPositionX());
     }
     /** if a new game or level starts, paddle will set to the initial position */
     void resetState(){
         setVelocityX(PADDLE_INIT_VELOCITY);
-        this.positionX = PADDLE_INIT_X_POS;
-        this.positionY = PADDLE_INIT_Y_POS;
+        setPositionX(PADDLE_INIT_X_POS);
+        setPositionY(PADDLE_INIT_Y_POS);
         spriteImage.setTranslateX(PADDLE_INIT_X_POS);
         spriteImage.setTranslateY(PADDLE_INIT_Y_POS);
     }
@@ -66,4 +67,3 @@ class Paddle extends AnimatedGameObject {
         spriteImage.toBack();
     }
 }
-

@@ -2,10 +2,11 @@ package de.pfbeuth.game.breakout.gameEngine;
 import javafx.scene.image.Image;
 
 /**
- * This class define new object "animatedGameObeject", which inherits from the class GameObject
- * ball and paddle are this kind of object
- *
+ * This abstract class defines the animated game objects in the scene,
+ * it inherits from the class GameObject.
+ * Ball and Paddle inherit from this class.
  */
+
 public abstract class AnimatedGameObject extends GameObject {
     double velocityX, velocityY;
     /** ------ CONSTRUCTOR ------ */
@@ -15,6 +16,7 @@ public abstract class AnimatedGameObject extends GameObject {
     }
 
     abstract void update();
+
     /** not abstract because not every animated object needs collision detection */
     boolean collision(GameObject object){
         return false;

@@ -7,6 +7,7 @@ import javafx.util.Duration;
  * This class defines and controls the object brick
  * this class inherits from the class AnimatedGameObject
  */
+
 class Brick extends GameObject {
     /** ------ CONSTRUCTOR ------ */
     Brick (String SVGdata, double xLocation, double yLocation, Image... sprites){

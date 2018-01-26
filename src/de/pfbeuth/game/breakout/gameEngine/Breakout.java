@@ -2,14 +2,14 @@ package de.pfbeuth.game.breakout.gameEngine;
 import de.pfbeuth.game.breakout.gamelogic.Level;
 
 /**
- * This file implements the game "Breakout".
- * This program is part of the Computer Science and Media Bachelor-Module "Patterns and Frameworks" of the Beuth University Berlin.
+ * This is the main class and implements the game "Breakout".
+ * This program is part of the Computer Science and Media Bachelor-Module
+ * "Patterns and Frameworks" of the Beuth University Berlin.
  * This is the main class of the game and creates, initialize and controls the game.
  *
  * @version 1.0
  * @author Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
- *
- **/
+ */
 
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.application.Application;
@@ -40,8 +40,8 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     private Life life;
     private ScoreCounter scoreCounter;
 
+	/** create stage, scene and initialize all objects*/
     @Override
-    /** create stage, scene and initialize all objects*/
     public void start(Stage primaryStage) {
         /* Stage and Scene Setup */
         root = new StackPane();

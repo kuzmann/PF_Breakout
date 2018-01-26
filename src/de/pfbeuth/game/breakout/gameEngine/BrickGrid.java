@@ -5,8 +5,9 @@ import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
 /**
- * This class defines the brickgrid of the different levels
+ * This class defines the different brickgrid configuration for each level
  */
+
 class BrickGrid {
     private Breakout breakout;
     private Brick brick;
