@@ -11,11 +11,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- *  This class add a new player element to xml
+ *  This class adds a new player element to the xml file
  */
 
 public class UpdateXMLTable {
-    /* get the path the XML-data */
+
+    /** set path to XML-data*/
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
 
     /** add a new player element to xml */
@@ -40,13 +41,8 @@ public class UpdateXMLTable {
             XMLOutputter outputter = new XMLOutputter();
             outputter.setFormat(Format.getPrettyFormat());
 
-            String outputString = outputter.outputString(doc);
-            //TODO delete Print statements
-            //System.out.println(outputString);
+            //String outputString = outputter.outputString(doc);
 
-            //show the playerlist in console
-            /*String outputString = outputter.outputString(doc);
-            System.out.println(outputString);*/
 
             outputter.output(doc,new FileWriter(outputPath));
 

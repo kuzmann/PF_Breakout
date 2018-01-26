@@ -76,4 +76,8 @@
     <username>Tommy</username>
     <score>540</score>
   </Player>
+  <Player>
+    <username>Jasper</username>
+    <score>1665</score>
+  </Player>
 </PlayerScores>

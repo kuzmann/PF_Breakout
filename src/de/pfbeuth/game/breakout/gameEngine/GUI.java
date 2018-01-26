@@ -269,7 +269,6 @@ public class GUI {
 			highscoreListScore.setText(scorebuff.toString());
 		}
 
-			//TODO Was passiert wenn die Liste leer ist
 		else{
 				highscoreList.setText("You're the first Player. Set a new Highscore");
 		}
@@ -280,7 +279,7 @@ public class GUI {
 			nameLabel.setText(NAME_LABEL_TEXT);
 			playerName = nameInput.getText();
 			Player = new CreatePlayer(breakout, playerName);
-			//TODO Ausgabe der Highscoreliste fertigstellen
+
 			UpdateXMLTable updater = new UpdateXMLTable();
 			updater.add(Player);
 			loader.loadTable();

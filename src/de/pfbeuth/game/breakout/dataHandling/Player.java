@@ -12,7 +12,6 @@ public class Player implements Comparable<Player>{
     Player(String playerName, String playerScore) {
         this.playerScore = playerScore;
         this.playerName = playerName;
-
     }
 
     /* ------ GETTER ------ */

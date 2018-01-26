@@ -9,11 +9,12 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- *  This class sorts the players according to their score (ascending).
+ *  This class loads the player names and their score entries
+ *  and sorts the players according to their score (ascending).
  */
 public class LoadXMLTable {
 
-    /** get the path the XML-data*/
+    /** set path to XML-data*/
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
     private static List XMLTable = new List() {
         @Override
@@ -132,7 +133,7 @@ public class LoadXMLTable {
     private List<Player> HighscoreList = new ArrayList<>();
     private List<Player> temp = new ArrayList<>();
 
-    /** create a table to organise the data in xml return a list of player*/
+    /** loads the XML data and creates an ArrayList type of class Player */
     public void loadTable() {
 
         SAXBuilder builder = new SAXBuilder();
@@ -153,7 +154,7 @@ public class LoadXMLTable {
         }
     }
 
-    /** it sorts the player according to their score (Ascending)*/
+    /** it sorts the player List according to their score (Ascending)*/
     public void displayHighscore(){
         boolean loop=true;
         while(loop){
@@ -170,7 +171,7 @@ public class LoadXMLTable {
     }
 
     /* ------ GETTER -----*/
-    /** return an array ascending sorted lists*/
+    /** returns the ascending sorted Player Highscore List*/
     public List<Player> getHighscoreList() {
         return HighscoreList;
     }

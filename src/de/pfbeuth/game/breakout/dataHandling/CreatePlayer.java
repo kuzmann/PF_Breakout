@@ -1,13 +1,12 @@
 package de.pfbeuth.game.breakout.dataHandling;
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
-import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 
 /**
- * This class create new Elemnet player to XML, if new user end his game
+ * After ending a game, this class creates a new player element, including player name and player score
  */
 
 public class CreatePlayer {
-    //private FinalScore endscore = new FinalScore();
+
     private int score;
     private String username;
     private Breakout breakout;
