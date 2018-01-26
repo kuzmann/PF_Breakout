@@ -1,7 +1,9 @@
 package de.pfbeuth.game.breakout.controller;
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
-/** Event handling for scene control */
+/**
+ * Event handling for scene control
+ * */
 public class Controller {
     private boolean left;
     private boolean right;
