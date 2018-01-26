@@ -18,8 +18,9 @@ public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
-    private final double INIT_BALL_X_VELOCITY = 1 + rand.nextInt(6);
-    private final double INIT_BALL_Y_VELOCITY = 18 - INIT_BALL_X_VELOCITY;
+    private Random rand = new Random();
+    private final double INIT_BALL_X_VELOCITY = 5 + rand.nextInt(6);
+    private final double INIT_BALL_Y_VELOCITY = 5 + rand.nextInt(6);
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/4;
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/4);
@@ -30,7 +31,6 @@ public class Ball extends AnimatedGameObject {
     private boolean ballIsDead;
     private Brick destroyedBrick;
     private boolean levelAccomplished = false;
-    private Random rand = new Random();
 
     /** ------ CONSTRUCTOR ------ */
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
@@ -96,6 +96,7 @@ public class Ball extends AnimatedGameObject {
     }
     /* check, which brickcolor was hit and start ScoreCounter method */
     private void checkBrickHitColor() {
+
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.GREEN);
         }
@@ -161,20 +162,20 @@ public class Ball extends AnimatedGameObject {
         up = true;
         if (breakout.getController().isLeft()) {
             if (!right) {
-                velocityX *= 1.01;
-                velocityY *= 1.01;
+                setVelocityX( getVelocityX()* 1.01);
+                setVelocityY( getVelocityY()* 1.05);
             } else {
-                velocityX *= 0.99;
-                velocityY *= 0.99;
+                setVelocityX( getVelocityX()* 0.99);
+                setVelocityY( getVelocityY()* 0.95);
             }
         }
         if (breakout.getController().isRight()) {
             if (right) {
-                velocityX *= 1.01;
-                velocityY *= 1.01;
+                setVelocityX( getVelocityX()* 1.01);
+                setVelocityY( getVelocityY()* 1.05);
             } else {
-                velocityX *= 0.99;
-                velocityY *= 0.99;
+                setVelocityX( getVelocityX()* 0.99);
+                setVelocityY( getVelocityY()* 0.95);
             }
         }
     }
@@ -210,17 +211,17 @@ public class Ball extends AnimatedGameObject {
 	}
 
     /** resets X- and Y-Velocity to initial value*/
-    void resetVelocity(){
+    void resetVelocity() {
         setVelocityX(INIT_BALL_X_VELOCITY);
         setVelocityY(INIT_BALL_Y_VELOCITY);
-
-    /** set Ball back in Z-Depth */
+    }
+    /** set Ball back in Z-Depth*/
     void setBallToBack(){
         spriteImage.toBack();
     }
 
     /* ------ GETTER ------ */
-    /** @return true if ball hits bottom boundary */
+    /** @return true if ball hits bottom boundary*/
     boolean getBallIsDead(){
         return ballIsDead;
     }
