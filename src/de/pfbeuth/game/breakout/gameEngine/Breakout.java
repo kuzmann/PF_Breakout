@@ -1,18 +1,14 @@
  /**
-  *
-  *
-  * This file implements the game of Breakout.
-  *
-  * This work is part of a module "Pattern and Framework" of the Beuth University in Berlin.
-  * This main class start the the game. It crate the stage and the scene with java fx.
+  * This file implements the game "Breakout".
+  * This program is part of the Computer Science and Media Bachelor-Module "Patterns and Frameworks" of the Beuth University Berlin.
+  * This is the main class of the game and creates, initialize and controls the game.
   *
   * @version 1.0
   * @author Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
   *
- * */
+  **/
 
 package de.pfbeuth.game.breakout.gameEngine;
-
 import de.pfbeuth.game.breakout.gamelogic.Level;
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.application.Application;
@@ -27,18 +23,13 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
 import de.pfbeuth.game.breakout.dataHandling.*;
 
  public class Breakout extends Application  {
-
-     /** Width and height of scene in pixels */
+     /* Width and height of scene in pixels */
     static final double WIDTH = 540, HEIGHT = 675;
     private StackPane root;
     private Scene scene;
-
-    /** Connection to other clases and objects*/
     private GamePlayTimer gameTimer;
     private Controller controller;
-    //private ArrayList<Brick> brickGridList;
     private SpriteManager spriteManager;
-    private Brick brick;
     private Paddle paddle;
     private Ball ball;
     private BrickGrid brickGrid;
@@ -49,14 +40,11 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     private Level level;
     private Life life;
     private ScoreCounter scoreCounter;
-    private CreatePlayer newPlayer;
-
-
 
     @Override
-    /** create a stage and scene*/
+    /** create stage, scene and initialize all objects*/
     public void start(Stage primaryStage) {
-        /** Stage and Scene Setup */
+        /* Stage and Scene Setup */
         root = new StackPane();
         scene = new Scene(root, WIDTH, HEIGHT, Color.BLACK);
         primaryStage.setTitle("BREAKOUT");
@@ -64,34 +52,31 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         primaryStage.sizeToScene();
         primaryStage.setResizable(false);
         primaryStage.show();
-
-        /** Create class instances */
+        /* Create class instances */
         brickGrid = new BrickGrid(this);
         level = new Level(this);
         life = new Life(this);
         gameOver = new GameStates(this);
         scoreCounter = new ScoreCounter(this);
-
-        /** method calls */
         guiNodes = new GUI(this);
         controller = new Controller(this);
         controller.createSceneEventHandling();
         spriteManager = new SpriteManager();
+        /* method calls */
         loadImageAssets();
         createGameObjects();
         addObjectsToSpriteManager();
-        addGameObjectsNodes();
-        addNodesToStackPane();
+        addGameObjectsNodesToScene();
+        addGuiNodesToScene();
         createStartGamePlayTimer();
         guiNodes.createHighScoreScreen();
     }
 
-    /** main class */
+    /** main method calls launch() */
     public static void main(String[] args) {
         launch(args);
     }
 
-    /** create background images and scene design*/
     private void loadImageAssets(){
         paddleImage = new Image("/assets/graphics/paddle.png", 100, 25, true, false, true);
         brickImageRed = new Image("/assets/graphics/brick_red.png", WIDTH/10-2, 22, true, false, true);
@@ -100,8 +85,6 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         brickImageGreen = new Image("/assets/graphics/brick_green.png", WIDTH/10-2, 22, true, false, true);
         ballImage = new Image("/assets/graphics/ball.png", 200/12, 200/12, true, false, true);
     }
-
-    /** create Game objects */
     private void createGameObjects(){
         paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, 0, paddleImage);
         paddle.resetState();
@@ -109,20 +92,16 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         ball.resetState();
         ball.resetVelocity();
     }
-
-    /** create used game objects: ball and paddle */
-    protected void addObjectsToSpriteManager(){
+    private void addObjectsToSpriteManager(){
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
     }
-     /** creates bricks which must be destroyed in the game */
-     private void addGameObjectsNodes(){
-         brickGrid.createLevelOneGrid();
-         root.getChildren().add(paddle.spriteImage);
-         root.getChildren().add(ball.spriteImage);
-     }
-     /** First View of the GAME*/
-    private void addNodesToStackPane(){
+    private void addGameObjectsNodesToScene(){
+        brickGrid.createLevelOneGrid();
+        root.getChildren().add(paddle.spriteImage);
+        root.getChildren().add(ball.spriteImage);
+    }
+    private void addGuiNodesToScene(){
         root.getChildren().add(guiNodes.getInfoContainer());
         root.getChildren().add(guiNodes.getPlayBackground());
         root.getChildren().add(guiNodes.getBackgroundLayer());
@@ -136,16 +115,46 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         gameTimer = new GamePlayTimer(this);
     }
 
-    /** SETTER */
-    public void setBrickImage(Image brickImage){
+    /** ------ SETTER ------ */
+    void setBrickImage(Image brickImage){
         this.brickImage = brickImage;
     }
-    /** GETTER */
-    public BrickGrid getBrickGrid(){
+    /** ------ GETTER ------ */
+    BrickGrid getBrickGrid(){
 		 return brickGrid;
 	 }
-    public StackPane getRoot() {
+    StackPane getRoot() {
         return root;
+    }
+    Image getBrickImage() {
+        return brickImage;
+    }
+    Image getBrickImageGreen(){
+        return brickImageGreen;
+    }
+    Image getBrickImageRed() {
+        return brickImageRed;
+    }
+    Image getBrickImageOrange() {
+        return brickImageOrange;
+    }
+    Image getBrickImageYellow() {
+        return brickImageYellow;
+    }
+    Controller getController(){
+        return controller;
+    }
+    GamePlayTimer getGameTimer(){
+        return gameTimer;
+    }
+    Level getLevel(){
+       return level;
+    }
+    SpriteManager getSpriteManager() {
+       return spriteManager;
+    }
+    Paddle getPaddle() {
+        return paddle;
     }
     public Ball getBall() {
         return ball;
@@ -153,35 +162,8 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     public GUI getGuiNodes() {
         return guiNodes;
     }
-    public Image getBrickImage() {
-        return brickImage;
-    }
-    public Image getBrickImageGreen(){
-        return brickImageGreen;
-    }
-    public Image getBrickImageRed() {
-        return brickImageRed;
-    }
-    public Image getBrickImageOrange() {
-        return brickImageOrange;
-    }
-    public Image getBrickImageYellow() {
-        return brickImageYellow;
-    }
-    public Controller getController(){
-         return controller;
-    }
-    public GamePlayTimer getGameTimer(){
-        return gameTimer;
-    }
-    public Level getLevel(){
-         return level;
-    }
     public Life getLife(){
         return life;
-    }
-    public SpriteManager getSpriteManager() {
-        return spriteManager;
     }
     public Scene getScene() {
         return scene;
@@ -189,13 +171,7 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     public GameStates getGameStates(){
         return gameOver;
     }
-    public Paddle getPaddle() {
-        return paddle;
-    }
-    public Image getPaddleImage() {
-        return paddleImage;
-    }
     public ScoreCounter getScoreCounter(){
-    	return scoreCounter;
-	}
+        return scoreCounter;
+    }
  }
