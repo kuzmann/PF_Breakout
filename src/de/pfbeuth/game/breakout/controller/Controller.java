@@ -1,7 +1,9 @@
 package de.pfbeuth.game.breakout.controller;
-
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
 
+/**
+ * Event handling for scene control
+ * */
 public class Controller {
     private boolean left;
     private boolean right;
@@ -9,11 +11,12 @@ public class Controller {
     private boolean down;
     private Breakout breakout;
 
+    /** ------ CONSTRUCTOR ------ */
     public Controller (Breakout breakout){
         this.breakout = breakout;
     }
 
-    /** Event Listener */
+    /** Scene event Listener */
     public void createSceneEventHandling(){
         breakout.getScene().setOnKeyPressed(e -> {
             switch (e.getCode()) {
@@ -46,19 +49,15 @@ public class Controller {
                 case D: right = false;
                     break;
                 case ESCAPE:
-                    if(breakout.getGameTimer().gameIsOn()){
+                    if(!breakout.getGameStates().isGamePaused()){
                         breakout.getGameStates().pauseGameEvents();
                     }
                     break;
                 case ENTER:
                     {
-                        if(breakout.getGuiNodes().getStartButton().isVisible()) {
+                        if(!breakout.getGuiNodes().getStartButton().isDisable()) {
                             breakout.getGameStates().runGameEvents();
                             breakout.getGuiNodes().getLifeInfo().setText(breakout.getGuiNodes().getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
-
-                            if (breakout.getGuiNodes().getStartButton().getText().equals(breakout.getGuiNodes().getPlayAgainText())) {
-                                breakout.getGuiNodes().getStartButton().setText(breakout.getGuiNodes().getStartText());
-                            }
                         }
                         if(breakout.getGuiNodes().getConfirmButton().isVisible()){
                             breakout.getGuiNodes().confirmButtonEvents();
@@ -68,17 +67,20 @@ public class Controller {
             }
         });
     }
-    /** GETTER */
+    /** ------ GETTER ------ */
+    /** @return true if Left-Arrow-Key or A-Key is pressed, false if key is released */
     public boolean isLeft() {
         return left;
     }
+    /** @return true if Right-Arrow-Key or D-Key is pressed, false if key is released */
     public boolean isRight() {
         return right;
     }
-    //TODO Delete - only for test purposes
+    /* unused method is kept for testing purposes */
     public boolean isUp(){
         return up;
     }
+    /* unused method is kept for testing purposes */
     public boolean isDown(){
         return down;
     }

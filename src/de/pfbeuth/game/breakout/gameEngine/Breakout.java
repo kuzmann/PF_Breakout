@@ -1,33 +1,34 @@
- /**
- * authors Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
- * */
-
 package de.pfbeuth.game.breakout.gameEngine;
-
 import de.pfbeuth.game.breakout.gamelogic.Level;
+
+/**
+ * This is the main class and implements the game "Breakout".
+ * This program is part of the Computer Science and Media Bachelor-Module
+ * "Patterns and Frameworks" of the Beuth University Berlin.
+ * This is the main class of the game and creates, initialize and controls the game.
+ *
+ * @version 1.0
+ * @author Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
+ */
+
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import java.util.ArrayList;
 import de.pfbeuth.game.breakout.controller.Controller;
 import de.pfbeuth.game.breakout.gamelogic.Life;
 
-import de.pfbeuth.game.breakout.dataHandling.*;
-
- public class Breakout extends Application  {
+ public class Breakout extends Application {
+     /* Width and height of scene in pixels */
     static final double WIDTH = 540, HEIGHT = 675;
     private StackPane root;
     private Scene scene;
     private GamePlayTimer gameTimer;
     private Controller controller;
-    //private ArrayList<Brick> brickGridList;
     private SpriteManager spriteManager;
-    private Brick brick;
     private Paddle paddle;
     private Ball ball;
     private BrickGrid brickGrid;
@@ -38,13 +39,11 @@ import de.pfbeuth.game.breakout.dataHandling.*;
     private Level level;
     private Life life;
     private ScoreCounter scoreCounter;
-    private CreatePlayer newPlayer;
 
-
-
+	/** create stage, scene and initialize all objects*/
     @Override
     public void start(Stage primaryStage) {
-        /** Stage and Scene Setup */
+        /* Stage and Scene Setup */
         root = new StackPane();
         scene = new Scene(root, WIDTH, HEIGHT, Color.BLACK);
         primaryStage.setTitle("BREAKOUT");
@@ -52,28 +51,27 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         primaryStage.sizeToScene();
         primaryStage.setResizable(false);
         primaryStage.show();
-
-        /** Create class instances */
+        /* Create class instances */
         brickGrid = new BrickGrid(this);
         level = new Level(this);
-        life = new Life(this);
+        life = new Life();
         gameOver = new GameStates(this);
         scoreCounter = new ScoreCounter(this);
-
-        /** method calls */
         guiNodes = new GUI(this);
         controller = new Controller(this);
         controller.createSceneEventHandling();
         spriteManager = new SpriteManager();
-
+        /* method calls */
         loadImageAssets();
         createGameObjects();
-        addGameObjectsNodes();
-        addNodesToStackPane();
-        createSpriteManager();
+        addObjectsToSpriteManager();
+        addGameObjectsNodesToScene();
+        addGuiNodesToScene();
         createStartGamePlayTimer();
         guiNodes.createHighScoreScreen();
     }
+
+    /** main method calls launch() */
     public static void main(String[] args) {
         launch(args);
     }
@@ -92,33 +90,16 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         ball.resetState();
         ball.resetVelocity();
     }
-     /** creates bricks which must be destroyed in the game */
-    protected void createInitBrickGrid() {
-
-        // Comment out for testing
-        brickGrid.createLevelOneGrid();
-        //brickGridList = new ArrayList<>();
-         //uncomment for Testting
-        //  brickGrid.createTestGrid();
-    }
-
-    private void addGameObjectsNodes(){
-        createInitBrickGrid();
-		root.getChildren().add(paddle.spriteImage);
-        root.getChildren().add(ball.spriteImage);
-    }
-
-    protected void createSpriteManager(){
+    private void addObjectsToSpriteManager(){
         spriteManager.addCurrentObjects(paddle);
         spriteManager.addCurrentObjects(ball);
-        /*for (Brick aBrickGrid : brickGridList) {
-            brick = aBrickGrid;
-            spriteManager.addCurrentObjects(brick);
-            }*/
     }
-
-    /** First View of the GAME*/
-    private void addNodesToStackPane(){
+    private void addGameObjectsNodesToScene(){
+        brickGrid.createLevelOneGrid();
+        root.getChildren().add(paddle.spriteImage);
+        root.getChildren().add(ball.spriteImage);
+    }
+    private void addGuiNodesToScene(){
         root.getChildren().add(guiNodes.getInfoContainer());
         root.getChildren().add(guiNodes.getPlayBackground());
         root.getChildren().add(guiNodes.getBackgroundLayer());
@@ -128,76 +109,86 @@ import de.pfbeuth.game.breakout.dataHandling.*;
         root.getChildren().add(guiNodes.getGameOverInfo());
         root.getChildren().add(guiNodes.getMasterButtonContainer());
     }
-
     private void createStartGamePlayTimer(){
         gameTimer = new GamePlayTimer(this);
     }
 
-    /** SETTER */
-    public void setBrickImage(Image brickImage){
+    /** ------ SETTER ------ */
+    /** @param brickImage: sets the Image object */
+    void setBrickImage(Image brickImage){
         this.brickImage = brickImage;
     }
-    /** GETTER */
-  /*  public ArrayList<Brick> getBrickGridList() {
-        return brickGridList;
-    }*/
-
-	public BrickGrid getBrickGrid(){
+    /** ------ GETTER ------ */
+    /** @return brickGrid object */
+    BrickGrid getBrickGrid(){
 		 return brickGrid;
-	 }
-
-	public StackPane getRoot() {
+	}
+	/** @return Stackpane object */
+    StackPane getRoot() {
         return root;
     }
-    public Ball getBall() {
-        return ball;
-    }
-    public GUI getGuiNodes() {
-        return guiNodes;
-    }
-    public Image getBrickImage() {
+	/** @return brickImage object */
+    Image getBrickImage() {
         return brickImage;
     }
-    public Image getBrickImageGreen(){
+	/** @return green brickImage */
+	Image getBrickImageGreen(){
         return brickImageGreen;
     }
-    public Image getBrickImageRed() {
+	/** @return red brickImage */
+    Image getBrickImageRed() {
         return brickImageRed;
     }
-    public Image getBrickImageOrange() {
+	/** @return orange brickImage */
+	Image getBrickImageOrange() {
         return brickImageOrange;
     }
-    public Image getBrickImageYellow() {
+	/** @return yellow brickImage */
+	Image getBrickImageYellow() {
         return brickImageYellow;
     }
-    public Controller getController(){
-         return controller;
+	/** @return controller object */
+    Controller getController(){
+        return controller;
     }
-    public GamePlayTimer getGameTimer(){
+	/** @return gameTimer object */
+	GamePlayTimer getGameTimer(){
         return gameTimer;
     }
-    public Level getLevel(){
-         return level;
+	/** @return level object */
+    Level getLevel(){
+       return level;
     }
+	/** @return spriterManager object*/
+	SpriteManager getSpriteManager() {
+       return spriteManager;
+    }
+	/** @return paddle object */
+	Paddle getPaddle() {
+        return paddle;
+    }
+	/** @return ball object */
+  	public Ball getBall() {
+        return ball;
+    }
+	/** @return guiNodes object */
+	public GUI getGuiNodes() {
+        return guiNodes;
+    }
+	/** @return life object */
     public Life getLife(){
         return life;
     }
-    public SpriteManager getSpriteManager() {
-        return spriteManager;
-    }
-    public Scene getScene() {
+	/** @return scene object */
+	public Scene getScene() {
         return scene;
     }
-    public GameStates getGameStates(){
+	/** @return gameOver object */
+	public GameStates getGameStates(){
         return gameOver;
     }
-    public Paddle getPaddle() {
-        return paddle;
+	/** @return scoreCounter object */
+	public ScoreCounter getScoreCounter(){
+        return scoreCounter;
     }
-    public Image getPaddleImage() {
-        return paddleImage;
-    }
-    public ScoreCounter getScoreCounter(){
-    	return scoreCounter;
-	}
  }

@@ -1,11 +1,15 @@
 package de.pfbeuth.game.breakout.gameEngine;
-
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class InfoText extends Text {
+/**
+ * This class defines the style of Text Strings,
+ * it inherits from the JavaFX class Text.
+ */
+
+class InfoText extends Text {
     /** ------ CONSTRUCTOR ------ */
     InfoText (){
         setVisible(false);
