@@ -1,5 +1,4 @@
 package de.pfbeuth.game.breakout.dataHandling;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -9,9 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-
 /**
- *  This class sorts he players according to their score (Ascending)
+ *  This class sorts the players according to their score (ascending).
  */
 public class LoadXMLTable {
 
@@ -98,7 +96,6 @@ public class LoadXMLTable {
 
         @Override
         public void add(int index, Object element) {
-
         }
 
         @Override
@@ -132,24 +129,21 @@ public class LoadXMLTable {
         }
     };
 
-    private List<Player> HighscoreList = new ArrayList<Player>();
-    private List<Player> temp = new ArrayList<Player>();
+    private List<Player> HighscoreList = new ArrayList<>();
+    private List<Player> temp = new ArrayList<>();
 
-    /**create a table to organise the data in xml
-     * return a list of player*/
-    public List loadTable() {
+    /** create a table to organise the data in xml return a list of player*/
+    public void loadTable() {
 
         SAXBuilder builder = new SAXBuilder();
         File xmlFile = new File(outputPath);
 
         try {
-            Document document = (Document) builder.build(xmlFile);
+            Document document = builder.build(xmlFile);
             Element rootNode = document.getRootElement();
             XMLTable = rootNode.getChildren("Player");
             for (int i = 0; i < XMLTable.size(); i++) {
-
                 Element node = (Element) XMLTable.get(i);
-
                 Player o1 = new Player(node.getChildText("username"),node.getChildText("score"));
                 HighscoreList.add(o1);
                 temp.add(o1);
@@ -157,20 +151,19 @@ public class LoadXMLTable {
         } catch (IOException io) {
         } catch (JDOMException jdomex) {
         }
-        return HighscoreList;
     }
 
     /** it sorts the player according to their score (Ascending)*/
     public void displayHighscore(){
         boolean loop=true;
         while(loop){
-            loop=false;
-            for(int k=1; k < HighscoreList.size(); k++){
+            loop = false;
+            for(int k = 1; k < HighscoreList.size(); k++){
                 if(Integer.valueOf(HighscoreList.get(k-1).getPlayerScore()) < Integer.valueOf(HighscoreList.get(k).getPlayerScore())){
-                    temp.set(0,HighscoreList.get(k-1));
-                    HighscoreList.set(k-1,HighscoreList.get(k));
-                    HighscoreList.set(k,(Player)(temp.get(0)));
-                    loop=true;
+                    temp.set(0, HighscoreList.get(k-1));
+                    HighscoreList.set(k-1, HighscoreList.get(k));
+                    HighscoreList.set(k,(temp.get(0)));
+                    loop = true;
                 }
             }
         }

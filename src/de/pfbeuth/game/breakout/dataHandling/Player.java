@@ -1,15 +1,15 @@
 package de.pfbeuth.game.breakout.dataHandling;
 
 /**
- * This class assigns playername und score to current player
+ * This class assigns player name und score to current player.
  */
-public class Player implements Comparable<Player>{
-    String playerScore;
-    String playerName;
 
+public class Player implements Comparable<Player>{
+    private String playerScore;
+    private String playerName;
 
     /** create a player Object to be able to make a comparison with the current player */
-    public Player(String playerName, String playerScore) {
+    Player(String playerName, String playerScore) {
         this.playerScore = playerScore;
         this.playerName = playerName;
 

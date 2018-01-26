@@ -1,5 +1,4 @@
 package de.pfbeuth.game.breakout.dataHandling;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -14,20 +13,19 @@ import java.io.IOException;
 /**
  *  This class add a new player element to xml
  */
-public class UpdateXMLTable {
 
-    /** get the path the XML-data*/
+public class UpdateXMLTable {
+    /* get the path the XML-data */
     private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
 
-    /** add a new player element to xml*/
+    /** add a new player element to xml */
     public void add(CreatePlayer Player) {
-
         try {
             SAXBuilder builder = new SAXBuilder();
             File xmlFile;
             xmlFile = new File(outputPath);
 
-            Document doc = (Document) builder.build(xmlFile);
+            Document doc = builder.build(xmlFile);
             Element rootNode = doc.getRootElement();
 
             // add new Element to root
@@ -43,6 +41,7 @@ public class UpdateXMLTable {
             outputter.setFormat(Format.getPrettyFormat());
 
             String outputString = outputter.outputString(doc);
+            //TODO delete Print statements
             //System.out.println(outputString);
 
             //show the playerlist in console
@@ -58,12 +57,11 @@ public class UpdateXMLTable {
         }
     }
 
-    /** method to add a child element*/
-    public static Element addChildElement(Element parent, String elementName, int score){
+    /** adds a child element */
+    private void addChildElement(Element parent, String elementName, int score){
         Element child = new Element(elementName);
         String s = Integer.toString(score);
         child.setText(s);
         parent.addContent(child);
-        return child;
     }
 }

@@ -3,9 +3,7 @@ import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
-
 import java.util.Random;
-
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
@@ -19,9 +17,9 @@ public class Ball extends AnimatedGameObject {
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
     private Random rand = new Random();
-    private final double INIT_BALL_X_VELOCITY = 5 + rand.nextInt(6);
-    private final double INIT_BALL_Y_VELOCITY = 5 + rand.nextInt(6);
-    private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
+    private final double INIT_BALL_X_VELOCITY = 4 + rand.nextInt(6);
+    private final double INIT_BALL_Y_VELOCITY = 4 + rand.nextInt(6);
+    private static final double BALL_RADIUS = 50/4; // 50 = size of ball.png in px
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/4;
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/4);
     private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS/4);
@@ -30,7 +28,6 @@ public class Ball extends AnimatedGameObject {
     private boolean right = true;
     private boolean ballIsDead;
     private Brick destroyedBrick;
-    private boolean levelAccomplished = false;
 
     /** ------ CONSTRUCTOR ------ */
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {

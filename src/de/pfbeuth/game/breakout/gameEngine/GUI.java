@@ -260,7 +260,7 @@ public class GUI {
 			StringBuffer scorebuff = new StringBuffer("SCORE"+ "\n");
 
 			for (int i = 0; i < loader.getHighscoreList().size() && i < 10; i++) {
-					loader.getHighscoreList().get(i);
+				loader.getHighscoreList().get(i);
 				playerbuff.append((i + 1) + ". " + "\t"+ loader.getHighscoreList().get(i).getPlayerName()+ "\n");
 				scorebuff.append(loader.getHighscoreList().get(i).getPlayerScore() + "\n");
 
@@ -271,7 +271,7 @@ public class GUI {
 
 			//TODO Was passiert wenn die Liste leer ist
 		else{
-				highscoreList.setText("Sie sind der erste Spieler. Es gibt noch kein Highscore");
+				highscoreList.setText("You're the first Player. Set a new Highscore");
 		}
 	}
 	/** Triggers confirm button events */
@@ -302,7 +302,6 @@ public class GUI {
 			helpButtonVisibliy(true);
 			confirmButtonVisibliy(false);
 			gameOverInfo.setVisible(false);
-			//breakout.getLife().setGameOver(false);
 
 			startButtonVisibliy(false, 100d);
 			startButtonContainer.setVisible(true);
