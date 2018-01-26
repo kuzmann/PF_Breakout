@@ -30,7 +30,7 @@ public class Ball extends AnimatedGameObject {
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iBall;
     }
-    /* Update() is called by GamePlayTimer and updates every method with 60fps */
+    /** Update() is called by GamePlayTimer and updates every method with 60fps */
     @Override
     void update(){
         checkCollision();
@@ -87,7 +87,6 @@ public class Ball extends AnimatedGameObject {
         }
         return false;
     }
-
     /* check, which brickcolor was hit and start ScoreCounter method */
     private void checkBrickHitColor() {
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
@@ -103,7 +102,6 @@ public class Ball extends AnimatedGameObject {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.YELLOW);
         }
     }
-
     /* check, if ball moves in positive or negative X- or Y-direction */
     private void setXYPosition(){
 	    if (up) {
@@ -181,7 +179,6 @@ public class Ball extends AnimatedGameObject {
 	private void ballPaddleCollision(){
         up = true;
     }
-
     /** if a new game or level starts, ball will set to the initial position */
 	void resetState(){
         up = true;
@@ -191,17 +188,13 @@ public class Ball extends AnimatedGameObject {
         spriteImage.setTranslateX(BALL_INIT_X_POS);
         spriteImage.setTranslateY(BALL_INIT_Y_POS);
     }
-
-    /**
-     * this method check, if all brick are destroyed and a level was successfully completed
+    /* check if all bricks are destroyed and a level was successfully completed
      * @return returns true if user destroyed all bricks
-     * returns false otherwise
-     * */
+     * returns false otherwise */
 	private boolean checkLevelFinished(){
-		/* You have to compare the size of the array with 2, because there are also
-		*  paddle and ball object in the array besides the brick. Paddle and Ball are
-		*  always the first two elements in the List.
-		*/
+		/* You have to compare the size of the array with 2 because the List contains the bricks
+		* and also paddle and ball object in the array. Paddle and Ball are
+		* always the first two elements in the List */
 		if (breakout.getSpriteManager().getCurrentObjects().size() == 2) {
 			breakout.getLevel().setLevelAccomplished(true);
 		}
@@ -213,15 +206,17 @@ public class Ball extends AnimatedGameObject {
     private Brick getDestroyedBrick(){
 		return destroyedBrick;
 	}
-    boolean getBallIsDead(){
-        return ballIsDead;
-    }
-    /** ------ SETTER ------ */
+    /** resets X- and Y-Velocity to initial value*/
     void resetVelocity(){
         setVelocityX(INIT_BALL_VELOCITY);
         setVelocityY(INIT_BALL_VELOCITY);
     }
+    /** set Ball back in Z-Depth */
     void setBallToBack(){
         spriteImage.toBack();
+    }
+    /** ------ GETTER ------ */
+    boolean getBallIsDead(){
+        return ballIsDead;
     }
 }
