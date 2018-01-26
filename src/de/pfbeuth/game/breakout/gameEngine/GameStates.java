@@ -75,6 +75,7 @@ public class GameStates {
 		breakout.getGuiNodes().getLevelInfo().setText(breakout.getGuiNodes().getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
 		if (breakout.getLife().isGameOver()){
 			resetGameInfos();
+			breakout.getLife().setGameOver(false);
 		}
 		createNextLevel();
 	}

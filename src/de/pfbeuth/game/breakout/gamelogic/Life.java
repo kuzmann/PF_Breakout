@@ -28,6 +28,8 @@ public class Life {
             gameOver = true;
         }
     }
+
+    /* ------ GETTER ------ */
     /**
      * this method is called from the class GameStates
      * @return true if the ball hits bottom scene boundary, else false
@@ -35,7 +37,6 @@ public class Life {
     public boolean isGameOver(){
         return gameOver;
     }
-    /* ------ GETTER ------ */
     /** @return remaining lives */
     public int getActualLife() {
         return life;
@@ -44,7 +45,13 @@ public class Life {
     public int getLIFE_INIT() {
         return LIFE_INIT;
     }
+
     /* ------ SETTER ------ */
+    /** @param gameOver: sets gameOver to true or false */
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
     /** @param life: set actual lives */
     public void setLife(int life){
         this.life = life;

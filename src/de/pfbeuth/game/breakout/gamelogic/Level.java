@@ -25,6 +25,7 @@ public class Level {
         breakout.getBall().setVelocityX(breakout.getBall().getVelocityX() + LEVEL_SPEED_MULTIPLIER);
         breakout.getBall().setVelocityY(breakout.getBall().getVelocityY() + LEVEL_SPEED_MULTIPLIER);
     }
+
     /* -------- GETTER -------- */
     /**
      * this method is called from the class Ball
@@ -42,6 +43,7 @@ public class Level {
     public int getLevelInit() {
         return LEVEL_INIT;
     }
+
     /* ------ SETTER ------ */
     /** @param level: sets the actual level to this number */
     public void setLevelNumber(int level){
