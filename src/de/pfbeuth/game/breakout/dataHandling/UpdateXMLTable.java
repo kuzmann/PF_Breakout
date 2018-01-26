@@ -43,14 +43,13 @@ public class UpdateXMLTable {
             outputter.setFormat(Format.getPrettyFormat());
 
             String outputString = outputter.outputString(doc);
-//            System.out.println(outputString);
-            //show the playerlist in console
-            //String outputString = outputter.outputString(doc);
             //System.out.println(outputString);
 
-            outputter.output(doc,new FileWriter(outputPath));
+            //show the playerlist in console
+            /*String outputString = outputter.outputString(doc);
+            System.out.println(outputString);*/
 
-  //          System.out.println("File updated!");
+            outputter.output(doc,new FileWriter(outputPath));
 
         } catch (IOException io) {
             io.printStackTrace();

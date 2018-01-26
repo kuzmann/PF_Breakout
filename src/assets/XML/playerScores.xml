@@ -1136,4 +1136,8 @@
     <username>Anna</username>
     <score>1410</score>
   </Player>
+  <Player>
+    <username>Anna</username>
+    <score>1130</score>
+  </Player>
 </PlayerScores>
