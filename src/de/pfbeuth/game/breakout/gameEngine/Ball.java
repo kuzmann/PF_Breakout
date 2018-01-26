@@ -30,7 +30,7 @@ public class Ball extends AnimatedGameObject {
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iBall;
     }
-    /* Update() is call by GamePlayTimer and updates every method with 60fps */
+    /* Update() is called by GamePlayTimer and updates every method with 60fps */
     @Override
     void update(){
         checkCollision();
