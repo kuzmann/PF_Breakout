@@ -18,7 +18,6 @@ public abstract class GameObject {
         positionY = yLocation;
         pivotX = pivotY = 0.0d;
     }
-    abstract void update();
     /** ------ GETTER ------ */
     public ImageView getSpriteImage() {
         return spriteImage;

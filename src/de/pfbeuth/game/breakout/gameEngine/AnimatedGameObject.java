@@ -14,9 +14,8 @@ public abstract class AnimatedGameObject extends GameObject {
         velocityX = velocityY = 0;
     }
 
-    @Override
-    void update(){
-    }
+    abstract void update();
+
     /** not abstract because not every animated object needs collision detection */
     boolean collision(GameObject object){
         return false;
