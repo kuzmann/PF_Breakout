@@ -14,7 +14,6 @@ public abstract class AnimatedGameObject extends GameObject {
         velocityX = velocityY = 0;
     }
 
-    //TODO: Macht diese Methode etwas ? Prüfen, und wenn nicht löschen
     @Override
     void update(){
     }
