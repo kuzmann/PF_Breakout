@@ -75,7 +75,6 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     public static void main(String[] args) {
         launch(args);
     }
-
     private void loadImageAssets(){
         paddleImage = new Image("/assets/graphics/paddle.png", 100, 25, true, false, true);
         brickImageRed = new Image("/assets/graphics/brick_red.png", WIDTH/10-2, 22, true, false, true);
@@ -115,62 +114,81 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
     }
 
     /** ------ SETTER ------ */
+    /** @param brickImage: sets the Image object */
     void setBrickImage(Image brickImage){
         this.brickImage = brickImage;
     }
     /** ------ GETTER ------ */
+    /** @return brickGrid object */
     BrickGrid getBrickGrid(){
 		 return brickGrid;
-	 }
+	}
+	/** @return Stackpane object */
     StackPane getRoot() {
         return root;
     }
+	/** @return brickImage object */
     Image getBrickImage() {
         return brickImage;
     }
-    Image getBrickImageGreen(){
+	/** @return green brickImage */
+	Image getBrickImageGreen(){
         return brickImageGreen;
     }
+	/** @return red brickImage */
     Image getBrickImageRed() {
         return brickImageRed;
     }
-    Image getBrickImageOrange() {
+	/** @return orange brickImage */
+	Image getBrickImageOrange() {
         return brickImageOrange;
     }
-    Image getBrickImageYellow() {
+	/** @return yellow brickImage */
+	Image getBrickImageYellow() {
         return brickImageYellow;
     }
+	/** @return controller object */
     Controller getController(){
         return controller;
     }
-    GamePlayTimer getGameTimer(){
+	/** @return gameTimer object */
+	GamePlayTimer getGameTimer(){
         return gameTimer;
     }
+	/** @return level object */
     Level getLevel(){
        return level;
     }
-    SpriteManager getSpriteManager() {
+	/** @return spriterManager object*/
+	SpriteManager getSpriteManager() {
        return spriteManager;
     }
-    Paddle getPaddle() {
+	/** @return paddle object */
+	Paddle getPaddle() {
         return paddle;
     }
-    public Ball getBall() {
+	/** @return ball object */
+  	public Ball getBall() {
         return ball;
     }
-    public GUI getGuiNodes() {
+	/** @return guiNodes object */
+	public GUI getGuiNodes() {
         return guiNodes;
     }
+	/** @return life object */
     public Life getLife(){
         return life;
     }
-    public Scene getScene() {
+	/** @return scene object */
+	public Scene getScene() {
         return scene;
     }
-    public GameStates getGameStates(){
+	/** @return gameOver object */
+	public GameStates getGameStates(){
         return gameOver;
     }
-    public ScoreCounter getScoreCounter(){
+	/** @return scoreCounter object */
+	public ScoreCounter getScoreCounter(){
         return scoreCounter;
     }
  }

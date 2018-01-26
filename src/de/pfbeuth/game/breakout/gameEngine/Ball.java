@@ -216,6 +216,7 @@ public class Ball extends AnimatedGameObject {
         spriteImage.toBack();
     }
     /** ------ GETTER ------ */
+    /** @return true if ball hits bottom boundary */
     boolean getBallIsDead(){
         return ballIsDead;
     }

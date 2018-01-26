@@ -15,12 +15,10 @@ public abstract class AnimatedGameObject extends GameObject {
     }
 
     abstract void update();
-
     /** not abstract because not every animated object needs collision detection */
     boolean collision(GameObject object){
         return false;
     }
-
     /** ------ GETTER ------ */
     public double getVelocityX() {
         return velocityX;
