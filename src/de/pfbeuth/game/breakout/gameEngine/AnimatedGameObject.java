@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  *
  */
 public abstract class AnimatedGameObject extends GameObject {
-    protected double velocityX, velocityY;
+    double velocityX, velocityY;
     /** ------ CONSTRUCTOR ------ */
     AnimatedGameObject(String SVGdata, double xLocation, double yLocation, Image... sprites){
         super(SVGdata, xLocation, yLocation, sprites);
