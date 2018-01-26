@@ -42,12 +42,12 @@ public class GameStates {
 		breakout.getGuiNodes().startButtonVisibliy(false, 100d);
 		breakout.getGuiNodes().getMenueOverlay().setImage(breakout.getGuiNodes().getGameOverImage());
 		breakout.getGuiNodes().getMenueOverlay().setVisible(true);
+		breakout.getGuiNodes().hideGameInfos();
 		breakout.getGuiNodes().getPlayerInputContainer().setVisible(true);
 		breakout.getGuiNodes().getPlayerInputContainer().setDisable(false);
 		breakout.getGuiNodes().confirmButtonVisibliy(true);
 		breakout.getGuiNodes().getGameOverInfo().setVisible(true);
 		breakout.getGuiNodes().getGameOverInfo().setText(breakout.getGuiNodes().getScoreInfo().getText());
-
 		breakout.getBall().resetVelocity();
 		breakout.getBrickGrid().deleteAllBrickFromScene();
 		breakout.getBall().setBallToBack();
