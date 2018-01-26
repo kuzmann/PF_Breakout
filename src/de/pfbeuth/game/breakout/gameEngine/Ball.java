@@ -1,5 +1,4 @@
 package de.pfbeuth.game.breakout.gameEngine;
-
 import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
@@ -7,19 +6,16 @@ import javafx.scene.shape.Shape;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.HEIGHT;
 import static de.pfbeuth.game.breakout.gameEngine.Breakout.WIDTH;
 
-
 /**
  * This class defines the object ball and checks the ball-brick-collision and the various states of the object ball
  * this class inherits from the class AnimatedGameObject
  */
 public class Ball extends AnimatedGameObject {
     private Breakout breakout;  //creates context to Breakout-Class
-
     private final double BALL_INIT_X_POS = 0;
     private final double BALL_INIT_Y_POS = HEIGHT/3;
-    /** Radius of the ball */
+    private final double INIT_BALL_VELOCITY = 10;
     private static final double BALL_RADIUS = 50/4; //TODO get rid of magic number; 50 = size of ball.png in px
-    /** screen boundary*/
     private static final double RIGHT_SCREEN_BOUNDARY = WIDTH/2 - BALL_RADIUS/4;
     private static final double LEFT_SCREEN_BOUNDARY = -(WIDTH/2 - BALL_RADIUS/4);
     private static final double TOP_SCREEN_BOUNDARY = -(HEIGHT/2 - BALL_RADIUS/4);
@@ -28,15 +24,13 @@ public class Ball extends AnimatedGameObject {
     private boolean right = true;
     private boolean ballIsDead;
     private Brick destroyedBrick;
-    private boolean levelAccomplished = false;
-    /** Initial velocities of the ball */
-    private final double INIT_BALL_VELOCITY = 10;
 
+    /** ------ CONSTRUCTOR ------ */
     protected Ball(Breakout iBall, String SVGdata, double xLocation, double yLocation, Image... sprites) {
         super(SVGdata, xLocation, yLocation, sprites);
         breakout = iBall;
-   }
-
+    }
+    /* Update() is call by GamePlayTimer and updates every method with 60fps */
     @Override
     void update(){
         checkCollision();
@@ -67,8 +61,8 @@ public class Ball extends AnimatedGameObject {
     }
 
     /**
-     * two step collision detection (ball hits brick)
-     * A collision with brick also removes the brick
+     * two step collision detection (ball hits brick or paddle)
+     * A collision with a brick also removes the brick
      * @return returns true if ball hit an game object,
      * returns false otherwise
      * */
@@ -84,18 +78,17 @@ public class Ball extends AnimatedGameObject {
         }
         /* ------ second step: something was hit ------ */
         if (collisionDetect){
-            // make sure the ball didn't hit paddle or ball object
+            // make sure the that only Brick objects will be deleted from the currentObjectsList
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
                 breakout.getSpriteManager().removeCurrentObjects(object);
                 breakout.getSpriteManager().addToRemovedObjects(object);
-              //  breakout.getRoot().getChildren().remove(object.getSpriteImage());
             }
             return true;
         }
         return false;
     }
 
-    /** check, which brickcolor was hit and start counter method*/
+    /* check, which brickcolor was hit and start ScoreCounter method */
     private void checkBrickHitColor() {
         if (getDestroyedBrick().spriteImage.getImage().equals(breakout.getBrickImageGreen())) {
             breakout.getScoreCounter().counter(ScoreCounter.BrickColor.GREEN);
@@ -111,22 +104,19 @@ public class Ball extends AnimatedGameObject {
         }
     }
 
-    //TODO: Tommy, kannst du diese Methode beschreiben?
-    /**  */
-	private void setXYPosition(){
-	    /** check, if ball hit paddle*/
-        if (up) {
+    /* check, if ball moves in positive or negative X- or Y-direction */
+    private void setXYPosition(){
+	    if (up) {
             positionY -= velocityY;
         } else {
             positionY += velocityY;
         }
-        /** */
         if(right){
             positionX += velocityX;
         } else {
             positionX -= velocityX;
         }
-       /* ------ !***FOR TESTING***! Control Ball with arrow keys ------ */
+       /* ------ !***FOR TESTING***! Do not delete! Control Ball with arrow keys ------ */
        /*if(breakout.getController().isLeft()) {
             positionX -= velocityX;
         }
@@ -153,13 +143,7 @@ public class Ball extends AnimatedGameObject {
             positionY += velocityY;
         }*/
     }
-
-    /**
-     * two step collision detection (ball hits brick)
-     * @return returns true if ball hit an game object,
-     * returns false otherwise
-     * */
-
+    /* defines screen boundaries */
 	private void setScreenBoundaries(){
         if(positionX >= RIGHT_SCREEN_BOUNDARY) {
            positionX = RIGHT_SCREEN_BOUNDARY - BALL_RADIUS;
@@ -182,31 +166,24 @@ public class Ball extends AnimatedGameObject {
             breakout.getGameStates().ballDied();
         }
     }
-
-    //TODO: Tommy, was passiert hier genau?
-    /** ----*/
+    /* translate X- and Y-Position */
 	private void translateBall () {
         spriteImage.setTranslateX(positionX);
         spriteImage.setTranslateY(positionY);
     }
-    //TODO: Tommy, was passiert hier genau?
-    /**  */
+    /* if brick gets hit, ball movement is inverted  */
 	private void brickCollision(){
 		up = !up;
 		right = !right;
 	}
 
-    /**
-     * If ball hits paddle, this method is called
-     * @return returns true if ball hit the paddle,
-     * */
+    /* If ball hits paddle, this method is called */
 	private void ballPaddleCollision(){
         up = true;
     }
 
-    //TODO: Tommy, bitte den Kommentar überprüfen
     /** if a new game or level starts, ball will set to the initial position */
-	protected void resetState(){
+	void resetState(){
         up = true;
         right = true;
         this.positionX = BALL_INIT_X_POS;
@@ -220,8 +197,11 @@ public class Ball extends AnimatedGameObject {
      * @return returns true if user destroyed all bricks
      * returns false otherwise
      * */
-	private boolean  checkLevelFinished(){
-		//you have to compare the size of the array with 2, because there are also paddle and ball object in the array besides the brick.
+	private boolean checkLevelFinished(){
+		/* You have to compare the size of the array with 2, because there are also
+		*  paddle and ball object in the array besides the brick. Paddle and Ball are
+		*  always the first two elements in the List.
+		*/
 		if (breakout.getSpriteManager().getCurrentObjects().size() == 2) {
 			breakout.getLevel().setLevelAccomplished(true);
 		}
@@ -230,34 +210,18 @@ public class Ball extends AnimatedGameObject {
 		}
         return breakout.getLevel().isLevelAccomplished();
 	}
-
-    /** ------ GETTER ------ */
-    public boolean isRight() {
-        return right;
-    }
-    public Brick getDestroyedBrick(){
+    private Brick getDestroyedBrick(){
 		return destroyedBrick;
 	}
-    public boolean isLevelWon(){
-        return levelAccomplished;
-    }
-    public boolean getBallIsDead(){
+    boolean getBallIsDead(){
         return ballIsDead;
     }
     /** ------ SETTER ------ */
-    public void setLevelAccomplished(Boolean levelAccomplished) {
-         this.levelAccomplished = levelAccomplished;
-    }
-
-    public void resetVelocity(){
+    void resetVelocity(){
         setVelocityX(INIT_BALL_VELOCITY);
         setVelocityY(INIT_BALL_VELOCITY);
     }
-    public void setBallToFront(){
-        spriteImage.toFront();
-    }
-    public void setBallToBack(){
+    void setBallToBack(){
         spriteImage.toBack();
     }
-
 }
