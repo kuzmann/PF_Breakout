@@ -84,9 +84,9 @@ import de.pfbeuth.game.breakout.gamelogic.Life;
         ballImage = new Image("/assets/graphics/ball.png", 200/12, 200/12, true, false, true);
     }
     private void createGameObjects(){
-        paddle = new Paddle(this, "M5,0H394C399,0,400,2,400,6V46c0,4-2,5-4,5H7c-7,0-7-4-7-7V6C0,2,1,0,4,0Z", 0, 0, paddleImage);
+        paddle = new Paddle(this, "M0,0V154H103V0Z", 0, 0, paddleImage);
         paddle.resetState();
-        ball = new Ball(this, "M67,0c99,2,94,140,2,141C-22,142-23,1,67,0Z", 0, 0, ballImage);
+        ball = new Ball(this, "M98,0C45,0,0,45,0,98S45,196,98,196s97.5-42,97.5-97.5S151.33,0,98,0Z", 0, 0, ballImage);
         ball.resetState();
         ball.resetVelocity();
     }

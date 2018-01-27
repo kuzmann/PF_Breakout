@@ -80,4 +80,8 @@
     <username>Jasper</username>
     <score>1665</score>
   </Player>
+  <Player>
+    <username>Tommy</username>
+    <score>1050</score>
+  </Player>
 </PlayerScores>

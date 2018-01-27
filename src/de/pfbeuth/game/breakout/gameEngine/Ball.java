@@ -75,12 +75,13 @@ public class Ball extends AnimatedGameObject {
         boolean collisionDetect = false;
         /* ------ first step: is an object in the vicinity ------ */
         if(breakout.getBall().spriteImage.getBoundsInParent().intersects(object.getSpriteImage().getBoundsInParent())) {
+        	/* ------ second step: SVG Collision Path gets checked------ */
             Shape intersection = SVGPath.intersect(breakout.getBall().getSpriteCollisionBound(), object.getSpriteCollisionBound());
             if(intersection.getBoundsInLocal().getWidth() != -1){
                 collisionDetect = true;
             }
         }
-        /* ------ second step: something was hit ------ */
+        /* ------ third step: something was hit ------ */
         if (collisionDetect){
             // make sure the that only Brick objects will be deleted from the currentObjectsList
             if (!(object instanceof Paddle) && !(object instanceof Ball)) {
@@ -152,6 +153,22 @@ public class Ball extends AnimatedGameObject {
 	private void brickCollision(){
 		up = !up;
 		right = !right;
+
+        if (!right) {
+            setVelocityX( getVelocityX()* 1.01);
+            setVelocityY( getVelocityY()* 1.05);
+        } else {
+            setVelocityX( getVelocityX()* 0.99);
+            setVelocityY( getVelocityY()* 0.95);
+        }
+
+        if (right) {
+            setVelocityX( getVelocityX()* 1.01);
+            setVelocityY( getVelocityY()* 1.05);
+        } else {
+            setVelocityX( getVelocityX()* 0.99);
+            setVelocityY( getVelocityY()* 0.95);
+        }
 	}
 
     /* called when ball hits paddle */
