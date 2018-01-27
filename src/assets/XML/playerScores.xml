@@ -96,4 +96,8 @@
     <username>fa</username>
     <score>785</score>
   </Player>
+  <Player>
+    <username>Tommy</username>
+    <score>65</score>
+  </Player>
 </PlayerScores>

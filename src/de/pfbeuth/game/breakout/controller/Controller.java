@@ -76,12 +76,4 @@ public class Controller {
     public boolean isRight() {
         return right;
     }
-    /* unused method is kept for testing purposes */
-    public boolean isUp(){
-        return up;
-    }
-    /* unused method is kept for testing purposes */
-    public boolean isDown(){
-        return down;
-    }
 }

@@ -1,5 +1,14 @@
 package de.pfbeuth.game.breakout.gameEngine;
 import de.pfbeuth.game.breakout.gamelogic.Level;
+import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
+import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import de.pfbeuth.game.breakout.controller.Controller;
+import de.pfbeuth.game.breakout.gamelogic.Life;
 
 /**
  * This is the main class and implements the game "Breakout".
@@ -11,17 +20,7 @@ import de.pfbeuth.game.breakout.gamelogic.Level;
  * @author Thomas Glaesser | Isirafil Gülap | Anna Kuzmann | Jan Jasper Wagner
  */
 
-import de.pfbeuth.game.breakout.gamelogic.ScoreCounter;
-import javafx.application.Application;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import de.pfbeuth.game.breakout.controller.Controller;
-import de.pfbeuth.game.breakout.gamelogic.Life;
-
- public class Breakout extends Application {
+public class Breakout extends Application {
      /* Width and height of scene in pixels */
     static final double WIDTH = 540, HEIGHT = 675;
     private StackPane root;

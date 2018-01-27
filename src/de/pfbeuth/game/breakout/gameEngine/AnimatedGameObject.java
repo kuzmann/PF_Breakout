@@ -21,17 +21,21 @@ public abstract class AnimatedGameObject extends GameObject {
     boolean collision(GameObject object){
         return false;
     }
-    /** ------ GETTER ------ */
+    /* ------ GETTER ------ */
+    /** @return velocityX variable */
     public double getVelocityX() {
         return velocityX;
     }
+    /** @return velocityY variable */
     public double getVelocityY() {
         return velocityY;
     }
     /** ------ SETTER ------ */
+    /** @param velocityX sets the velocityX value */
     public void setVelocityX(double velocityX) {
         this.velocityX = velocityX;
     }
+    /** @param velocityY sets the velocityY value */
     public void setVelocityY(double velocityY) {
         this.velocityY = velocityY;
     }

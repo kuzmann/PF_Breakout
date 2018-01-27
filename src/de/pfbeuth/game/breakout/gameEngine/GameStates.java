@@ -134,7 +134,6 @@ public class GameStates {
 			default:
 				breakout.getBrickGrid().createLevelOneGrid();
 		}
-
 		breakout.getBall().getSpriteImage().toFront();
 	}
 	private void resetGameInfos() {

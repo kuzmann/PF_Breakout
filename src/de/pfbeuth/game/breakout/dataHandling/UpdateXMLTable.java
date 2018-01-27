@@ -5,7 +5,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -39,10 +38,6 @@ public class UpdateXMLTable {
 
             XMLOutputter outputter = new XMLOutputter();
             outputter.setFormat(Format.getPrettyFormat());
-
-            //String outputString = outputter.outputString(doc);
-
-
             outputter.output(doc,new FileWriter(outputPath));
 
         } catch (IOException io) {

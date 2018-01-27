@@ -1,6 +1,5 @@
 package de.pfbeuth.game.breakout.gamelogic;
 import de.pfbeuth.game.breakout.gameEngine.Breakout;
-import javafx.beans.property.SimpleStringProperty;
 
 /**
  * This class defines the level logic and provides logic when a level is accomplished.

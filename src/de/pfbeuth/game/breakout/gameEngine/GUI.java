@@ -25,32 +25,6 @@ public class GUI {
     private ImageView backgroundLayer, menueOverlay, playBackground;
     private Image playBackgroundImage, backgroundImage, helpImage, highscoreImage, gameOverImage;
     private Text levelInfo, lifeInfo, scoreInfo, highscoreList, highscoreListScore, helpText, gameOverInfo;
-    private final String START_BUTTON_TEXT = "START\n(hit enter)";
-    private final String PLAY_BUTTON_TEXT = "PLAY";
-    private final String PLAY_AGAIN_TEXT = "PLAY AGAIN\n(hit enter)";
-    private final String GAME_OVER_TEXT = "GAME OVER";
-    private final String PAUSE_GAME_TEXT = "PAUSED\n(hit enter)";
-    private final String HELP_BUTTON_TEXT = "HELP";
-    private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
-	private final String CONFIRM_BUTTON_TEXT = "OK";
-	private final String INSTRUCTIONS_INFO_TEXT = "The goal of the game is to get the most points and to set a new highscore.\n" +
-			"To get points, you have to destroy the bricks with the ball.\n\n" +
-			"Once you press Start, the ball will bounce around the screen. To pretend the ball leaving from the playing-ground, you need to catch the ball with the paddle. If you succeed, the ball will bounce back off the paddle.\n" +
-			"To move the paddle to the left you need to press the left-arrow or A key, for moving right press the right-arrow or D.\n\n" +
-			"Destroying bricks will give you a different amounts of points depending on the brick-color:\n\n" +
-			"  - Green: 5 points\n" +
-			"  - Yellow: 10 points\n" +
-			"  - Orange: 25 points\n" +
-			"  - Red: 50 points\n\n" +
-			"You start with 3 lives. If you fail catching the ball with the paddle, you lose a life.\n\n" +
-			"When you have destroyed all bricks, you will enter the next level. But watch out! The ball gets faster and faster per each level!\n" +
-			"To pause the game hit the ESCAPE-key and to resume hit the ENTER-key.\n\n" +
-			"Have fun playing! ";
-	private final String LEVEL_INFO_TEXT = "LEVEL: ";
-	private final String LIVES_INFO_TEXT = "LIVES: ";
-	private final String SCORE_INFO_TEXT = "SCORE: ";
-	private final String NAME_LABEL_TEXT = "PLAYER NAME:";
-	private final String NEXT_LEVEL_TEXT = "CONGRATULATIONS!\nSTART NEXT LEVEL";
     private GridPane playerInputContainer;
     private CreatePlayer Player;
     private String playerName;
@@ -122,10 +96,11 @@ public class GUI {
         helpContainer = new HBox(12);
 		helpContainer.setPrefHeight(Breakout.HEIGHT / 50);
 		helpContainer.setAlignment(Pos.TOP_CENTER);
+		helpContainer.setTranslateY(-20);
 		helpContainer.setPadding(topContainerPadding);
 
         /* ------ Label, input and button for the user name ------ */
-        nameLabel = new Label(NAME_LABEL_TEXT);
+        nameLabel = new Label(GuiText.getNAME_LABEL_TEXT());
         nameLabel.setTextFill(Color.WHITE);
         nameInput = new TextField();
         nameInput.setPromptText("Choose player name");
@@ -154,11 +129,11 @@ public class GUI {
 	}
     private void createInfoText(){
         levelInfo = new InfoText();
-        levelInfo.setText(LEVEL_INFO_TEXT + breakout.getLevel().getLevelNumber());
+        levelInfo.setText(GuiText.getLEVEL_INFO_TEXT() + breakout.getLevel().getLevelNumber());
         lifeInfo = new InfoText();
-        lifeInfo.setText(LIVES_INFO_TEXT + breakout.getLife().getActualLife());
+        lifeInfo.setText(GuiText.getLIVES_INFO_TEXT() + breakout.getLife().getActualLife());
         scoreInfo = new InfoText();
-		scoreInfo.setText(SCORE_INFO_TEXT + breakout.getScoreCounter().getScoreNumber());
+		scoreInfo.setText(GuiText.getSCORE_INFO_TEXT() + breakout.getScoreCounter().getScoreNumber());
         highscoreList = new InfoText();
         highscoreList.setVisible(true);
 		highscoreList.setFont(new Font("arial", 18));
@@ -173,18 +148,18 @@ public class GUI {
 		highscoreListScore.setTextAlignment(TextAlignment.RIGHT);
 
         helpText = new Text();
-        helpText.setText(INSTRUCTIONS_INFO_TEXT);
+        helpText.setText(GuiText.getINSTRUCTIONS_INFO_TEXT());
 		helpText.setVisible(false);
-		helpText.setFont(new Font("arial", 12));
-		helpText.setWrappingWidth(400);
+		helpText.setFont(new Font("arial", 14));
+		helpText.setWrappingWidth(450);
 		helpText.setFill(Color.WHITE);
-		helpText.setTextAlignment(TextAlignment.LEFT);
+		helpText.setTextAlignment(TextAlignment.JUSTIFY);
 		gameOverInfo = new InfoText();
     }
     private void createButtons(){
 		startButton = new Button();
 		startButton.setPrefSize(100, 100);
-		startButton.setText(START_BUTTON_TEXT);
+		startButton.setText(GuiText.getSTART_BUTTON_TEXT());
 		startButton.setTextAlignment(TextAlignment.CENTER);
 		startButtonVisibliy(false, 100d);
 		startButton.setOnAction(e ->
@@ -194,7 +169,7 @@ public class GUI {
 		playButton = new Button();
 		playButton.setFocusTraversable(false);
 		playButton.setPrefWidth(120);
-		playButton.setText(PLAY_BUTTON_TEXT);
+		playButton.setText(GuiText.getPLAY_BUTTON_TEXT());
 		playButton.setOnAction(e -> {
 			startButtonVisibliy(true, 100d);
 			startButtonContainer.setVisible(true);
@@ -215,7 +190,7 @@ public class GUI {
         highscoreButton = new Button();
         highscoreButton.setFocusTraversable(false);
 		highscoreButton.setPrefWidth(120);
-        highscoreButton.setText(HIGHSCORE_BUTTON_TEXT);
+        highscoreButton.setText(GuiText.getHIGHSCORE_BUTTON_TEXT());
         highscoreButton.setOnAction(e -> {
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
@@ -225,24 +200,26 @@ public class GUI {
 			highscoreListScore.setVisible(true);
             helpText.setVisible(false);
             hideGameInfos();
+            menueOverlay.toFront();
         });
         helpButton = new Button();
         helpButton.setFocusTraversable(false);
 		helpButton.setPrefWidth(120);
-        helpButton.setText(HELP_BUTTON_TEXT);
+        helpButton.setText(GuiText.getHELP_BUTTON_TEXT());
         helpButton.setOnAction(e -> {
             backgroundLayer.setVisible(true);
             menueOverlay.setVisible(true);
-            menueOverlay.setImage(helpImage);
             startButtonVisibliy(false, 100d);
 			highscoreList.setVisible(false);
 			highscoreListScore.setVisible(false);
 			helpText.setVisible(true);
 			hideGameInfos();
+			menueOverlay.setImage(helpImage);
+			menueOverlay.toFront();
 		});
          /* ------ Confirm-button with actions ------ */
 		confirmButton = new Button();
-		confirmButton.setText(CONFIRM_BUTTON_TEXT);
+		confirmButton.setText(GuiText.getCONFIRM_BUTTON_TEXT());
 		confirmButtonVisibliy(false);
 		confirmButton.setOnAction(e ->
 			confirmButtonEvents()
@@ -293,7 +270,7 @@ public class GUI {
 	/** Triggers confirm button events */
 	public void confirmButtonEvents() {
 		if ((nameInput.getText() != null && !nameInput.getText().isEmpty())) {
-			nameLabel.setText(NAME_LABEL_TEXT);
+			nameLabel.setText(GuiText.getNAME_LABEL_TEXT());
 			playerName = nameInput.getText();
 			Player = new CreatePlayer(breakout, playerName);
 
@@ -438,26 +415,26 @@ public class GUI {
     }
 	/** @return START_BUTTON_TEXT constant */
 	String getStartText() {
-        return START_BUTTON_TEXT;
+        return GuiText.getSTART_BUTTON_TEXT();
     }
 	/** @return PAUSE_GAME_TEXT constant */
 	String getPauseGameText() {
-        return PAUSE_GAME_TEXT;
+        return GuiText.getPAUSE_GAME_TEXT();
     }
 	/** @return LEVEL_INFO_TEXT constant */
 	String getLEVEL_INFO_TEXT() {
-		return LEVEL_INFO_TEXT;
+		return GuiText.getLEVEL_INFO_TEXT();
 	}
 	/** @return LIVES_INFO_TEXT constant */
 	public String getLIVES_INFO_TEXT(){
-    	return LIVES_INFO_TEXT;
+    	return GuiText.getLIVES_INFO_TEXT();
 	}
 	/** @return SCORE_INFO_TEXT constant */
 	public String getSCORE_INFO_TEXT(){
-    	return SCORE_INFO_TEXT;
+    	return GuiText.getSCORE_INFO_TEXT();
 	}
 	/** @return NEXT_LEVEL_TEXT constant */
 	String getNEXT_LEVEL_TEXT(){
-		return NEXT_LEVEL_TEXT;
+		return GuiText.getNEXT_LEVEL_TEXT();
 	}
 }
