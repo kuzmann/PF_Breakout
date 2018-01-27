@@ -14,7 +14,9 @@ import java.util.*;
 
 public class LoadXMLTable {
     /* set path to XML-data */
-    private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
+    //private static String outputPath = new File("src/assets/XML/playerScores.xml").getAbsolutePath();
+    /** use this path for build */
+    private static String outputPath = new File("XML/playerScores.xml").getAbsolutePath();
     private static List XMLTable = new List() {
         @Override
         public int size() { return 0; }
