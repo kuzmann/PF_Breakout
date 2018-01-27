@@ -33,7 +33,19 @@ public class GUI {
     private final String HELP_BUTTON_TEXT = "HELP";
     private final String HIGHSCORE_BUTTON_TEXT = "HIGHSCORES";
 	private final String CONFIRM_BUTTON_TEXT = "OK";
-	private final String INSTRUCTIONS_INFO_TEXT = "INSTRUCTiONS: ";
+	private final String INSTRUCTIONS_INFO_TEXT = "The goal of the game is to get the most points and to set a new highscore.\n" +
+			"To get points, you have to destroy the bricks with the ball.\n\n" +
+			"Once you press Start, the ball will bounce around the screen. To pretend the ball leaving from the playing-ground, you need to catch the ball with the paddle. If you succeed, the ball will bounce back off the paddle.\n" +
+			"To move the paddle to the left you need to press the left-arrow or A key, for moving right press the right-arrow or D.\n\n" +
+			"Destroying bricks will give you a different amounts of points depending on the brick-color:\n\n" +
+			"  - Green: 5 points\n" +
+			"  - Yellow: 10 points\n" +
+			"  - Orange: 25 points\n" +
+			"  - Red: 50 points\n\n" +
+			"You start with 3 lives. If you fail catching the ball with the paddle, you lose a life.\n\n" +
+			"When you have destroyed all bricks, you will enter the next level. But watch out! The ball gets faster and faster per each level!\n" +
+			"To pause the game hit the ESCAPE-key and to resume hit the ENTER-key.\n\n" +
+			"Have fun playing! ";
 	private final String LEVEL_INFO_TEXT = "LEVEL: ";
 	private final String LIVES_INFO_TEXT = "LIVES: ";
 	private final String SCORE_INFO_TEXT = "SCORE: ";
@@ -75,7 +87,7 @@ public class GUI {
     }
     private void createGUIContainer() {
         Insets buttonContainerPadding = new Insets(0, 0, 12, 0);
-        Insets topContainerPadding = new Insets(250, 0, 0, 0);
+        Insets topContainerPadding = new Insets(200, 0, 0, 0);
 
         masterButtonContainer = new VBox(12);
         masterButtonContainer.setAlignment(Pos.BOTTOM_LEFT);
@@ -160,8 +172,13 @@ public class GUI {
 		highscoreListScore.setFill(Color.WHITE);
 		highscoreListScore.setTextAlignment(TextAlignment.RIGHT);
 
-        helpText = new InfoText();
+        helpText = new Text();
         helpText.setText(INSTRUCTIONS_INFO_TEXT);
+		helpText.setVisible(false);
+		helpText.setFont(new Font("arial", 12));
+		helpText.setWrappingWidth(400);
+		helpText.setFill(Color.WHITE);
+		helpText.setTextAlignment(TextAlignment.LEFT);
 		gameOverInfo = new InfoText();
     }
     private void createButtons(){
