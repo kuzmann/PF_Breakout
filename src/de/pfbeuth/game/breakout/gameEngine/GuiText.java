@@ -4,7 +4,6 @@ package de.pfbeuth.game.breakout.gameEngine;
  * This class provides the String Constants for the GUI.
  */
 
-
 class GuiText {
 	private final static String START_BUTTON_TEXT = "START\n(hit enter)";
 	private final static String PLAY_BUTTON_TEXT = "PLAY";
